@@ -1,0 +1,153 @@
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        <meta charset="utf-8">
+        <meta name="apple-mobile-web-app-title" content="Giving What We Can">
+        <meta name="application-name" content="Giving What We Can">
+        <meta name="theme-color" content="#000000">
+        <meta name="theme-color" content="#ffffff">
+        <meta name="msapplication-TileColor" content="#6e0000">
+        <meta name="msapplication-TileImage" content="https://www.givingwhatwecan.org/images/favicons/mstile-144x144.png">
+        <meta name="msapplication-config" content="https://www.givingwhatwecan.org/images/favicons/browserconfig.xml">
+        <meta name="viewport" content="minimum-scale=1,initial-scale=1,width=device-width,shrink-to-fit=no">
+        <link rel="manifest" href="https://www.givingwhatwecan.org/images/favicons/manifest.json">
+        <link rel="canonical" href="https://howrichami.givingwhatwecan.org/how-rich-am-i">
+        <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Source+Sans+Pro:300,400,500,700&amp;display=swap">
+        <link rel="stylesheet" type="text/css" href="static/css/main.css">
+        
+        <title>How Rich Am I? | Giving What We Can</title>
+        <meta property="og:title" content="How Rich Am I? World Income Percentile Calculator: Global Rich List">
+        <meta property="og:image" content="https://images.ctfassets.net/dhpcfh1bs3p6/6sBlXpkGd4YWIflZyvoY56/e67260301e056b6272c629f079c0926a/Preview-01.jpg">
+        <meta property="og:description" content="Calculate how rich you are compared to the rest of the world. Are you in the top global income percentile? Does your household income make you wealthy?">
+        <meta name="description" content="Calculate how rich you are compared to the rest of the world. Are you in the top global income percentile? Does your household income make you wealthy?">
+        
+        <!-- <script src="http://d3js.org/topojson.v0.min.js"></script> -->
+        <script src="https://d3js.org/d3.v6.min.js"></script>
+        <script type="module" src="static/scripts/main.js"></script> 
+        <script src="https://unpkg.com/topojson@3"></script>
+        <script src="https://unpkg.com/topojson-client@2"></script>
+    </head>
+
+    <body>
+        <noscript>You need to enable JavaScript to run this app.</noscript>
+        <div id="root">
+
+            <header class="toolbar-root content-base">
+                <div class="document-container">
+                    <div class="toolbar-container">
+                        <a href="https://givingwhatwecan.org">
+                            <div class="topleft-logo-container">
+                                <img class="topleft-logo"
+                                    src="https://d33wubrfki0l68.cloudfront.net/39338ba45f09702b3455361490262a6d873a66eb/fa985/images/logos/gwwc-logo-transparent-nav-2021.png"
+                                    alt="GWWC logo">
+                            </div>
+                        </a>
+                        <div class="nav-button-container">
+                            <button class="button" tabindex="0" type="button"
+                                style="text-transform: none;" aria-controls="simple-menu" aria-haspopup="true">
+                                <span class="button-label">About</span>
+                                <span class="button-ripple"></span>
+                            </button>
+
+                            <button class="button" tabindex="0" type="button"
+                                style="text-transform: none;" aria-controls="simple-menu" aria-haspopup="true">
+                                <span class="button-label">Learn</span>
+                                <span class="button-ripple"></span>
+                            </button>
+
+                            <a class="button" tabindex="0"
+                                aria-disabled="false" style="text-transform: none;" href="https://www.givingwhatwecan.org/blog"
+                                rel="noopener noreferrer">
+                                <span class="button-label">Blog</span>
+                                <span class="button-ripple"></span>
+                            </a>
+
+                            <a class="button" tabindex="0"
+                                aria-disabled="false" style="text-transform: none;" href="https://www.givingwhatwecan.org/donate"
+                                rel="noopener noreferrer">
+                                <span class="button-label">Donate</span>
+                                <span class="button-ripple"></span>
+                            </a>
+
+                            <a class="button" tabindex="0"
+                                aria-disabled="false" style="text-transform: none;" href="https://www.givingwhatwecan.org/pledge"
+                                rel="noopener noreferrer">
+                                <span class="button-label">Join</span>
+                                <span class="button-ripple"></span>
+                            </a>
+                            <a class="button" tabindex="0"
+                                aria-disabled="false" style="text-transform: none;" href="https://my.givingwhatwecan.org/dashboard/pledge"
+                                target="_blank" rel="noopener noreferrer">
+                                <span class="button-label">Sign In</span>
+                                <span class="button-ripple"></span>
+                            </a>
+                        </div>
+                    </div>
+                </div>
+            </header>
+
+            <div class="document-container calculator-container">
+                
+                <header class="main-title-container">
+                    <h2 class="title-funcation main-title">How Rich Am&nbsp;I?</h2>
+                    <h6 class="title-funcation subtitle">Find out how rich you are compared to the rest of
+                        the world - are you on the global rich list?</h6>
+                </header>
+                
+                <form class="input-form">
+                    <div class="input-grid-container">
+                        <div class="input-grid-item">
+                            <div class="input-container">
+                                <label class="input-label" data-shrink="true" for="select-country">Country</label>
+                                <div class="input-field-container">
+                                    <div class="country-dropdown input-field" tabindex="0" role="button" aria-haspopup="listbox" id="select-country">United States of America</div>
+                                        <input name="country" class="" type="hidden" value="USA">
+                                            <svg class="dropdown-icon" focusable="false" viewBox="0 0 24 24" aria-hidden="true" role="presentation">
+                                                <path d="M7 10l5 5 5-5z"></path>
+                                            </svg>
+                                    </div>
+                                <p class="input-helpertext">Select your country</p>
+                            </div>
+                        </div>
+                        <div class="input-grid-item">
+                            <div class="input-container">
+                                <label class="input-label" data-shrink="false" for="income">Income</label>
+                                <div class="input-field-container">
+                                    <input aria-invalid="false" class="input-field" id="income" type="text" value="">
+                                    <div class="currency-container">
+                                        <p class="currency">USD</p>
+                                    </div>
+                                </div>
+                                <p class="input-helpertext">Enter your annual <strong>post-tax</strong> household income in USD</p>
+                            </div>
+                        </div>
+                        <div class="input-grid-item">
+                            <div class="input-container">
+                                <label class="input-label" data-shrink="true" for="household[adults]">Adults</label>
+                                <div class="input-field-container">
+                                    <input aria-invalid="false" class="input-field" type="text" value="1">
+                                </div>
+                                <p class="input-helpertext">Enter the number of adults in your household</p>
+                            </div>
+                        </div>
+                        <div class="input-grid-item">
+                            <div class="input-container">
+                                <label class="input-label" data-shrink="true" for="household[children]">Children</label>
+                                <div class="input-field-container">
+                                    <input aria-invalid="false" class="input-field" type="text" value="0"></div>
+                                <p class="input-helpertext">Enter the number of children in your household</p>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="input-grid-container grid-button-container">
+                        <div id="calc-button-container">
+                            <button class="active-button" tabindex="-1" type="button" id="calc_button" disabled="">
+                                <span class="MuiButton-label">Calculate</span>
+                            </button>
+                        </div>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </body>
+</html>
