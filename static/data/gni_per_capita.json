@@ -1,0 +1,1240 @@
+{
+    "ABW": {
+        "name": "Aruba",
+        "income": "41430",
+        "year": "2021"
+    },
+    "AFE": {
+        "name": "Africa Eastern and Southern",
+        "income": "3718.66330940471",
+        "year": "2021"
+    },
+    "AFG": {
+        "name": "Afghanistan",
+        "income": "1680",
+        "year": "2021"
+    },
+    "AFW": {
+        "name": "Africa Western and Central",
+        "income": "4240.43830618816",
+        "year": "2021"
+    },
+    "AGO": {
+        "name": "Angola",
+        "income": "5980",
+        "year": "2021"
+    },
+    "ALB": {
+        "name": "Albania",
+        "income": "15590",
+        "year": "2021"
+    },
+    "ARB": {
+        "name": "Arab World",
+        "income": "13865.1786505621",
+        "year": "2020"
+    },
+    "ARE": {
+        "name": "United Arab Emirates",
+        "income": "71280",
+        "year": "2020"
+    },
+    "ARG": {
+        "name": "Argentina",
+        "income": "23170",
+        "year": "2021"
+    },
+    "ARM": {
+        "name": "Armenia",
+        "income": "15140",
+        "year": "2021"
+    },
+    "ATG": {
+        "name": "Antigua and Barbuda",
+        "income": "20770",
+        "year": "2021"
+    },
+    "AUS": {
+        "name": "Australia",
+        "income": "55330",
+        "year": "2021"
+    },
+    "AUT": {
+        "name": "Austria",
+        "income": "59480",
+        "year": "2021"
+    },
+    "AZE": {
+        "name": "Azerbaijan",
+        "income": "15520",
+        "year": "2021"
+    },
+    "BDI": {
+        "name": "Burundi",
+        "income": "780",
+        "year": "2021"
+    },
+    "BEL": {
+        "name": "Belgium",
+        "income": "59900",
+        "year": "2021"
+    },
+    "BEN": {
+        "name": "Benin",
+        "income": "3750",
+        "year": "2021"
+    },
+    "BFA": {
+        "name": "Burkina Faso",
+        "income": "2270",
+        "year": "2021"
+    },
+    "BGD": {
+        "name": "Bangladesh",
+        "income": "6840",
+        "year": "2021"
+    },
+    "BGR": {
+        "name": "Bulgaria",
+        "income": "27370",
+        "year": "2021"
+    },
+    "BHR": {
+        "name": "Bahrain",
+        "income": "46900",
+        "year": "2020"
+    },
+    "BHS": {
+        "name": "Bahamas, The",
+        "income": "31010",
+        "year": "2021"
+    },
+    "BIH": {
+        "name": "Bosnia and Herzegovina",
+        "income": "17230",
+        "year": "2021"
+    },
+    "BLR": {
+        "name": "Belarus",
+        "income": "20860",
+        "year": "2021"
+    },
+    "BLZ": {
+        "name": "Belize",
+        "income": "9330",
+        "year": "2021"
+    },
+    "BMU": {
+        "name": "Bermuda",
+        "income": "91950",
+        "year": "2021"
+    },
+    "BOL": {
+        "name": "Bolivia",
+        "income": "8620",
+        "year": "2021"
+    },
+    "BRA": {
+        "name": "Brazil",
+        "income": "15600",
+        "year": "2021"
+    },
+    "BRB": {
+        "name": "Barbados",
+        "income": "14810",
+        "year": "2021"
+    },
+    "BRN": {
+        "name": "Brunei Darussalam",
+        "income": "66480",
+        "year": "2021"
+    },
+    "BTN": {
+        "name": "Bhutan",
+        "income": "11250",
+        "year": "2021"
+    },
+    "BWA": {
+        "name": "Botswana",
+        "income": "15420",
+        "year": "2021"
+    },
+    "CAF": {
+        "name": "Central African Republic",
+        "income": "980",
+        "year": "2021"
+    },
+    "CAN": {
+        "name": "Canada",
+        "income": "52390",
+        "year": "2021"
+    },
+    "CEB": {
+        "name": "Central Europe and the Baltics",
+        "income": "36358.3511974778",
+        "year": "2021"
+    },
+    "CHE": {
+        "name": "Switzerland",
+        "income": "75660",
+        "year": "2021"
+    },
+    "CHL": {
+        "name": "Chile",
+        "income": "26720",
+        "year": "2021"
+    },
+    "CHN": {
+        "name": "China",
+        "income": "19160",
+        "year": "2021"
+    },
+    "CIV": {
+        "name": "Cote d'Ivoire",
+        "income": "5670",
+        "year": "2021"
+    },
+    "CMR": {
+        "name": "Cameroon",
+        "income": "3970",
+        "year": "2021"
+    },
+    "COD": {
+        "name": "Congo, Dem. Rep.",
+        "income": "1110",
+        "year": "2021"
+    },
+    "COG": {
+        "name": "Congo, Rep.",
+        "income": "3400",
+        "year": "2021"
+    },
+    "COL": {
+        "name": "Colombia",
+        "income": "16620",
+        "year": "2021"
+    },
+    "COM": {
+        "name": "Comoros",
+        "income": "3560",
+        "year": "2021"
+    },
+    "CPV": {
+        "name": "Cabo Verde",
+        "income": "6590",
+        "year": "2021"
+    },
+    "CRI": {
+        "name": "Costa Rica",
+        "income": "21150",
+        "year": "2021"
+    },
+    "CSS": {
+        "name": "Caribbean small states",
+        "income": "16708.8843781324",
+        "year": "2021"
+    },
+    "CUW": {
+        "name": "Curacao",
+        "income": "23790",
+        "year": "2021"
+    },
+    "CYM": {
+        "name": "Cayman Islands",
+        "income": "52500",
+        "year": "2020"
+    },
+    "CYP": {
+        "name": "Cyprus",
+        "income": "40640",
+        "year": "2021"
+    },
+    "CZE": {
+        "name": "Czechia",
+        "income": "43950",
+        "year": "2021"
+    },
+    "DEU": {
+        "name": "Germany",
+        "income": "60040",
+        "year": "2021"
+    },
+    "DJI": {
+        "name": "Djibouti",
+        "income": "5300",
+        "year": "2021"
+    },
+    "DMA": {
+        "name": "Dominica",
+        "income": "11990",
+        "year": "2021"
+    },
+    "DNK": {
+        "name": "Denmark",
+        "income": "66740",
+        "year": "2021"
+    },
+    "DOM": {
+        "name": "Dominican Republic",
+        "income": "19440",
+        "year": "2021"
+    },
+    "DZA": {
+        "name": "Algeria",
+        "income": "11860",
+        "year": "2021"
+    },
+    "EAP": {
+        "name": "East Asia & Pacific (excluding high income)",
+        "income": "16675.5921115603",
+        "year": "2021"
+    },
+    "EAR": {
+        "name": "Early-demographic dividend",
+        "income": "9998.75494903309",
+        "year": "2021"
+    },
+    "EAS": {
+        "name": "East Asia & Pacific",
+        "income": "20130.8675401051",
+        "year": "2021"
+    },
+    "ECA": {
+        "name": "Europe & Central Asia (excluding high income)",
+        "income": "24328.1339736688",
+        "year": "2021"
+    },
+    "ECS": {
+        "name": "Europe & Central Asia",
+        "income": "38938.8284284386",
+        "year": "2021"
+    },
+    "ECU": {
+        "name": "Ecuador",
+        "income": "11540",
+        "year": "2021"
+    },
+    "EGY": {
+        "name": "Egypt, Arab Rep.",
+        "income": "12320",
+        "year": "2021"
+    },
+    "EMU": {
+        "name": "Euro area",
+        "income": "51318.8056989027",
+        "year": "2021"
+    },
+    "ERI": {
+        "name": "Eritrea",
+        "income": "1610",
+        "year": "2011"
+    },
+    "ESP": {
+        "name": "Spain",
+        "income": "40800",
+        "year": "2021"
+    },
+    "EST": {
+        "name": "Estonia",
+        "income": "41760",
+        "year": "2021"
+    },
+    "ETH": {
+        "name": "Ethiopia",
+        "income": "2530",
+        "year": "2021"
+    },
+    "EUU": {
+        "name": "European Union",
+        "income": "48778.9983324447",
+        "year": "2021"
+    },
+    "FCS": {
+        "name": "Fragile and conflict affected situations",
+        "income": "4646.33637979823",
+        "year": "2021"
+    },
+    "FIN": {
+        "name": "Finland",
+        "income": "56140",
+        "year": "2021"
+    },
+    "FJI": {
+        "name": "Fiji",
+        "income": "10720",
+        "year": "2021"
+    },
+    "FRA": {
+        "name": "France",
+        "income": "52120",
+        "year": "2021"
+    },
+    "FSM": {
+        "name": "Micronesia, Fed. Sts.",
+        "income": "4010",
+        "year": "2021"
+    },
+    "GAB": {
+        "name": "Gabon",
+        "income": "12800",
+        "year": "2021"
+    },
+    "GBR": {
+        "name": "United Kingdom",
+        "income": "50540",
+        "year": "2021"
+    },
+    "GEO": {
+        "name": "Georgia",
+        "income": "15950",
+        "year": "2021"
+    },
+    "GHA": {
+        "name": "Ghana",
+        "income": "5820",
+        "year": "2021"
+    },
+    "GIN": {
+        "name": "Guinea",
+        "income": "2560",
+        "year": "2021"
+    },
+    "GMB": {
+        "name": "Gambia, The",
+        "income": "2220",
+        "year": "2021"
+    },
+    "GNB": {
+        "name": "Guinea-Bissau",
+        "income": "2010",
+        "year": "2021"
+    },
+    "GNQ": {
+        "name": "Equatorial Guinea",
+        "income": "11990",
+        "year": "2021"
+    },
+    "GRC": {
+        "name": "Greece",
+        "income": "31600",
+        "year": "2021"
+    },
+    "GRD": {
+        "name": "Grenada",
+        "income": "14150",
+        "year": "2021"
+    },
+    "GTM": {
+        "name": "Guatemala",
+        "income": "9590",
+        "year": "2021"
+    },
+    "GUY": {
+        "name": "Guyana",
+        "income": "22920",
+        "year": "2021"
+    },
+    "HIC": {
+        "name": "High income",
+        "income": "55207.6354876884",
+        "year": "2021"
+    },
+    "HKG": {
+        "name": "Hong Kong SAR, China",
+        "income": "70600",
+        "year": "2021"
+    },
+    "HND": {
+        "name": "Honduras",
+        "income": "5620",
+        "year": "2021"
+    },
+    "HPC": {
+        "name": "Heavily indebted poor countries (HIPC)",
+        "income": "2679.3578060136",
+        "year": "2021"
+    },
+    "HRV": {
+        "name": "Croatia",
+        "income": "34840",
+        "year": "2021"
+    },
+    "HTI": {
+        "name": "Haiti",
+        "income": "3160",
+        "year": "2021"
+    },
+    "HUN": {
+        "name": "Hungary",
+        "income": "35650",
+        "year": "2021"
+    },
+    "IBD": {
+        "name": "IBRD only",
+        "income": "14894.51262165",
+        "year": "2021"
+    },
+    "IBT": {
+        "name": "IDA & IBRD total",
+        "income": "12018.3883928534",
+        "year": "2021"
+    },
+    "IDA": {
+        "name": "IDA total",
+        "income": "4071.56396430448",
+        "year": "2021"
+    },
+    "IDB": {
+        "name": "IDA blend",
+        "income": "5410.83610987553",
+        "year": "2021"
+    },
+    "IDN": {
+        "name": "Indonesia",
+        "income": "12680",
+        "year": "2021"
+    },
+    "IDX": {
+        "name": "IDA only",
+        "income": "3413.71833496109",
+        "year": "2021"
+    },
+    "IND": {
+        "name": "India",
+        "income": "7130",
+        "year": "2021"
+    },
+    "IRL": {
+        "name": "Ireland",
+        "income": "78630",
+        "year": "2021"
+    },
+    "IRN": {
+        "name": "Iran, Islamic Rep.",
+        "income": "16540",
+        "year": "2021"
+    },
+    "IRQ": {
+        "name": "Iraq",
+        "income": "9750",
+        "year": "2021"
+    },
+    "ISL": {
+        "name": "Iceland",
+        "income": "56230",
+        "year": "2021"
+    },
+    "ISR": {
+        "name": "Israel",
+        "income": "43790",
+        "year": "2021"
+    },
+    "ITA": {
+        "name": "Italy",
+        "income": "46930",
+        "year": "2021"
+    },
+    "JAM": {
+        "name": "Jamaica",
+        "income": "10240",
+        "year": "2021"
+    },
+    "JOR": {
+        "name": "Jordan",
+        "income": "10080",
+        "year": "2021"
+    },
+    "JPN": {
+        "name": "Japan",
+        "income": "43740",
+        "year": "2021"
+    },
+    "KAZ": {
+        "name": "Kazakhstan",
+        "income": "25160",
+        "year": "2021"
+    },
+    "KEN": {
+        "name": "Kenya",
+        "income": "5130",
+        "year": "2021"
+    },
+    "KGZ": {
+        "name": "Kyrgyz Republic",
+        "income": "4860",
+        "year": "2021"
+    },
+    "KHM": {
+        "name": "Cambodia",
+        "income": "4540",
+        "year": "2021"
+    },
+    "KIR": {
+        "name": "Kiribati",
+        "income": "3870",
+        "year": "2021"
+    },
+    "KNA": {
+        "name": "St. Kitts and Nevis",
+        "income": "28420",
+        "year": "2021"
+    },
+    "KOR": {
+        "name": "Korea, Rep.",
+        "income": "47410",
+        "year": "2021"
+    },
+    "KWT": {
+        "name": "Kuwait",
+        "income": "55930",
+        "year": "2019"
+    },
+    "LAC": {
+        "name": "Latin America & Caribbean (excluding high income)",
+        "income": "15878.7809738552",
+        "year": "2021"
+    },
+    "LAO": {
+        "name": "Lao PDR",
+        "income": "8100",
+        "year": "2021"
+    },
+    "LBN": {
+        "name": "Lebanon",
+        "income": "13700",
+        "year": "2021"
+    },
+    "LBR": {
+        "name": "Liberia",
+        "income": "1470",
+        "year": "2021"
+    },
+    "LBY": {
+        "name": "Libya",
+        "income": "24330",
+        "year": "2021"
+    },
+    "LCA": {
+        "name": "St. Lucia",
+        "income": "13810",
+        "year": "2021"
+    },
+    "LCN": {
+        "name": "Latin America & Caribbean",
+        "income": "16532.7577110485",
+        "year": "2021"
+    },
+    "LDC": {
+        "name": "Least developed countries: UN classification",
+        "income": "3307.73365538896",
+        "year": "2021"
+    },
+    "LIC": {
+        "name": "Low income",
+        "income": "2044.76202066882",
+        "year": "2021"
+    },
+    "LKA": {
+        "name": "Sri Lanka",
+        "income": "14370",
+        "year": "2021"
+    },
+    "LMC": {
+        "name": "Lower middle income",
+        "income": "7829.28625808227",
+        "year": "2021"
+    },
+    "LMY": {
+        "name": "Low & middle income",
+        "income": "11641.9693873546",
+        "year": "2021"
+    },
+    "LSO": {
+        "name": "Lesotho",
+        "income": "2870",
+        "year": "2021"
+    },
+    "LTE": {
+        "name": "Late-demographic dividend",
+        "income": "20038.53837269",
+        "year": "2021"
+    },
+    "LTU": {
+        "name": "Lithuania",
+        "income": "41750",
+        "year": "2021"
+    },
+    "LUX": {
+        "name": "Luxembourg",
+        "income": "84010",
+        "year": "2020"
+    },
+    "LVA": {
+        "name": "Latvia",
+        "income": "33580",
+        "year": "2021"
+    },
+    "MAC": {
+        "name": "Macao SAR, China",
+        "income": "72940",
+        "year": "2021"
+    },
+    "MAR": {
+        "name": "Morocco",
+        "income": "8730",
+        "year": "2021"
+    },
+    "MDA": {
+        "name": "Moldova",
+        "income": "15810",
+        "year": "2021"
+    },
+    "MDG": {
+        "name": "Madagascar",
+        "income": "1570",
+        "year": "2021"
+    },
+    "MDV": {
+        "name": "Maldives",
+        "income": "18770",
+        "year": "2021"
+    },
+    "MEA": {
+        "name": "Middle East & North Africa",
+        "income": "16100.2789070409",
+        "year": "2020"
+    },
+    "MEX": {
+        "name": "Mexico",
+        "income": "19070",
+        "year": "2021"
+    },
+    "MHL": {
+        "name": "Marshall Islands",
+        "income": "7410",
+        "year": "2021"
+    },
+    "MIC": {
+        "name": "Middle income",
+        "income": "12817.8199477404",
+        "year": "2021"
+    },
+    "MKD": {
+        "name": "North Macedonia",
+        "income": "17520",
+        "year": "2021"
+    },
+    "MLI": {
+        "name": "Mali",
+        "income": "2220",
+        "year": "2021"
+    },
+    "MLT": {
+        "name": "Malta",
+        "income": "45660",
+        "year": "2021"
+    },
+    "MMR": {
+        "name": "Myanmar",
+        "income": "4310",
+        "year": "2021"
+    },
+    "MNA": {
+        "name": "Middle East & North Africa (excluding high income)",
+        "income": "11297.7610669218",
+        "year": "2021"
+    },
+    "MNE": {
+        "name": "Montenegro",
+        "income": "23920",
+        "year": "2021"
+    },
+    "MNG": {
+        "name": "Mongolia",
+        "income": "10950",
+        "year": "2021"
+    },
+    "MOZ": {
+        "name": "Mozambique",
+        "income": "1320",
+        "year": "2021"
+    },
+    "MRT": {
+        "name": "Mauritania",
+        "income": "5750",
+        "year": "2021"
+    },
+    "MUS": {
+        "name": "Mauritius",
+        "income": "23380",
+        "year": "2021"
+    },
+    "MWI": {
+        "name": "Malawi",
+        "income": "1610",
+        "year": "2021"
+    },
+    "MYS": {
+        "name": "Malaysia",
+        "income": "28150",
+        "year": "2021"
+    },
+    "NAC": {
+        "name": "North America",
+        "income": "68618.1666659516",
+        "year": "2021"
+    },
+    "NAM": {
+        "name": "Namibia",
+        "income": "9850",
+        "year": "2021"
+    },
+    "NER": {
+        "name": "Niger",
+        "income": "1330",
+        "year": "2021"
+    },
+    "NGA": {
+        "name": "Nigeria",
+        "income": "5200",
+        "year": "2021"
+    },
+    "NIC": {
+        "name": "Nicaragua",
+        "income": "5800",
+        "year": "2021"
+    },
+    "NLD": {
+        "name": "Netherlands",
+        "income": "63340",
+        "year": "2021"
+    },
+    "NOR": {
+        "name": "Norway",
+        "income": "84240",
+        "year": "2021"
+    },
+    "NPL": {
+        "name": "Nepal",
+        "income": "4230",
+        "year": "2021"
+    },
+    "NRU": {
+        "name": "Nauru",
+        "income": "21820",
+        "year": "2021"
+    },
+    "NZL": {
+        "name": "New Zealand",
+        "income": "46000",
+        "year": "2021"
+    },
+    "OED": {
+        "name": "OECD members",
+        "income": "48916.4355622822",
+        "year": "2021"
+    },
+    "OMN": {
+        "name": "Oman",
+        "income": "35120",
+        "year": "2021"
+    },
+    "OSS": {
+        "name": "Other small states",
+        "income": "22549.2440970914",
+        "year": "2021"
+    },
+    "PAK": {
+        "name": "Pakistan",
+        "income": "5680",
+        "year": "2021"
+    },
+    "PAN": {
+        "name": "Panama",
+        "income": "29720",
+        "year": "2021"
+    },
+    "PER": {
+        "name": "Peru",
+        "income": "12780",
+        "year": "2021"
+    },
+    "PHL": {
+        "name": "Philippines",
+        "income": "9210",
+        "year": "2021"
+    },
+    "PLW": {
+        "name": "Palau",
+        "income": "15490",
+        "year": "2021"
+    },
+    "PNG": {
+        "name": "Papua New Guinea",
+        "income": "3870",
+        "year": "2021"
+    },
+    "POL": {
+        "name": "Poland",
+        "income": "36330",
+        "year": "2021"
+    },
+    "PRE": {
+        "name": "Pre-demographic dividend",
+        "income": "3531.34872505034",
+        "year": "2021"
+    },
+    "PRI": {
+        "name": "Puerto Rico",
+        "income": "24760",
+        "year": "2021"
+    },
+    "PRT": {
+        "name": "Portugal",
+        "income": "35620",
+        "year": "2021"
+    },
+    "PRY": {
+        "name": "Paraguay",
+        "income": "14600",
+        "year": "2021"
+    },
+    "PSE": {
+        "name": "West Bank and Gaza",
+        "income": "7370",
+        "year": "2021"
+    },
+    "PSS": {
+        "name": "Pacific island small states",
+        "income": "6469.11019076459",
+        "year": "2021"
+    },
+    "PST": {
+        "name": "Post-demographic dividend",
+        "income": "54284.7265090537",
+        "year": "2021"
+    },
+    "QAT": {
+        "name": "Qatar",
+        "income": "100450",
+        "year": "2021"
+    },
+    "ROU": {
+        "name": "Romania",
+        "income": "35490",
+        "year": "2021"
+    },
+    "RUS": {
+        "name": "Russian Federation",
+        "income": "32170",
+        "year": "2021"
+    },
+    "RWA": {
+        "name": "Rwanda",
+        "income": "2410",
+        "year": "2021"
+    },
+    "SAS": {
+        "name": "South Asia",
+        "income": "6854.80391279345",
+        "year": "2021"
+    },
+    "SAU": {
+        "name": "Saudi Arabia",
+        "income": "46130",
+        "year": "2020"
+    },
+    "SDN": {
+        "name": "Sudan",
+        "income": "3910",
+        "year": "2021"
+    },
+    "SEN": {
+        "name": "Senegal",
+        "income": "3760",
+        "year": "2021"
+    },
+    "SGP": {
+        "name": "Singapore",
+        "income": "102450",
+        "year": "2021"
+    },
+    "SLB": {
+        "name": "Solomon Islands",
+        "income": "2680",
+        "year": "2021"
+    },
+    "SLE": {
+        "name": "Sierra Leone",
+        "income": "1750",
+        "year": "2021"
+    },
+    "SLV": {
+        "name": "El Salvador",
+        "income": "9420",
+        "year": "2021"
+    },
+    "SMR": {
+        "name": "San Marino",
+        "income": "53680",
+        "year": "2020"
+    },
+    "SOM": {
+        "name": "Somalia",
+        "income": "1240",
+        "year": "2021"
+    },
+    "SRB": {
+        "name": "Serbia",
+        "income": "20810",
+        "year": "2021"
+    },
+    "SSA": {
+        "name": "Sub-Saharan Africa (excluding high income)",
+        "income": "3927.33158853718",
+        "year": "2021"
+    },
+    "SSD": {
+        "name": "South Sudan",
+        "income": "1040",
+        "year": "2015"
+    },
+    "SSF": {
+        "name": "Sub-Saharan Africa",
+        "income": "3929.50612200091",
+        "year": "2021"
+    },
+    "SST": {
+        "name": "Small states",
+        "income": "20559.2877532268",
+        "year": "2021"
+    },
+    "STP": {
+        "name": "Sao Tome and Principe",
+        "income": "4500",
+        "year": "2021"
+    },
+    "SUR": {
+        "name": "Suriname",
+        "income": "14090",
+        "year": "2021"
+    },
+    "SVK": {
+        "name": "Slovak Republic",
+        "income": "32850",
+        "year": "2021"
+    },
+    "SVN": {
+        "name": "Slovenia",
+        "income": "43240",
+        "year": "2021"
+    },
+    "SWE": {
+        "name": "Sweden",
+        "income": "60990",
+        "year": "2021"
+    },
+    "SWZ": {
+        "name": "Eswatini",
+        "income": "8950",
+        "year": "2021"
+    },
+    "SXM": {
+        "name": "Sint Maarten (Dutch part)",
+        "income": "35180",
+        "year": "2018"
+    },
+    "SYC": {
+        "name": "Seychelles",
+        "income": "29800",
+        "year": "2021"
+    },
+    "TCA": {
+        "name": "Turks and Caicos Islands",
+        "income": "20550",
+        "year": "2021"
+    },
+    "TCD": {
+        "name": "Chad",
+        "income": "1510",
+        "year": "2021"
+    },
+    "TEA": {
+        "name": "East Asia & Pacific (IDA & IBRD countries)",
+        "income": "16860.9935419917",
+        "year": "2021"
+    },
+    "TEC": {
+        "name": "Europe & Central Asia (IDA & IBRD countries)",
+        "income": "25857.6517253915",
+        "year": "2021"
+    },
+    "TGO": {
+        "name": "Togo",
+        "income": "2340",
+        "year": "2021"
+    },
+    "THA": {
+        "name": "Thailand",
+        "income": "18120",
+        "year": "2021"
+    },
+    "TJK": {
+        "name": "Tajikistan",
+        "income": "5180",
+        "year": "2021"
+    },
+    "TKM": {
+        "name": "Turkmenistan",
+        "income": "15050",
+        "year": "2019"
+    },
+    "TLA": {
+        "name": "Latin America & the Caribbean (IDA & IBRD countries)",
+        "income": "16509.9461853284",
+        "year": "2021"
+    },
+    "TLS": {
+        "name": "Timor-Leste",
+        "income": "2880",
+        "year": "2021"
+    },
+    "TMN": {
+        "name": "Middle East & North Africa (IDA & IBRD countries)",
+        "income": "11345.5047569513",
+        "year": "2021"
+    },
+    "TON": {
+        "name": "Tonga",
+        "income": "7130",
+        "year": "2021"
+    },
+    "TSA": {
+        "name": "South Asia (IDA & IBRD)",
+        "income": "6854.80391279345",
+        "year": "2021"
+    },
+    "TSS": {
+        "name": "Sub-Saharan Africa (IDA & IBRD countries)",
+        "income": "3929.50612200091",
+        "year": "2021"
+    },
+    "TTO": {
+        "name": "Trinidad and Tobago",
+        "income": "25210",
+        "year": "2021"
+    },
+    "TUN": {
+        "name": "Tunisia",
+        "income": "10910",
+        "year": "2021"
+    },
+    "TUR": {
+        "name": "Turkiye",
+        "income": "30000",
+        "year": "2021"
+    },
+    "TUV": {
+        "name": "Tuvalu",
+        "income": "7210",
+        "year": "2021"
+    },
+    "TZA": {
+        "name": "Tanzania",
+        "income": "2830",
+        "year": "2021"
+    },
+    "UGA": {
+        "name": "Uganda",
+        "income": "2140",
+        "year": "2021"
+    },
+    "UKR": {
+        "name": "Ukraine",
+        "income": "13860",
+        "year": "2021"
+    },
+    "UMC": {
+        "name": "Upper middle income",
+        "income": "19577.540199816",
+        "year": "2021"
+    },
+    "URY": {
+        "name": "Uruguay",
+        "income": "22950",
+        "year": "2021"
+    },
+    "USA": {
+        "name": "United States",
+        "income": "70480",
+        "year": "2021"
+    },
+    "UZB": {
+        "name": "Uzbekistan",
+        "income": "8520",
+        "year": "2021"
+    },
+    "VCT": {
+        "name": "St. Vincent and the Grenadines",
+        "income": "14970",
+        "year": "2021"
+    },
+    "VEN": {
+        "name": "Venezuela, RB",
+        "income": "16960",
+        "year": "2011"
+    },
+    "VNM": {
+        "name": "Vietnam",
+        "income": "11080",
+        "year": "2021"
+    },
+    "VUT": {
+        "name": "Vanuatu",
+        "income": "3360",
+        "year": "2021"
+    },
+    "WLD": {
+        "name": "World",
+        "income": "18508.4473043777",
+        "year": "2021"
+    },
+    "WSM": {
+        "name": "Samoa",
+        "income": "5970",
+        "year": "2021"
+    },
+    "XKX": {
+        "name": "Kosovo",
+        "income": "13300",
+        "year": "2021"
+    },
+    "YEM": {
+        "name": "Yemen, Rep.",
+        "income": "3280",
+        "year": "2013"
+    },
+    "ZAF": {
+        "name": "South Africa",
+        "income": "14340",
+        "year": "2021"
+    },
+    "ZMB": {
+        "name": "Zambia",
+        "income": "3250",
+        "year": "2021"
+    },
+    "ZWE": {
+        "name": "Zimbabwe",
+        "income": "2270",
+        "year": "2021"
+    },
+    "metadata": {
+        "Indicator Code": "NY.GNP.PCAP.PP.CD",
+        "Indicator Name": "GNI per capita, PPP (current international $)",
+        "Source Note": "This indicator provides per capita values for gross national income (GNI. Formerly GNP) expressed in current international dollars converted by purchasing power parity (PPP) conversion factor.  GNI is the sum of value added by all resident producers plus any product taxes (less subsidies) not included in the valuation of output plus net receipts of primary income (compensation of employees and property income) from abroad. PPP conversion factor is a spatial price deflator and currency converter that eliminates the effects of the differences in price levels between countries.",
+        "Source": "World Bank",
+        "URL": "https://data.worldbank.org/indicator/NY.GNP.PCAP.PP.CD",
+        "Last Updated Date": "2023-03-01"
+    }
+}
