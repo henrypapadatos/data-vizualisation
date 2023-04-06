@@ -122,7 +122,12 @@ button {
   pointer-events: none;
 }
 
+#root {
+  
+}
+
 .calculator-container {
+  max-width: 1280px;
   margin-top: 96px;
   text-align: center;
 }
@@ -353,15 +358,14 @@ button {
   text-decoration: none;
 }
 
-.map-background {
-  fill: #ffe;
+#map-container {
+  display: flex;
+  justify-content: center;
+  align-items: center;
 }
 
-.country-border {
-  fill: none;
-  stroke: grey;
-  stroke-dasharray: 2,2;
-  stroke-linejoin: round;
+.map-background {
+  fill: rgb(255, 255, 255);
 }
 
 .country {
@@ -371,12 +375,26 @@ button {
 #info-box {
   position: absolute;
   text-align: left;
-  width: 100px;
-  height: 80px;
-  padding: 8px;
-  font: 10px sans-serif;
+  width: 120px;
+  height: 100px;
+  padding: 0 10px 10px 10px;
+  font: 11px sans-serif;
   background: #ddd;
   border: solid 1px #aaa;
   border-radius: 8px;
-  pointer-events: none;
+}
+
+.divider {
+  margin-left: 16px;
+  margin-right: 16px;
+  border: none;
+  height: 1px;
+  background-color: rgba(0, 0, 0, 0.12);
+}
+
+footer {
+  margin: 6.4px 0 16px;
+  display: flex;
+  padding: 0 16px;
+  justify-content: flex-end;
 }
