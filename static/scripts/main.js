@@ -1,4 +1,5 @@
-import { draw2DMap } from "./maps.js";
+// import { draw2DMap } from "./maps.js";
+import { drawCrowd } from "./crowd.js";
 
 function whenDocumentLoaded(action) {
 	if (document.readyState === "loading") {
@@ -14,9 +15,6 @@ function cleanup() {
 
 
 whenDocumentLoaded(() => {
-	// Draw 2D map
-	d3.json("static/data/gni_per_capita.json").then( data => {
-		draw2DMap(data, 100000, 1, 0);
-	});
+	drawCrowd(70);
 	
 });

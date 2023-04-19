@@ -1,4 +1,4 @@
-export {draw2DMap};
+//export {draw2DMap};
 
 function draw2DMap(gni_per_capita, income, adults, cildren) {
 	// Code and tutorial from https://bost.ocks.org/mike/map
