@@ -31,7 +31,8 @@ function drawCrowd(people) {
     let start_y = height - r;
     let x = (2 * r + epsilon) / Math.sqrt(2);
     const colors = ["yellow", "orange", "red", "pink", "purple"]
-    
+    let availableRowIndexes = [];
+
     const circles = crowd.selectAll("circle")
         .data(d3.range(people))
         .enter()
@@ -39,11 +40,18 @@ function drawCrowd(people) {
         .attr("id", "crowd-circle")
         .attr("cx", function(d, i) {
             let level = onLevelofPyramid(i);
-            let rowIndex = indexInRow(i);
+            let naturalRowIndex = indexInRow(i);
+            if (naturalRowIndex == 0) {
+                availableRowIndexes = d3.range(level);
+            }
+            let randomRowIndex = availableRowIndexes[Math.floor(Math.random() * availableRowIndexes.length)];
+            availableRowIndexes = availableRowIndexes.filter(function(value, index, arr){
+                return value != randomRowIndex;
+            });
             let a = (2 * r + epsilon) * level;
             let distBtwCircles = Math.sqrt(2 * Math.pow(a, 2)) / level;
-            // console.log("Index", i , "Level", level, "Row index", rowIndex, "a",a, "distBtwCircles", distBtwCircles);
-            return start_x - level * x + rowIndex * distBtwCircles;
+            
+            return start_x - level * x + randomRowIndex * distBtwCircles;
             })
         .attr("cy", function(d, i) {
             // console.log("Index", i , "Level", onLevelofPyramid(i), "Y", start_y - (onLevelofPyramid(i) * x));
