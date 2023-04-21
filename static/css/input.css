@@ -1,0 +1,21 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+:root {
+    --yellow:     #e86f2b;
+    --orange:     #cc4115;
+    --red:        #ba2934;
+    --pink:       #da3552;
+    --purple:     #ba175b;
+    --black:      #222222;
+    --dark-grey:  #817777;
+    --grey:       #B1A9A9;
+    --light-grey: #ebe4e4;
+    --off-white:   #f4f4f4;  
+}
+
+body {
+    font-family: 'Metropolis', sans-serif;
+}
+
