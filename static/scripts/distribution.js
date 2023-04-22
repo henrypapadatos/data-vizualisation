@@ -9,7 +9,7 @@ function drawLineChart() {
         let line_chart = LineChart(data, {
             x: d => d.percentage,
             y: d => d.international_dollars,
-            ylabel: "Income (international dollars)",
+            yLabel: "Income (international dollars)",
             xlabel: "Percentage of world population",
         });
     });
@@ -31,7 +31,7 @@ function LineChart(data, {
     marginTop = 20, // top margin, in pixels
     marginRight = 30, // right margin, in pixels
     marginBottom = 30, // bottom margin, in pixels
-    marginLeft = 40, // left margin, in pixels
+    marginLeft = 60, // left margin, in pixels
     width = 640, // outer width, in pixels
     height = 400, // outer height, in pixels
     xType = d3.scaleUtc, // the x-scale type
@@ -78,7 +78,7 @@ function LineChart(data, {
                 .append("svg")
                 .attr("width", width)
                 .attr("height", height)
-                .attr("viewBox", [0, 0, width, height])
+                .attr("viewBox", [-10, -10, width, height])
                 .attr("style", "max-width: 100%; height: auto; height: intrinsic;")
                 .attr("id", "map-svg");
   
@@ -91,7 +91,7 @@ function LineChart(data, {
     svg.append("g")
         .attr("transform", `translate(0,${height - marginBottom})`)
         .call(xAxis);
-  
+    
     svg.append("g")
         .attr("transform", `translate(${marginLeft},0)`)
         .call(yAxis)
@@ -101,7 +101,7 @@ function LineChart(data, {
             .attr("stroke-opacity", 0.1))
         .call(g => g.append("text")
             .attr("x", -marginLeft)
-            .attr("y", 10)
+            .attr("y", marginTop)
             .attr("fill", "currentColor")
             .attr("text-anchor", "start")
             .text(yLabel));
