@@ -1,5 +1,6 @@
-// import { draw2DMap } from "./maps.js";
+import { draw2DMap } from "./maps.js";
 import { drawCrowd } from "./crowd.js";
+import { drawLineChart } from "./distribution.js";
 
 function whenDocumentLoaded(action) {
 	if (document.readyState === "loading") {
@@ -15,6 +16,9 @@ function cleanup() {
 
 
 whenDocumentLoaded(() => {
+	drawLineChart();
+	draw2DMap();
 	drawCrowd(70);
+
 	
 });

@@ -1,6 +1,28 @@
+export {drawLineChart};
+
 // Copyright 2021 Observable, Inc.
 // Released under the ISC license.
 // https://observablehq.com/@d3/line-chart
+function drawLineChart() {
+    console.log("drawLineChart1");
+    d3.json("/static/data/income_centiles.json").then((data) => {
+        let line_chart = LineChart(data, {
+            x: d => d.percentage,
+            y: d => d.international_dollars,
+            ylabel: "Income (international dollars)",
+            xlabel: "Percentage of world population",
+        });
+    });
+    // const distributionContainer = d3.select("#root").append("div").attr("id", "distribution-container");
+
+    // d3.select('distribution-container').append('line_chart');
+
+	// Adding the line_chart element
+    
+
+};
+
+
 function LineChart(data, {
     x = ([x]) => x, // given d in data, returns the (temporal) x-value
     y = ([, y]) => y, // given d in data, returns the (quantitative) y-value
@@ -32,7 +54,6 @@ function LineChart(data, {
     const I = d3.range(X.length);
     if (defined === undefined) defined = (d, i) => !isNaN(X[i]) && !isNaN(Y[i]);
     const D = d3.map(data, defined);
-  
     // Compute default domains.
     if (xDomain === undefined) xDomain = d3.extent(X);
     if (yDomain === undefined) yDomain = [0, d3.max(Y)];
@@ -49,12 +70,23 @@ function LineChart(data, {
         .curve(curve)
         .x(i => xScale(X[i]))
         .y(i => yScale(Y[i]));
+
+    const distributionContainer = d3.select("#root").append("div").attr("id", "distribution-container");
+
+    // Adding the svg element
+    let svg = d3.select("#distribution-container")
+                .append("svg")
+                .attr("width", width)
+                .attr("height", height)
+                .attr("viewBox", [0, 0, width, height])
+                .attr("style", "max-width: 100%; height: auto; height: intrinsic;")
+                .attr("id", "map-svg");
   
-    const svg = d3.create("svg")
-        .attr("width", width)
-        .attr("height", height)
-        .attr("viewBox", [0, 0, width, height])
-        .attr("style", "max-width: 100%; height: auto; height: intrinsic;");
+    // const svg = d3.create("svg")
+    //     .attr("width", width)
+    //     .attr("height", height)
+    //     .attr("viewBox", [0, 0, width, height])
+    //     .attr("style", "max-width: 100%; height: auto; height: intrinsic;");
   
     svg.append("g")
         .attr("transform", `translate(0,${height - marginBottom})`)
@@ -84,4 +116,4 @@ function LineChart(data, {
         .attr("d", line(I));
   
     return svg.node();
-  }
+  };
