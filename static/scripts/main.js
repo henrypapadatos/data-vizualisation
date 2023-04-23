@@ -1,6 +1,7 @@
-// import { draw2DMap } from "./maps.js";
+import { draw2DMap } from "./maps.js";
 import { drawCrowd } from "./crowd.js";
 import COUNTRIES from "../data/countries.json" assert { type: "json" };
+import { drawLineChart } from "./distribution.js";
 
 function whenDocumentLoaded(action) {
 	if (document.readyState === "loading") {
@@ -29,7 +30,5 @@ function populateCountriesDropdown() {
   }
 
 whenDocumentLoaded(() => {
-	populateCountriesDropdown();
-	//drawCrowd(70);
-	
+
 });
