@@ -4,6 +4,7 @@
 
 :root {
     --yellow:     #e86f2b;
+    --light-yellow:#e8c52b;
     --orange:     #cc4115;
     --red:        #ba2934;
     --pink:       #da3552;
@@ -19,4 +20,25 @@
 
 body {
     font-family: 'Metropolis', sans-serif;
+}
+
+input[type="range"]::-webkit-slider-thumb {
+    -webkit-appearance: none;
+    background-color: var(--red);
+    height: 25px;
+    width: 10px;
+    border-radius: 10px;
+}
+
+input[type="range"]::-moz-slider-thumb {
+    -webkit-appearance: none;
+    background-color: var(--red);
+    height: 25px;
+    width: 10px;
+    border-radius: 10px;
+}
+
+input[type="range"]::-webkit-slider-runnable-track {
+    background-color: var(--yellow);
+    border-radius: 15px;
 }

@@ -11,6 +11,7 @@ module.exports = {
       colors: {
         'beige': 'rgb(250 244 244)',
         "gwwc-yellow":     "#e86f2b",
+        "gwwc-light-yellow":"#e8c52b",
         "gwwc-orange":     "#cc4115",
         "gwwc-red":        "#ba2934",
         "gwwc-pink":       "#da3552",

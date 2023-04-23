@@ -13,7 +13,7 @@ function drawCrowd(people) {
 	const width = 600 - margin.left - margin.right;
     const height = 600 - margin.top - margin.bottom;
 
-    const crowdContainer = d3.select("#root").append("div").attr("id", "crowd-container");
+    const crowdContainer = d3.select("#visuals").append("div").attr("id", "crowd-container");
 
     // Adding the svg element
     let svg = d3.select("#crowd-container")

@@ -27,7 +27,22 @@ function populateCountriesDropdown() {
 		option.value = COUNTRIES[i].code;
 		dropdown.add(option);
 	}
-  }
+}
+
+function rangeSliderController() {
+	const rangeSlider = document.getElementById("donation-slider");
+	const sliderValueLabel = document.getElementById("donation-slider-val");
+
+	rangeSlider.oninput = () => {
+		if (rangeSlider.value > 10) {
+			rangeSlider.step = 5;
+		}
+		else {
+			rangeSlider.step = 1;
+		}
+		sliderValueLabel.textContent = rangeSlider.value + "%";
+	};
+}
 
 whenDocumentLoaded(() => {
 

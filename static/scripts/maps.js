@@ -14,7 +14,7 @@ function draw2DMap(gni_per_capita, income, adults, cildren) {
 		const land = topojson.feature(world, world.objects.countries);
 		const projection = d3.geoNaturalEarth1().fitSize([width, height], land);
 		
-		const mapContainer = d3.select("#root").append("div").attr("id", "map-container");
+		const mapContainer = d3.select("#visuals").append("div").attr("id", "map-container");
 
 		// Adding the svg element
 		let svg = d3.select("#map-container")
