@@ -42,3 +42,26 @@ input[type="range"]::-webkit-slider-runnable-track {
     background-color: var(--yellow);
     border-radius: 15px;
 }
+
+.floating-slider-container {
+    position: fixed;
+    top: 50%;
+    right: 20px;
+    transform: translateY(-50%);
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+  
+#slider {
+    height: 300px;
+    margin-bottom: 10px;
+}
+  
+.value-bubble {
+    background-color: #fff;
+    border: 1px solid #ccc;
+    border-radius: 50%;
+    padding: 5px 10px;
+    font-size: 12px;
+}

@@ -12,9 +12,10 @@
         <meta name="viewport" content="minimum-scale=1,initial-scale=1,width=device-width,shrink-to-fit=no">
         <link rel="manifest" href="https://www.givingwhatwecan.org/images/favicons/manifest.json">
         <link rel="canonical" href="https://howrichami.givingwhatwecan.org/how-rich-am-i">
-        <link href="https://fonts.cdnfonts.com/css/metropolis-2" rel="stylesheet">
         
-        <link rel="stylesheet" type="text/css" href="static/css/main.css">
+        <link rel="stylesheet" href="https://fonts.cdnfonts.com/css/metropolis-2">
+        <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/noUiSlider/15.7.0/nouislider.css">
+        <link rel="stylesheet" href="static/css/main.css">
         
         <title>How Rich Am I? | Giving What We Can</title>
         <meta property="og:title" content="How Rich Am I? World Income Percentile Calculator: Global Rich List">
@@ -26,7 +27,7 @@
         <script src="https://d3js.org/d3.v6.min.js"></script>
         <script src="https://unpkg.com/topojson@3"></script>
         <script src="https://unpkg.com/topojson-client@2"></script>
-        <!-- <script src="https://cdn.tailwindcss.com"></script> -->
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/noUiSlider/15.7.0/nouislider.min.js"></script>
 
         <script type="module" src="static/scripts/main.js"></script> 
         
@@ -172,12 +173,16 @@
                         </button>
                     </div>
                 </form>
-                <!-- <div id="visuals" class="flex">
-                    <div id="slider-container" class="flex absolute w-[80vh] top-1/2 left-3/4 translate-x-1/2 translate-y-1/2 -rotate-90 items-center justify-around py-4 ">
+                <div id="visuals" class="flex">
+                    <div>
+                        <div id="slider"></div>
+                        <div id="value-bubble"></div>
+                    </div>
+                    <!-- <div id="slider-container" class="flex absolute w-[80vh] top-1/2 left-3/4 translate-x-1/2 translate-y-1/2 -rotate-90 items-center justify-around py-4 ">
                         <div id="donation-slider-val" class="flex items-center justify-center bg-gwwc-light-yellow h-10 w-14 text-lg font-medium rounded rotate-90">10%</div>
                         <input type="range" min="0" max="100" value="10" id="donation-slider" class="relative w-[85%] appearance-none h-[20px] border-r-4 outline-none">
-                    </div>
-                </div> -->
+                    </div> -->
+                </div> 
                 <footer>
                     <hr class="border-t-2">
                     <a href="https://github.com/centre-for-effective-altruism/how-rich-am-i#methodology" class="flex justify-end text-sm">Methodology and Data Sources</a>

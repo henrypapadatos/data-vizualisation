@@ -44,6 +44,34 @@ function rangeSliderController() {
 	};
 }
 
+function createSlider() {
+	const sliderElement = document.getElementById("slider");
+	const valueBubble = document.getElementById("value-bubble");
+
+	noUiSlider.create(sliderElement, {
+		start: 10,
+		orientation: 'vertical',
+		tooltips: false,
+		range: {
+		  	'min': [0, 10],
+			'50%': [25, 50],
+		  	'max': [50]
+		},
+		direction: 'rtl',
+		pips: {
+		  mode: 'steps',
+		  density: 5
+		}
+	  });
+	  
+	  sliderElement.noUiSlider.on('update', (values, handle) => {
+		valueBubble.innerText = Math.round(parseFloat(values[handle]));
+	  });
+	  
+	  // Update the value bubble on page load
+	  sliderElement.noUiSlider.set(10);
+}
+
 whenDocumentLoaded(() => {
 
 });
