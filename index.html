@@ -12,9 +12,9 @@
         <meta name="viewport" content="minimum-scale=1,initial-scale=1,width=device-width,shrink-to-fit=no">
         <link rel="manifest" href="https://www.givingwhatwecan.org/images/favicons/manifest.json">
         <link rel="canonical" href="https://howrichami.givingwhatwecan.org/how-rich-am-i">
-        <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Source+Sans+Pro:300,400,500,700&amp;display=swap">
-        <link rel="stylesheet" type="text/css" href="static/css/main.css">
         <link href="https://fonts.cdnfonts.com/css/metropolis-2" rel="stylesheet">
+        
+        <link rel="stylesheet" type="text/css" href="static/css/main.css">
         
         <title>How Rich Am I? | Giving What We Can</title>
         <meta property="og:title" content="How Rich Am I? World Income Percentile Calculator: Global Rich List">
@@ -24,137 +24,156 @@
         
         <!-- <script src="http://d3js.org/topojson.v0.min.js"></script> -->
         <script src="https://d3js.org/d3.v6.min.js"></script>
-        <script type="module" src="static/scripts/main.js"></script> 
         <script src="https://unpkg.com/topojson@3"></script>
         <script src="https://unpkg.com/topojson-client@2"></script>
+        <!-- <script src="https://cdn.tailwindcss.com"></script> -->
+
+        <script type="module" src="static/scripts/main.js"></script> 
         
     </head>
 
-    <body>
+    <body class="bg-beige">
         <noscript>You need to enable JavaScript to run this app.</noscript>
-        <div id="root">
-            <header class="toolbar-root content-base">
-                <div class="document-container">
-                    <div class="toolbar-container">
-                        <a href="https://givingwhatwecan.org">
-                            <div class="topleft-logo-container">
-                                <img class="topleft-logo"
-                                    src="https://d33wubrfki0l68.cloudfront.net/39338ba45f09702b3455361490262a6d873a66eb/fa985/images/logos/gwwc-logo-transparent-nav-2021.png"
-                                    alt="GWWC logo">
+        <div id="root" class="flex flex-col">
+            
+            <nav class="w-full top-0 drop-shadow-md sticky z-30">
+                <div class="bg-white relative">
+                    <div class="lg:container mx-auto flex lg:hidden justify-between items-center px-4"><a class="py-3" href="/"><img
+                                alt="Giving What We Can Logo"
+                                srcset="https://givingwhatwecan.org/branding/gwwc-logo-compact-nav.svg 1x, https://givingwhatwecan.org/branding/gwwc-logo-compact-nav.svg 2x"
+                                src="https://givingwhatwecan.org/branding/gwwc-logo-compact-nav.svg" width="129" height="44" decoding="async"
+                                data-nimg="future" loading="lazy" style="color:transparent"></a>
+                        <div class="flex space-x-2"><a
+                                class="text-center inline-block no-underline rounded-lg font-bold tracking-wider leading-6 text-gwwc-purple hover:bg-gwwc-purple active:bg-gwwc-purple disabled:opacity-50 disabled:cursor-default py-2 px-6 text-sm !px-3"
+                                href="/search"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20" fill="currentColor"
+                                    aria-hidden="true" class="w-6 h-6 text-gwwc-purple">
+                                    <path fill-rule="evenodd"
+                                        d="M8 4a4 4 0 100 8 4 4 0 000-8zM2 8a6 6 0 1110.89 3.476l4.817 4.817a1 1 0 01-1.414 1.414l-4.816-4.816A6 6 0 012 8z"
+                                        clip-rule="evenodd"></path>
+                                </svg></a><button id="headlessui-disclosure-button-9" type="button" aria-expanded="false"><span
+                                    class="sr-only">Open main menu</span><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20"
+                                    fill="currentColor" aria-hidden="true" class="text-gwwc-purple h-full w-8">
+                                    <path fill-rule="evenodd"
+                                        d="M3 5a1 1 0 011-1h12a1 1 0 110 2H4a1 1 0 01-1-1zM3 10a1 1 0 011-1h12a1 1 0 110 2H4a1 1 0 01-1-1zM3 15a1 1 0 011-1h12a1 1 0 110 2H4a1 1 0 01-1-1z"
+                                        clip-rule="evenodd"></path>
+                                </svg></button></div>
+                    </div>
+                    <div class="hidden lg:block">
+                        <div class="container mx-auto">
+                            <div class="flex w-full justify-center items-center"><a class="shrink-0 py-3" href="/"><img
+                                        alt="Giving What We Can Logo"
+                                        srcset="https://givingwhatwecan.org/branding/Giving+What+We+Can+Logo.svg 1x, https://givingwhatwecan.org/branding/Giving+What+We+Can+Logo.svg 2x"
+                                        src="https://givingwhatwecan.org/branding/Giving+What+We+Can+Logo.svg" width="212" height="63" decoding="async"
+                                        data-nimg="future" loading="lazy" style="color:transparent"></a>
+                                <div class="flex flex-grow justify-center">
+                                    <div class="text-gwwc-yellow">
+                                        <button
+                                            class="h-full py-8 px-8 inline-flex items-center text-base font-medium uppercase hover:bg-gradient-to-b from-orange-100"
+                                            id="headlessui-popover-button-3" type="button"
+                                            aria-expanded="false">
+                                            <span>Research</span>
+                                        </button></div>
+                                    <div class="text-gwwc-pink">
+                                        <button
+                                            class="h-full py-8 px-8 inline-flex items-center text-base font-medium uppercase hover:bg-gradient-to-b from-pink-100"
+                                            id="headlessui-popover-button-5" type="button"
+                                            aria-expanded="false">
+                                            <span>Community</span>
+                                        </button>
+                                    </div>
+                                    <div class="text-gwwc-purple">
+                                        <button
+                                            class="h-full py-8 px-8 inline-flex items-center text-base font-medium uppercase hover:bg-gradient-to-b from-purple-100"
+                                            id="headlessui-popover-button-7" type="button" aria-expanded="false">
+                                            <span>My giving</span>
+                                        </button>
+                                    </div>
+                                </div>
+                                <div class="flex items-center space-x-2"><a
+                                        class="text-center inline-block no-underline rounded-lg font-bold tracking-wider leading-6 text-gwwc-purple hover:bg-gwwc-dark-purple active:bg-gwwc-purple disabled:opacity-50 disabled:cursor-default py-2 px-6 text-sm !px-3"
+                                        href="https://givingwhatwecan.org/search"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20"
+                                            fill="currentColor" aria-hidden="true" class="w-6 h-6 text-gwwc-purple">
+                                            <path fill-rule="evenodd"
+                                                d="M8 4a4 4 0 100 8 4 4 0 000-8zM2 8a6 6 0 1110.89 3.476l4.817 4.817a1 1 0 01-1.414 1.414l-4.816-4.816A6 6 0 012 8z"
+                                                clip-rule="evenodd"></path>
+                                        </svg></a><a
+                                        class="text-center inline-block no-underline rounded-lg font-bold tracking-wider leading-6 text-white bg-gwwc-purple hover:bg-gwwc-dark-purple active:bg-gwwc-darkest-purple disabled:bg-gwwc-purple disabled:cursor-default py-2 px-6 text-sm w-fit uppercase"
+                                        href="https://givingwhatwecan.org/donate/organizations">Donate</a>
+                                    <div class="flex items-center justify-end"><a
+                                            class="text-center inline-block no-underline rounded-lg font-bold tracking-wider leading-6 text-gwwc-purple bg-transparent shadow-[inset_0_0_0_2px_rgba(186,23,91,1)] hover:bg-purple-100/40 active:bg-gwwc-purple disabled:opacity-50 disabled:cursor-default py-2 px-6 text-sm w-fit uppercase"
+                                            href="https://givingwhatwecan.org/api/auth/login">Sign in</a></div>
+                                </div>
                             </div>
-                        </a>
-                        <div class="nav-button-container">
-                            <button class="button" tabindex="0" type="button"
-                                style="text-transform: none;" aria-controls="simple-menu" aria-haspopup="true">
-                                <span class="button-label">About</span>
-                                <span class="button-ripple"></span>
-                            </button>
-
-                            <button class="button" tabindex="0" type="button"
-                                style="text-transform: none;" aria-controls="simple-menu" aria-haspopup="true">
-                                <span class="button-label">Learn</span>
-                                <span class="button-ripple"></span>
-                            </button>
-
-                            <a class="button" tabindex="0"
-                                aria-disabled="false" style="text-transform: none;" href="https://www.givingwhatwecan.org/blog"
-                                rel="noopener noreferrer">
-                                <span class="button-label">Blog</span>
-                                <span class="button-ripple"></span>
-                            </a>
-
-                            <a class="button" tabindex="0"
-                                aria-disabled="false" style="text-transform: none;" href="https://www.givingwhatwecan.org/donate"
-                                rel="noopener noreferrer">
-                                <span class="button-label">Donate</span>
-                                <span class="button-ripple"></span>
-                            </a>
-
-                            <a class="button" tabindex="0"
-                                aria-disabled="false" style="text-transform: none;" href="https://www.givingwhatwecan.org/pledge"
-                                rel="noopener noreferrer">
-                                <span class="button-label">Join</span>
-                                <span class="button-ripple"></span>
-                            </a>
-                            <a class="button" tabindex="0"
-                                aria-disabled="false" style="text-transform: none;" href="https://my.givingwhatwecan.org/dashboard/pledge"
-                                target="_blank" rel="noopener noreferrer">
-                                <span class="button-label">Sign In</span>
-                                <span class="button-ripple"></span>
-                            </a>
                         </div>
                     </div>
                 </div>
-            </header>
+            </nav>
 
-            <div class="document-container calculator-container">
+            <!-- Maybe use w-full box-border mx-auto px-4 sm:px-6 sm:max-w-xl md:px-8 md:max-w-4xl lg:max-w-7xl here   -->
+            <div id="content" class="h-full text-center pt-12 lg:pt-20 relative mx-auto w-full px-2 sm:max-w-[600px] sm:px-2 md:max-w-[960px] lg:max-w-[1024px] lg:px-[5.25]">
                 
-                <header class="main-title-container">
-                    <h2 class="title-funcation main-title">How Rich Am&nbsp;I?</h2>
-                    <h6 class="title-funcation subtitle">Find out how rich you are compared to the rest of
+                <header class="mb-8 mt-0">
+                    <h2 class="font-bold text-6xl">How Rich Am&nbsp;I?</h2>
+                    <h6 class="text-base">Find out how rich you are compared to the rest of
                         the world - are you on the global rich list?</h6>
                 </header>
                 
-                <form class="input-form">
-                    <div class="input-grid-container">
-                        <div class="input-grid-item">
-                            <div class="input-container">
-                                <label class="input-label" data-shrink="true" for="select-country">Country</label>
-                                <div class="input-field-container">
-                                    <div class="country-dropdown input-field" tabindex="0" role="button" aria-haspopup="listbox" id="select-country">United States of America</div>
-                                        <input name="country" class="" type="hidden" value="USA">
-                                            <svg class="dropdown-icon" focusable="false" viewBox="0 0 24 24" aria-hidden="true" role="presentation">
-                                                <path d="M7 10l5 5 5-5z"></path>
-                                            </svg>
-                                    </div>
-                                <p class="input-helpertext">Select your country</p>
+                <form class="my-8">
+                    <div class="flex flex-wrap box-border">
+                        <div id="country-select" class="border-box p-4 grow-0 max-w-full basis-full sm:max-w-[50%] sm:basis-1/2 md:max-w-[25%] md:basis-1/4">
+                            <div class="w-full border-none input-underline inline-flex relative flex-col align-top min-w-0">
+                                <label class="scale-75 origin-top-left text-left" data-shrink="true" for="select-country">Country</label>
+                                <!-- border-b-2 -->
+                                <select class="bg-beige border-b border-black hover:shadow-md pb-1 focus:outline-none max-w-full" tabindex="0" role="button" aria-haspopup="listbox" id="select-country">
+                                    <option selected>United States of America</option>
+                                </select>
+                                <input name="country" class="pt-4" type="hidden" value="USA">
+                                        <!-- <svg class="dropdown-icon" focusable="false" viewBox="0 0 24 24" aria-hidden="true" role="presentation">
+                                            <path d="M7 10l5 5 5-5z"></path>
+                                        </svg> -->
+                                    
+                                <p class="text-gray-600 text-xs text-left pt-1">Select your country</p>
                             </div>
                         </div>
-                        <div class="input-grid-item">
-                            <div class="input-container">
-                                <label class="input-label" data-shrink="false" for="income">Income</label>
-                                <div class="input-field-container">
-                                    <input aria-invalid="false" class="input-field" id="income" type="text" value="">
+                        <div id="income-select" class="border-box p-4 grow-0 max-w-full basis-full sm:max-w-[50%] sm:basis-1/2 md:max-w-[25%] md:basis-1/4">
+                            <div class="w-full border-none input-underline inline-flex relative flex-col align-top min-w-0">
+                                <label class="scale-75 origin-top-left text-left"> Income </label>
+                                <div class="relative inline-flex text-base items-center box-border border-b border-black hover:shadow-md">
+                                    <input class="bg-beige w-full h-2 py-3 focus:outline-none text-center text-sm" id="income" type="text" value="">
                                     <div class="currency-container">
                                         <p class="currency">USD</p>
                                     </div>
                                 </div>
-                                <p class="input-helpertext">Enter your annual <strong>post-tax</strong> household income in USD</p>
+                                <p class="text-gray-600 text-xs text-left pt-1">Enter your annual <strong>post-tax</strong> household income in USD</p>
                             </div>
                         </div>
-                        <div class="input-grid-item">
-                            <div class="input-container">
-                                <label class="input-label" data-shrink="true" for="household[adults]">Adults</label>
-                                <div class="input-field-container">
-                                    <input aria-invalid="false" class="input-field" type="text" value="1">
+                        <div id="adults" class="border-box p-4 grow-0 max-w-full basis-full sm:max-w-[50%] sm:basis-1/2 md:max-w-[25%] md:basis-1/4">
+                            <div class="w-full border-none input-underline inline-flex relative flex-col align-top min-w-0">
+                                <label class="scale-75 origin-top-left text-left"> Adults </label>
+                                <div class="relative inline-flex text-base items-center box-border">
+                                    <input class="bg-beige border-b border-black hover:shadow-md w-full h-2 py-3 focus:outline-none text-center text-sm" type="text" value="1">
                                 </div>
-                                <p class="input-helpertext">Enter the number of adults in your household</p>
+                                <p class="text-gray-600 text-xs text-left pt-1">Enter the number of adults in your household</p>
                             </div>
                         </div>
-                        <div class="input-grid-item">
-                            <div class="input-container">
-                                <label class="input-label" data-shrink="true" for="household[children]">Children</label>
-                                <div class="input-field-container">
-                                    <input aria-invalid="false" class="input-field" type="text" value="0"></div>
-                                <p class="input-helpertext">Enter the number of children in your household</p>
+                        <div id="children" class="border-box p-4 grow-0 max-w-full basis-full sm:max-w-[50%] sm:basis-1/2 md:max-w-[25%] md:basis-1/4">
+                            <div class="w-full border-none input-underline inline-flex relative flex-col align-top min-w-0">
+                                <label class="scale-75 origin-top-left text-left"> Children </label>
+                                <div class="relative inline-flex text-base items-center box-border">
+                                    <input class="bg-beige border-b border-black hover:shadow-md w-full h-2 py-3 focus:outline-none text-center text-sm" type="text" value="0"></div>
+                                <p class="text-gray-600 text-xs text-left pt-1">Enter the number of children in your household</p>
                             </div>
                         </div>
-                    </div>
-                    <div class="input-grid-container grid-button-container">
-                        <div id="calc-button-container">
-                            <button class="active-button" tabindex="-1" type="button" id="calc_button" disabled="">
-                                <span class="MuiButton-label">Calculate</span>
-                            </button>
-                        </div>
+                    </div> 
+                    <!-- border-box p-4 grow-0 max-w-full basis-full sm:max-w-[50%] sm:basis-1/2 md:max-w-[25%] md:basis-1/4 -->
+                    <div id="calculate" class="flex items-center flex-col p-4">
+                        <button class="bg-gwwc-purple hover:bg-gwwc-dark-purple active:bg-gwwc-darkest-purple px-5 py-2 rounded-md" tabindex="-1" type="button" id="calc_button" disabled="">
+                            <span class="text-white font-medium">CALCULATE</span>
+                        </button>
                     </div>
                 </form>
             </div>
         </div>
-        <div class="range-slider">
-            
-            <input class="input-range" orient="vertical" type="range" min="0" max="50" value="10" step="1">
-        </div>
-        <hr class="divider">
         <footer>
 
         </footer>

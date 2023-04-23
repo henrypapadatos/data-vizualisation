@@ -54,16 +54,15 @@ function drawCrowd(people) {
             return start_x - level * x + randomRowIndex * distBtwCircles;
             })
         .attr("cy", function(d, i) {
-            // console.log("Index", i , "Level", onLevelofPyramid(i), "Y", start_y - (onLevelofPyramid(i) * x));
             let level = onLevelofPyramid(i) - 1;
             return start_y - (level * x) - epsilon * level;
         })
         .attr("r", 0)
-        .sort(function(a, b) { // Add this sort function
+        .sort(function(a, b) { 
             return onLevelofPyramid(b) - onLevelofPyramid(a);
         })
-        .style("z-index", function(d, i) { // Add this style function
-            return -onLevelofPyramid(i); // zIndex should be negative of the level
+        .style("z-index", function(d, i) { 
+            return -onLevelofPyramid(i); 
         })
         .style("fill", function () {
             return `var(--${colors[Math.floor(Math.random() * colors.length)]})`

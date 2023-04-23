@@ -7,15 +7,16 @@
     --orange:     #cc4115;
     --red:        #ba2934;
     --pink:       #da3552;
-    --purple:     #ba175b;
+    --purple:     #ba175b; /* hsl(335,78,41) */ 
+    --dark-purple: #a70f4e;
+    --darkest-purple: #770434;
     --black:      #222222;
     --dark-grey:  #817777;
     --grey:       #B1A9A9;
     --light-grey: #ebe4e4;
-    --off-white:   #f4f4f4;  
+    --off-white:  #f4f4f4;  
 }
 
 body {
     font-family: 'Metropolis', sans-serif;
 }
-
