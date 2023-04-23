@@ -30,7 +30,7 @@ function drawCrowd(people) {
     let start_x = width / 2;
     let start_y = height - r;
     let x = (2 * r + epsilon) / Math.sqrt(2);
-    const colors = ["yellow", "orange", "red", "pink", "purple"]
+    const colors = ["light-yellow", "yellow", "orange", "red", "pink", "purple", "dark-purple", "darkest-purple"]
     let availableRowIndexes = [];
 
     const circles = crowd.selectAll("circle")

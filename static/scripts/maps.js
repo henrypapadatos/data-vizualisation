@@ -1,21 +1,20 @@
+import GNI_PER_CAPITA from "../data/gni_per_capita.json" assert { type: "json" };
 export {draw2DMap};
 
-function draw2DMap(gni_per_capita, income, adults, cildren) {
+function draw2DMap(income, adults, cildren) {
 	// Code and tutorial from https://bost.ocks.org/mike/map
-
 	let country_ratios = {};
 
 	// const margin = {top: 20, right: 10, bottom: 40, left: 100};
 	const margin = {top: 0, right: 0, bottom: 0, left: 0};
 	const width = 1100 - margin.left - margin.right;
     const height = 600 - margin.top - margin.bottom;
+	const mapContainer = d3.select("#visuals").append("div").attr("id", "map-container");
 
 	d3.json("static/data/updated-countries-50m.json").then((world) => {
 		const land = topojson.feature(world, world.objects.countries);
 		const projection = d3.geoNaturalEarth1().fitSize([width, height], land);
 		
-		const mapContainer = d3.select("#visuals").append("div").attr("id", "map-container");
-
 		// Adding the svg element
 		let svg = d3.select("#map-container")
 					.append("svg")
@@ -32,9 +31,9 @@ function draw2DMap(gni_per_capita, income, adults, cildren) {
 
 		// Adding a background rectangle
 		map.append("rect")
-			.attr("class", "map-background")
 			.attr("width", width)
-			.attr("height", height);
+			.attr("height", height)
+			.style("fill", "#faf4f4");
 
 		// Adding individual countries as paths
 		map.selectAll(".country")
@@ -46,12 +45,12 @@ function draw2DMap(gni_per_capita, income, adults, cildren) {
 			.attr("fill", function(country) { 
 				// Color based on the proportion of your average income compared to other countries
 				
-				if (!(country.properties.code in gni_per_capita)) {
+				if (!(country.properties.code in GNI_PER_CAPITA)) {
 					return "white";
 				}
-				let ppp_avg_income = gni_per_capita[country.properties.code]["income"]
+				let ppp_avg_income = GNI_PER_CAPITA[country.properties.code]["income"]
 				let ratio = income /  (ppp_avg_income * adults);
-				
+
 				ratio = Math.round(ratio)
 				country_ratios[country.properties.code] = ratio;
 
@@ -69,7 +68,6 @@ function draw2DMap(gni_per_capita, income, adults, cildren) {
 					.append("div")
 					.attr("id", "info-box")
 					.html(() => {
-						console.log(country.target.__data__.properties.code)
 						if (country_ratios[country.target.__data__.properties.code] == undefined) {
 							return `<h3>${country.target.__data__.properties.name}</h3><p>No data available</p>`
 						}

@@ -550,10 +550,6 @@ video {
   border-width: 0;
 }
 
-.fixed {
-  position: fixed;
-}
-
 .absolute {
   position: absolute;
 }
@@ -914,10 +910,6 @@ video {
   padding-top: 3rem;
 }
 
-.pt-4 {
-  padding-top: 1rem;
-}
-
 .text-left {
   text-align: left;
 }
@@ -953,6 +945,11 @@ video {
 .text-xs {
   font-size: 0.75rem;
   line-height: 1rem;
+}
+
+.text-4xl {
+  font-size: 2.25rem;
+  line-height: 2.5rem;
 }
 
 .font-bold {
@@ -1021,6 +1018,7 @@ video {
 }
 
 :root {
+  --beige:    #faf4f4;
   --yellow:     #e86f2b;
   --light-yellow:#e8c52b;
   --orange:     #cc4115;
@@ -1062,19 +1060,16 @@ input[type="range"]::-webkit-slider-runnable-track {
   border-radius: 15px;
 }
 
-.floating-slider-container {
-  position: fixed;
+#floating-slider-container {
+  display: absolute;
+  position: sticky;
   top: 50%;
-  right: 20px;
-  transform: translateY(-50%);
-  display: flex;
-  flex-direction: column;
-  align-items: center;
 }
 
 #slider {
   height: 300px;
   margin-bottom: 10px;
+  background: #c0392b;
 }
 
 .value-bubble {

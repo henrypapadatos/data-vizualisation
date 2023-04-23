@@ -3,6 +3,7 @@
 @tailwind utilities;
 
 :root {
+    --beige:    #faf4f4;
     --yellow:     #e86f2b;
     --light-yellow:#e8c52b;
     --orange:     #cc4115;
@@ -43,19 +44,16 @@ input[type="range"]::-webkit-slider-runnable-track {
     border-radius: 15px;
 }
 
-.floating-slider-container {
-    position: fixed;
+#floating-slider-container {
+    display: absolute;
+    position: sticky;
     top: 50%;
-    right: 20px;
-    transform: translateY(-50%);
-    display: flex;
-    flex-direction: column;
-    align-items: center;
 }
   
 #slider {
     height: 300px;
     margin-bottom: 10px;
+    background: #c0392b;
 }
   
 .value-bubble {

@@ -1,6 +1,6 @@
+import COUNTRIES from "../data/countries.json" assert { type: "json" };
 import { draw2DMap } from "./maps.js";
 import { drawCrowd } from "./crowd.js";
-import COUNTRIES from "../data/countries.json" assert { type: "json" };
 import { drawLineChart } from "./distribution.js";
 
 function whenDocumentLoaded(action) {
@@ -13,6 +13,7 @@ function whenDocumentLoaded(action) {
 
 function cleanup() {
 	// Remove all graphs from the page when the tries to use the calculator again
+	document.getElementById("visuals").innerHTML = "";
 }
 
 function populateCountriesDropdown() {
@@ -45,6 +46,10 @@ function rangeSliderController() {
 }
 
 function createSlider() {
+	const sliderContainer = d3.select("#visuals").append("div").attr("id", "floating-slider-container")
+	sliderContainer.append("div").attr("id", "slider")
+	sliderContainer.append("div").attr("id", "value-bubble")
+
 	const sliderElement = document.getElementById("slider");
 	const valueBubble = document.getElementById("value-bubble");
 
@@ -72,6 +77,35 @@ function createSlider() {
 	  sliderElement.noUiSlider.set(10);
 }
 
-whenDocumentLoaded(() => {
+function armCalculateButton() {
+	const calculateButton = document.getElementById("calculate");
+	const visuals = document.getElementById("visuals");
+	calculateButton.addEventListener("click", function() {
+		// Clear the contents of #visuals
+		//cleanup();
 
+		visuals.classList.remove("hidden");
+
+		displayVisuals()
+	});
+}
+
+function displayVisuals() {
+	const calculateButton = document.getElementById("calculate");
+	const countryCode = document.getElementById("select-country").value;
+	const income = document.getElementById("income").value;
+	const adults = document.getElementById("adults").value;
+	const children = document.getElementById("children").value;
+
+	//createSlider();
+	// draw2DMap(income, adults, children);
+	// drawCrowd(50);
+
+	// Scroll visuals into view
+	calculateButton.scrollIntoView({behavior: "smooth"});
+}
+
+whenDocumentLoaded(() => {
+	populateCountriesDropdown();
+	armCalculateButton();
 });
