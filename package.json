@@ -1,9 +1,12 @@
 {
-  "scripts":{
-    "build":"tailwindcss -i ./static/css/input.css -o ./static/css/main.css",
-    "watch":"tailwindcss -i ./static/css/input.css -o ./static/css/main.css --watch"
+  "scripts": {
+    "build": "tailwindcss -i ./static/css/input.css -o ./static/css/main.css",
+    "watch": "tailwindcss -i ./static/css/input.css -o ./static/css/main.css --watch"
   },
   "devDependencies": {
     "tailwindcss": "^3.3.1"
+  },
+  "dependencies": {
+    "d3-force": "^3.0.0"
   }
 }

@@ -2,6 +2,8 @@ import COUNTRIES from "../data/countries.json" assert { type: "json" };
 import { draw2DMap } from "./maps.js";
 import { drawCrowd } from "./crowd.js";
 import { drawLineChart } from "./distribution.js";
+import { drawBubbles } from "./bubbles.js";
+
 
 function whenDocumentLoaded(action) {
 	if (document.readyState === "loading") {
@@ -98,14 +100,17 @@ function displayVisuals() {
 	const children = document.getElementById("children").value;
 
 	//createSlider();
-	// draw2DMap(income, adults, children);
-	// drawCrowd(50);
+	//draw2DMap(income, adults, children);
+	//drawCrowd(50);
+	drawBubbles();
 
 	// Scroll visuals into view
 	calculateButton.scrollIntoView({behavior: "smooth"});
 }
 
 whenDocumentLoaded(() => {
+	displayVisuals();
 	populateCountriesDropdown();
 	armCalculateButton();
+
 });
