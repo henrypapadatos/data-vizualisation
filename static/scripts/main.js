@@ -2,7 +2,7 @@ import COUNTRIES from "../data/countries.json" assert { type: "json" };
 import { draw2DMap } from "./maps.js";
 import { drawCrowd } from "./crowd.js";
 import { drawLineChart } from "./distribution.js";
-import { drawBubbles } from "./bubbles.js";
+import { drawBubbles } from "./interactive_bubbles.js";
 
 
 function whenDocumentLoaded(action) {
@@ -108,8 +108,10 @@ function displayVisuals() {
 	calculateButton.scrollIntoView({behavior: "smooth"});
 }
 
+
+
 whenDocumentLoaded(() => {
-	displayVisuals();
+	//displayVisuals();
 	populateCountriesDropdown();
 	armCalculateButton();
 
