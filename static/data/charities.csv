@@ -1,3 +1,4 @@
+<<<<<<< HEAD
 id,name,cause_area,cost_effectiveness,image_path,description
 Against Malaria Foundation,Against Malaria Foundation,Global Health,42,images/malaria.jpg,"Against Malaria Foundation (AMF) works to prevent malaria-caused deaths and illness by distributing long-lasting insecticide-treated mosquito nets in at-risk, low-income communities. The organisation also consistently monitors its impact through surveys and case rate data."
 Faunalytics,Faunalytics,Animal Welfare,25,images/faunalytics.jpg,"Faunalytics maintains the largest database of animal advocacy research, works with animal advocacy organisations on projects to improve their impact, and produces original animal advocacy research."
@@ -5,3 +6,11 @@ Nuclear Threat Initiative - Biosecurity programme,Nuclear Threat Initiative - Bi
 Iodine Global Network,Iodine Global Network,Global Health,10,images/iodine.jpg,The Iodine Global Network (IGN) is a nonprofit organisation working to ensure all people attain optimal iodine nutrition and children can reach their full cognitive potential.
 The Humane League,The Humane League,Animal Welfare,50,images/THL.jpg,"The Humane League exists to end the abuse of animals raised for food. It does this by influencing the policies of the world’s biggest companies, demanding legislation, and empowering others to take action and leave animals off their plates."
 Cool Earth,Cool Earth,Climate Change,20,images/cool_earth.png,Cool Earth is the charity that backs people to protect rainforest and fight climate change. Join our radically optimistic rainforest revolution now.
+=======
+id,name,cause_area,cost_effectiveness,image_path
+Against Malaria Foundation,Against Malaria Foundation,Global Health,42,images/malaria.jpg
+Faunalytics,Faunalytics,Animal Welfare,25,images/faunalytics.jpg
+Nuclear Threat Initiative Biosecurity programme,Nuclear Threat Initiative  Biosecurity programme,Nuclear Security,30,images/nuclear_security.jpg
+Iodine Global Network,Iodine Global Network,Global Health,10,images/iodine.jpg
+The Humane League,The Humane League,Animal Welfare,50,images/THL.jpg
+>>>>>>> 91d549468b418fd909c55cbda427ae2d39732417

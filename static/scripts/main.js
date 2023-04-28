@@ -2,7 +2,12 @@ import COUNTRIES from "../data/countries.json" assert { type: "json" };
 import { draw2DMap } from "./maps.js";
 import { drawCrowd } from "./crowd.js";
 import { drawLineChart } from "./distribution.js";
+<<<<<<< HEAD
 import { drawBubbles } from "./interactive_bubbles.js";
+=======
+import { drawBubbles } from "./bubbles.js";
+import { drawGroups } from "./groupsBubbles.js";
+>>>>>>> 91d549468b418fd909c55cbda427ae2d39732417
 
 
 function whenDocumentLoaded(action) {
@@ -88,7 +93,8 @@ function armCalculateButton() {
 
 		visuals.classList.remove("hidden");
 
-		displayVisuals()
+		console.log("button clicked");
+		displayVisuals();
 	});
 }
 
@@ -99,10 +105,12 @@ function displayVisuals() {
 	const adults = document.getElementById("adults").value;
 	const children = document.getElementById("children").value;
 
-	//createSlider();
-	//draw2DMap(income, adults, children);
-	//drawCrowd(50);
-	drawBubbles();
+	// createSlider();
+	// drawLineChart();
+	// draw2DMap(income, adults, children);
+	// drawCrowd(50);
+	// drawBubbles();
+	drawGroups();
 
 	// Scroll visuals into view
 	calculateButton.scrollIntoView({behavior: "smooth"});

@@ -4,7 +4,7 @@ export {drawLineChart};
 // Released under the ISC license.
 // https://observablehq.com/@d3/line-chart
 function drawLineChart() {
-    console.log("drawLineChart1");
+    console.log("drawLineChart");
     d3.json("/static/data/income_centiles.json").then((data) => {
         let line_chart = LineChart(data, {
             x: d => d.percentage,
@@ -71,7 +71,7 @@ function LineChart(data, {
         .x(i => xScale(X[i]))
         .y(i => yScale(Y[i]));
 
-    const distributionContainer = d3.select("#root").append("div").attr("id", "distribution-container");
+    const distributionContainer = d3.select("#visuals").append("div").attr("id", "distribution-container");
 
     // Adding the svg element
     let svg = d3.select("#distribution-container")
