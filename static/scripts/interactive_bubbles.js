@@ -20,10 +20,10 @@ function bubbles(){
     
 
     const cornerBoxData = [
-        { className: 'top-left', top: height / 8, left: width / 8, text: 'Global Health' },
+        { className: 'top-left', top: height / 8, left: width / 8, text: 'Human wellbeing' },
         { className: 'top-right', top: height / 8, left: width * (3/4), text: 'Climate Change' },
         { className: 'bottom-left', top:  height * (5/8), left: width / 8, text: 'Animal Welfare' },
-        { className: 'bottom-right', top: height * (5/8), left:  width * (5/8), text: 'Nuclear Security' }
+        { className: 'bottom-right', top: height * (5/8), left:  width * (5/8), text: 'Creating a better future' }
     ];
     const causeAreaBox = bubblesContainer.append('div')
         .attr('class', 'cause-area-boxes');
@@ -58,16 +58,6 @@ function bubbles(){
     // Add div elements for the four corners
  
 
-/*  const cornerBoxData = [
-        { className: 'top-left', top: 0, left: 0, text: 'Top Left Box' },
-        { className: 'top-right', top: 0, right: 0, text: 'Top Right Box' },
-        { className: 'bottom-left', bottom: 0, left: 0, text: 'Bottom Left Box' },
-        { className: 'bottom-right', bottom: 0, right: 0, text: 'Bottom Right Box' }
-    ]; */
-      
-
-
-
 
     var defs = svg.append("defs"); 
 
@@ -80,7 +70,7 @@ function bubbles(){
 
 
     var forceX_Separate = d3.forceX(function(d)  {
-        if(d.cause_area == 'Global Health' || d.cause_area == 'Animal Welfare'){
+        if(d.cause_area == 'Human wellbeing' || d.cause_area == 'Animal Welfare'){
             return width/4
         }else{
             return (width * (3/4))
@@ -89,7 +79,7 @@ function bubbles(){
     var forceX_Combine = d3.forceX(width / 2).strength(0.10)
 
     var forceY_Separate = d3.forceY(function(d)  {
-        if(d.cause_area == 'Global Health' || d.cause_area == 'Climate Change'){
+        if(d.cause_area == 'Human wellbeing' || d.cause_area == 'Creating a better future'){
             return height/4
         }else{
             return (height * (3/4))
@@ -156,7 +146,7 @@ function bubbles(){
             .attr("width", 1)
             .attr("preserveAspectRatio", "none")
             .attr("xmlns:xlink", "http://www.w3.org/1999/xlink")
-            .attr("xlink:href", d =>  "static/data/" + d.image_path)
+            .attr("xlink:href", d =>  "static/data/images/" + d.image_path)
 
 
         const circles = svg.selectAll('.charity')
