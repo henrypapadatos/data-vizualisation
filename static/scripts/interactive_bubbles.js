@@ -25,17 +25,14 @@ function bubbles(){
         { className: 'bottom-left', top:  height * (5/8), left: width / 8, text: 'Animal Welfare' },
         { className: 'bottom-right', top: height * (5/8), left:  width * (5/8), text: 'Creating a better future' }
     ];
-    const causeAreaBox = bubblesContainer.append('div')
-        .attr('class', 'cause-area-boxes');
+    
     bubblesContainer.selectAll('.cause_area-box')
         .data(cornerBoxData)
         .join('div')
         .attr('class', 'cause_area-box')
         .style('position', 'absolute')
         .style('top', d => d.top ? d.top + 'px' : null)
-        .style('bottom', d => d.bottom ? d.bottom + 'px' : null)
         .style('left', d => d.left ? d.left + 'px' : null)
-        .style('right', d => d.right ? d.right + 'px' : null)
         .style('background-color', 'white')
         .style('border', '1px solid #ba2934')
         .style('padding', '10px')
@@ -55,13 +52,18 @@ function bubbles(){
         .attr("id", "combine")
         .text("Combine");
 
+    const button_animal_welfare = d3.select("#visuals")
+        .append("button")
+        .attr("id", "button_animal_welfare")
+        .text("Animal Welfare");
+    
     // Add div elements for the four corners
  
 
 
     var defs = svg.append("defs"); 
 
-    var radiusScale = d3.scaleSqrt().domain([10,50]).range([25,120])
+    var radiusScale = d3.scaleSqrt().domain([10,50]).range([25,100])
 
     // the simulation is a collection of forces
     // about where we cant our circles to go
@@ -70,32 +72,34 @@ function bubbles(){
 
 
     var forceX_Separate = d3.forceX(function(d)  {
-        if(d.cause_area == 'Human wellbeing' || d.cause_area == 'Animal Welfare'){
+        if(d.cause_area == 'Human wellbeing' || d.cause_area == 'Animal welfare'){
             return width/4
         }else{
             return (width * (3/4))
-        }}).strength(0.10)
+        }}).strength(0.05)
     
-    var forceX_Combine = d3.forceX(width / 2).strength(0.10)
+    var forceX_Combine = d3.forceX(width / 2).strength(0.05)
 
     var forceY_Separate = d3.forceY(function(d)  {
         if(d.cause_area == 'Human wellbeing' || d.cause_area == 'Creating a better future'){
             return height/4
         }else{
             return (height * (3/4))
-        }}).strength(0.10)
+        }}).strength(0.05)
 
 
-    var forceY_Combine = d3.forceY(d => height /2).strength(0.10)
+    var forceY_Combine = d3.forceY(d => height /2).strength(0.05)
 
 
     var simulation = d3.forceSimulation()
         .force("x", forceX_Combine)
         .force("y", forceY_Combine)
         .force("collide", d3.forceCollide(function(d) {
-            return radiusScale(d.cost_effectiveness) +5
+            return radiusScale(d.cost_effectiveness) +10
         }))
 
+
+    let separated_bubbles = false;
 
     d3.select("#button_cause").on('click', () => {
         simulation
@@ -105,7 +109,10 @@ function bubbles(){
             .restart();
         d3.select("#bubbles-container").selectAll('.cause_area-box')
             .style('opacity', '1.0');
+        separated_bubbles = true;
         });
+
+    
 
     d3.select("#combine").on('click', () => {
         simulation
@@ -115,12 +122,17 @@ function bubbles(){
             .restart();
         d3.select("#bubbles-container").selectAll('.cause_area-box')
             .style('opacity', '0.0');
+        separated_bubbles = false;
         
     });
 
     d3.csv("static/data/charities.csv").then(ready);
 
     function ready(datapoints) {
+        const original_datapoints = datapoints
+        var var_datapoints = datapoints
+
+
         function ticked(){
             circles
                 .attr('cx', d => d.x)
@@ -131,10 +143,10 @@ function bubbles(){
                 .text(d => d.name);  */
         }
 
-    
-
-        defs.selectAll(".artist-pattern")
-            .data(datapoints)
+        
+        function join_defs(){
+            defs.selectAll(".artist-pattern")
+            .data(var_datapoints)
             .join("pattern")
             .attr("class", "artist-pattern")
             .attr('id', d => d.id.toLowerCase().replace(/ /g, '-'))
@@ -147,16 +159,16 @@ function bubbles(){
             .attr("preserveAspectRatio", "none")
             .attr("xmlns:xlink", "http://www.w3.org/1999/xlink")
             .attr("xlink:href", d =>  "static/data/images/" + d.image_path)
-
-
-        const circles = svg.selectAll('.charity')
-            .data(datapoints)
+        }
+        
+        join_defs()
+        function join_circles(var_datapoints){
+            var circles = svg.selectAll('.charity')
+            .data(var_datapoints)
             .join('circle')
             .attr('class', 'charity')
             .attr('r', d => radiusScale(d.cost_effectiveness))
             .attr('fill', d => `url(#${d.id.toLowerCase().replace(/ /g, '-')})`)
-
-
             .on("mouseover", function(event, d) {
                 // Create a box with some text when hovering over the circle
                 var box = d3.select('body')
@@ -165,7 +177,6 @@ function bubbles(){
                     .attr("class", "charity-box")
                     .style("left", event.pageX + "px")
                     .style("top", event.pageY + "px")
-
                 box.style("width", "240px")
                     .style("height", "240px")
                     .text(`Name : ${d.name} Description : ${d.description}`);
@@ -180,8 +191,37 @@ function bubbles(){
             .on("mouseout", () =>
 				d3.select('#charity-box').remove()
 			);
-          
+            return circles
+        }
+        var circles = join_circles(var_datapoints);
+        let removedCircles = false;
 
+        d3.select("#button_animal_welfare").on('click', () => {
+            if (removedCircles == false) {
+                var_datapoints = var_datapoints.filter(d => d.cause_area == "Animal welfare");
+                circles = join_circles(var_datapoints);
+                join_defs();
+                removedCircles = true;
+            } else {
+                var_datapoints = original_datapoints;
+                circles = join_circles(var_datapoints);
+                join_defs();
+                removedCircles = false;
+                }
+            if(separated_bubbles == true){
+                simulation
+                    .nodes(var_datapoints)
+                    .force("x", forceX_Separate)
+                    .force("y", forceY_Separate)
+            } else {
+                simulation
+                    .nodes(var_datapoints)
+                    .force("x", forceX_Combine)
+                    .force("y", forceY_Combine)
+                    .alphaTarget(0.5)
+                    .restart()
+            }             
+        });
         //text label
         
 /*         const labels = svg.selectAll('.label')
@@ -193,8 +233,7 @@ function bubbles(){
             .attr('dy', '.35em')
             .text(d => d.name) */
         
-        simulation.nodes(datapoints).on('tick', ticked)
+        simulation.nodes(var_datapoints).on('tick', ticked)
         
     }
 }
-
