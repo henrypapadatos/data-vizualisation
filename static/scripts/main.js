@@ -2,7 +2,7 @@ import COUNTRIES from "../data/countries.json" assert { type: "json" };
 import { draw2DMap } from "./maps.js";
 import { drawCrowd } from "./crowd.js";
 import { drawLineChart } from "./distribution.js";
-import { drawBubbles } from "./charity_bubbles.js";
+import { drawCharityBubbles } from "./charity_bubbles.js";
 import { drawGroups } from "./groupsBubbles.js";
 
 
