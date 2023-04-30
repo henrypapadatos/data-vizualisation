@@ -1,5 +1,5 @@
-export {drawBubbles};
-function drawBubbles() {
+export {drawCharityBubbles};
+function drawCharityBubbles() {
     console.log("drawBubbles");
     bubbles();
 }

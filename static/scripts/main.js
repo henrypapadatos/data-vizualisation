@@ -2,7 +2,7 @@ import COUNTRIES from "../data/countries.json" assert { type: "json" };
 import { draw2DMap } from "./maps.js";
 import { drawCrowd } from "./crowd.js";
 import { drawLineChart } from "./distribution.js";
-import { drawBubbles } from "./interactive_bubbles.js";
+import { drawBubbles } from "./charity_bubbles.js";
 import { drawGroups } from "./groupsBubbles.js";
 
 
@@ -105,7 +105,7 @@ function displayVisuals() {
 	// drawLineChart();
 	// draw2DMap(income, adults, children);
 	// drawCrowd(50);
-	drawBubbles();
+	drawCharityBubbles();
 	//drawGroups();
 
 	// Scroll visuals into view
