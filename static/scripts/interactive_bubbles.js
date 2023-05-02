@@ -7,7 +7,7 @@ function drawBubbles() {
 
 function bubbles(){
     var width = 1000, height = 1000;
-    const bubblesContainer = d3.select("#visuals")
+    const bubblesContainer = d3.select("#bubbles-container")
         .append("div")
         .attr("id", "bubbles-container")
         .style("position","relative");

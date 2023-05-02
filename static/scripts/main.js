@@ -1,5 +1,5 @@
 import COUNTRIES from "../data/countries.json" assert { type: "json" };
-import { draw2DMap } from "./maps.js";
+import { draw2DMap, draw2DMap2 } from "./maps.js";
 import { drawCrowd } from "./crowd.js";
 import { drawLineChart } from "./distribution.js";
 import { drawBubbles } from "./interactive_bubbles.js";
@@ -51,29 +51,39 @@ function rangeSliderController() {
 function createSlider() {
 	const sliderContainer = d3.select("#visuals").append("div").attr("id", "floating-slider-container")
 	sliderContainer.append("div").attr("id", "slider")
-	sliderContainer.append("div").attr("id", "value-bubble")
+	// sliderContainer.append("div").attr("id", "value-bubble")
 
 	const sliderElement = document.getElementById("slider");
-	const valueBubble = document.getElementById("value-bubble");
+	// const valueBubble = document.getElementById("value-bubble");
+
+	function filterPips(value, type){
+		if (type === 0) {
+			return value < 5 ? -1 : 2;
+		}
+		return value % 10 ? 2 : 1;
+	}
 
 	noUiSlider.create(sliderElement, {
 		start: 10,
 		orientation: 'vertical',
+		connect: 'lower',
 		tooltips: false,
 		range: {
-		  	'min': [0, 10],
-			'50%': [25, 50],
+		  	'min': [0],
+			'10%':[10, 5],
 		  	'max': [50]
 		},
 		direction: 'rtl',
 		pips: {
 		  mode: 'steps',
-		  density: 5
+		  density: 10,
+		  stepped: true
 		}
 	  });
 	  
 	  sliderElement.noUiSlider.on('update', (values, handle) => {
-		valueBubble.innerText = Math.round(parseFloat(values[handle]));
+		// Update value button
+		// valueBubble.innerText = Math.round(parseFloat(values[handle]));
 	  });
 	  
 	  // Update the value bubble on page load
@@ -101,12 +111,12 @@ function displayVisuals() {
 	const adults = document.getElementById("adults").value;
 	const children = document.getElementById("children").value;
 
-	// createSlider();
-	// drawLineChart();
-	// draw2DMap(income, adults, children);
-	// drawCrowd(50);
+	createSlider();
+	drawLineChart();
+	drawGroups();
+	draw2DMap2(income, adults, children);
 	drawBubbles();
-	//drawGroups();
+	drawCrowd(100);
 
 	// Scroll visuals into view
 	calculateButton.scrollIntoView({behavior: "smooth"});
@@ -115,7 +125,7 @@ function displayVisuals() {
 
 
 whenDocumentLoaded(() => {
-	//displayVisuals();
+	displayVisuals();
 	populateCountriesDropdown();
 	armCalculateButton();
 

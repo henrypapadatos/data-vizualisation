@@ -1,15 +1,13 @@
 import GNI_PER_CAPITA from "../data/gni_per_capita.json" assert { type: "json" };
-export {draw2DMap};
+export {draw2DMap, draw2DMap2};
 
-function draw2DMap(income, adults, cildren) {
+function draw2DMap(income, adults, children) {
 	// Code and tutorial from https://bost.ocks.org/mike/map
 	let country_ratios = {};
 
-	// const margin = {top: 20, right: 10, bottom: 40, left: 100};
 	const margin = {top: 0, right: 0, bottom: 0, left: 0};
-	const width = 1100 - margin.left - margin.right;
+	const width = document.getElementById("map-container").offsetWidth - margin.left - margin.right; ;
     const height = 600 - margin.top - margin.bottom;
-	const mapContainer = d3.select("#visuals").append("div").attr("id", "map-container");
 
 	d3.json("static/data/updated-countries-50m.json").then((world) => {
 		const land = topojson.feature(world, world.objects.countries);
@@ -34,6 +32,7 @@ function draw2DMap(income, adults, cildren) {
 			.attr("width", width)
 			.attr("height", height)
 			.style("fill", "#faf4f4");
+
 
 		// Adding individual countries as paths
 		map.selectAll(".country")
@@ -93,6 +92,96 @@ function draw2DMap(income, adults, cildren) {
 		);
 
 	});
+}
+
+
+function draw2DMap2(income, adults, children) {
+	let country_ratios = {};
+	const margin = {top: 0, right: 0, bottom: 0, left: 0};
+	const width = document.getElementById("map-container").offsetWidth - margin.left - margin.right; ;
+    const height = 600 - margin.top - margin.bottom;
+	let projection = d3.geoNaturalEarth1();
+
+	// Adding the svg element
+	let svg = d3.select("#map-container")
+				.append("svg")
+				.attr("width", width)
+				.attr("height", height)
+				.attr("id", "map-svg");
+	
+	// Adding a group element for the map
+	let map = svg.append("g").attr("class", "map");
+
+	// Adding legend color scale
+	var color = d3.scaleLinear().range(["white", "red"]);
+	color.domain([1, 50]);
+
+	// Adding a background rectangle
+	map.append("rect")
+		.attr("width", width)
+		.attr("height", height)
+		.style("fill", "#faf4f4");
+
+	d3.json("https://raw.githubusercontent.com/holtzy/D3-graph-gallery/master/DATA/world.geojson").then((data) => {
+
+		// Draw the map
+		map.selectAll("path")
+			.data(data.features)
+			.enter().append("path")
+			.style("stroke", "grey")
+				.attr("class", "country")
+				.attr("d", d3.geoPath().projection(projection))
+				.attr("fill", function(country) { 
+					// Color based on the proportion of your average income compared to other countries
+					if (!(country.id in GNI_PER_CAPITA)) {
+						return "white";
+					}
+					let ppp_avg_income = GNI_PER_CAPITA[country.id]["income"]
+					let ratio = income /  (ppp_avg_income * adults);
+	
+					ratio = Math.round(ratio)
+					country_ratios[country.id] = ratio;
+	
+					if (ratio < 1) {
+						ratio = 1;
+					}
+					else if (ratio > 50) {
+						ratio = 50;
+					}
+					return color(ratio); 
+				})
+				.on("mouseover", function(event) {
+					// Update the information box with the country name
+					d3.select("body")
+						.append("div")
+						.attr("id", "info-box")
+						.html(() => {
+							// console.log(event.clientX, event.clientY)
+							// console.log(event.target.getBoundingClientRect())
+							if (country_ratios[event.target.__data__.id] == undefined) {
+								return `<h3>${event.target.__data__.properties.name}</h3><p>No data available</p>`
+							}
+							return `<h3>${event.target.__data__.properties.name}</h3>
+									<p>Has <strong>${country_ratios[event.target.__data__.id]} times</strong> lower average income that your</p>`	
+						})
+						.style("left", event.clientX + 30 + "px")
+						.style("top", event.target.getBoundingClientRect().top + window.scrollY +  10 +"px");
+				})
+				.on("mouseout", function(country) {
+					// Hide the information box
+					d3.select('#info-box').remove();
+				});
+		
+		// https://observablehq.com/@harrystevens/introducing-d3-geo-scale-bar
+		map.call(d3.zoom()
+			.scaleExtent([1, 3])
+			.translateExtent([[0, 0], [width, height]])
+			.on("zoom", event => {
+				map.attr("transform", event.transform);
+                d3.selectAll(".country").attr("stroke-width", 1 / event.transform.k  + "px");
+			})
+		);
+	})
 }
 
 

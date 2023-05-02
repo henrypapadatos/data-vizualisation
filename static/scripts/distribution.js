@@ -71,7 +71,7 @@ function LineChart(data, {
         .x(i => xScale(X[i]))
         .y(i => yScale(Y[i]));
 
-    const distributionContainer = d3.select("#visuals").append("div").attr("id", "distribution-container");
+    const distributionContainer = d3.select("#distribution-container");
 
     // Adding the svg element
     let svg = d3.select("#distribution-container")

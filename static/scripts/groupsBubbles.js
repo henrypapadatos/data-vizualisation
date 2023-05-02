@@ -15,10 +15,8 @@ function drawGroups() {
     let height = 954;
     let size = Math.max(width, height);
 
-    const distributionContainer = d3.select("#visuals").append("div").attr("id", "bubbleGroup-container");
-
     // Adding the svg element
-    let svg = d3.select("#distribution-container")
+    let svg = d3.select("#bubbleGroup-container")
         .append("svg")
         .attr("viewBox", [-width / 2, -height / 2, width, height])
         .style("background", "#333")

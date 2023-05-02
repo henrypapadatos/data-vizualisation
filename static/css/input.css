@@ -23,6 +23,17 @@ body {
     font-family: 'Metropolis', sans-serif;
 }
 
+#info-box {
+    position: absolute;
+    text-align: left;
+    width: 120px;
+    height: 100px;
+    padding: 0 10px 10px 10px;
+    font: 11px sans-serif;
+    background: #ddd;
+    border: solid 1px #aaa;
+}
+
 input[type="range"]::-webkit-slider-thumb {
     -webkit-appearance: none;
     background-color: var(--red);
@@ -45,19 +56,55 @@ input[type="range"]::-webkit-slider-runnable-track {
 }
 
 #floating-slider-container {
-    display: absolute;
-    position: sticky;
+    position: fixed;
     top: 50%;
+    right:0;
+    transform: translateY(-50%);
+    margin-right: 80px;
 }
   
 #slider {
-    height: 300px;
-    margin-bottom: 10px;
-    background: #c0392b;
+    height: 500px;
+    width: 30px;
+    background: var(--grey);
+    border: transparent;
+}
+
+.noUi-connect {
+    background: linear-gradient(to bottom, var(--pink), var(--light-yellow));;
+}
+
+.noUi-value-vertical {
+    -webkit-transform: translate(0, -50%);
+    transform: translate(0, -50%);
+    padding-left: 60px;
+    
+}
+
+.noUi-value-sub {
+    color: #bbb;
+    font-size: 12px;
+}
+
+.noUi-pips {
+    position: absolute;
+    z-index: 10;
+    display: flex;
+    justify-content: center;
+    color: #999;
+}
+
+.noUi-pips-vertical {
+    left:50%;
+    padding: 0%;
+    z-index: 10;
+    display: flex;
+    justify-content: center;
+
 }
   
-.value-bubble {
-    background-color: #fff;
+#value-bubble {
+    background-color: greenyellow;
     border: 1px solid #ccc;
     border-radius: 50%;
     padding: 5px 10px;
