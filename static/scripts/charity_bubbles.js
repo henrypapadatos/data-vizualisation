@@ -4,17 +4,21 @@ function drawCharityBubbles() {
     bubbles();
 }
 function bubbles(){
-    var width = 800, height = 800;
+    var width = 1000, height = 1000;
     const bubblesContainer = d3.select("#visuals")
         .append("div")
         .attr("id", "bubbles-container")
-        .style("position","relative");
+        .attr("class", "relative container p-6")
+        //.style("position","relative");
+        //.style('background-color', 'yellow');
+
+    
     var svg = bubblesContainer
         .append("svg")
         .attr("height", height)
         .attr("width", width)
         .append("g")
-        .attr("transform","translate(0,0)")
+        .attr("transform","translate(0,0)");
     
 
     const cornerBoxData = [
@@ -40,8 +44,9 @@ function bubbles(){
         .text(d => d.text);
 
     const buttons = [
-        {id : 'button_cause', text : 'Cause Separation'},
-        {id : 'combine', text : 'Combine'},
+        //{id : 'button_cause', text : 'Cause Separation'},
+        //{id : 'combine', text : 'Combine'},
+        {id: 'All', text : 'All'},
         {id : 'button_Animal_welfare', text : 'Animal welfare'},
         {id : 'button_Human_wellbeing', text : 'Human wellbeing'},
         {id : 'button_Creating_a_better_future', text : 'Creating a better future'},
@@ -51,16 +56,24 @@ function bubbles(){
 
     
     const buttons_section = d3.select("#bubbles-container")
-        .append("nav")
+        .append("div")
         .attr("id", "button_section")
-        .attr("class", "bg-gwwc-dark-grey rounded-lg w-3.5 h-3.5");
-        
+        .attr("class", "flex flex-row absolute rounded-lg")
+        .style("justify-content", "center")
+        .style("top", "60px")
+        .style("left","220px")
+        .style("gap", "8px")    
+        .style("width", "9")  
+        .style("height", "9")    
+        .style("background-color", "gwwc-grey")
     buttons.forEach(e => { 
         buttons_section//bubbles.selectAll('button')
             .append("button")
             .attr("id", e.id)
-            .attr("class", "flex flex-col bg-gwwc-purple hover:bg-gwwc-dark-purple active:bg-gwwc-darkest-purple w-auto text-white")
-            .text(e.text)
+            .attr("class", "bg-gwwc-purple p-8 hover:bg-gwwc-dark-purple active:bg-gwwc-darkest-purple rounded-lg text-white")
+            .style("padding", "2.5px 5px")
+            
+            .text(e.text);
             //.attr("width", "10%")
             //.attr("display", "block");
             
@@ -90,9 +103,9 @@ function bubbles(){
 
     var forceY_Separate = d3.forceY(function(d)  {
         if(d.cause_area == 'Human wellbeing' || d.cause_area == 'Creating a better future'){
-            return height/4
+            return height/4 + 100
         }else{
-            return (height * (3/4))
+            return (height * (3/4) + 100)
         }}).strength(0.05)        
 
     var forceX_Combine = d3.forceX(width / 2).strength(0.05)
@@ -109,7 +122,7 @@ function bubbles(){
 
 
     let separated_bubbles = false;
-
+/*
     d3.select("#button_cause").on('click', () => {
         simulation
             .force("x", forceX_Separate)
@@ -121,8 +134,6 @@ function bubbles(){
         separated_bubbles = true;
         });
 
-    
-
     d3.select("#combine").on('click', () => {
         simulation
             .force("x", forceX_Combine)
@@ -132,9 +143,18 @@ function bubbles(){
         d3.select("#bubbles-container").selectAll('.cause_area-box')
             .style('opacity', '0.0');
         separated_bubbles = false;
-        
     });
-
+*/
+    d3.select("#All").on('click', () => {
+        simulation
+            .force("x", forceX_Separate)
+            .force("y", forceY_Separate)
+            .alphaTarget(0.5)
+            .restart();
+        d3.select("#bubbles-container").selectAll('.cause_area-box')
+            .style('opacity', '1.0');
+        separated_bubbles = true;
+        });
     d3.csv("static/data/charities.csv").then(ready);
 
     function ready(datapoints) {

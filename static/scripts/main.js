@@ -9,6 +9,7 @@ import { drawGroups } from "./groupsBubbles.js";
 function whenDocumentLoaded(action) {
 	if (document.readyState === "loading") {
 		document.addEventListener("DOMContentLoaded", action);
+		drawCharityBubbles();
 	} else {
 		action();
 	}
@@ -101,10 +102,10 @@ function displayVisuals() {
 	const adults = document.getElementById("adults").value;
 	const children = document.getElementById("children").value;
 
-	// createSlider();
-	// drawLineChart();
-	// draw2DMap(income, adults, children);
-	// drawCrowd(50);
+	//createSlider();
+	//drawLineChart();
+	//draw2DMap(income, adults, children);
+	//drawCrowd(50);
 	drawCharityBubbles();
 	//drawGroups();
 
@@ -116,6 +117,7 @@ function displayVisuals() {
 
 whenDocumentLoaded(() => {
 	//displayVisuals();
+	//drawCharityBubbles();
 	populateCountriesDropdown();
 	armCalculateButton();
 

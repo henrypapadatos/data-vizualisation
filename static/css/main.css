@@ -922,6 +922,11 @@ video {
   vertical-align: top;
 }
 
+.text-4xl {
+  font-size: 2.25rem;
+  line-height: 2.5rem;
+}
+
 .text-6xl {
   font-size: 3.75rem;
   line-height: 1;
@@ -945,11 +950,6 @@ video {
 .text-xs {
   font-size: 0.75rem;
   line-height: 1rem;
-}
-
-.text-4xl {
-  font-size: 2.25rem;
-  line-height: 2.5rem;
 }
 
 .font-bold {
@@ -1037,29 +1037,8 @@ video {
 
 body {
   font-family: 'Metropolis', sans-serif;
-  
 }
 
-.charity-box {
-  position: absolute;
-  background-color: white;
-  border: 1px solid #ba2934;
-  padding: 10px;
-  font-family: 'Metropolis', sans-serif;
-  font-size: 13px;
-}
-
-/*
-.cause_area-box {
-  position: absolute;
-  background-color: white;
-  border: 1px solid #ba2934;
-  padding: 10px;
-  font-family: 'Metropolis', sans-serif;
-  font-size: 20px;
-  opacity: 0.0;
-}
-*/
 input[type="range"]::-webkit-slider-thumb {
   -webkit-appearance: none;
   background-color: var(--red);
