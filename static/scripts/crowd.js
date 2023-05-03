@@ -10,15 +10,15 @@ function indexInRow(index){
 
 function drawCrowd(people) {
     const margin = {top: 0, right: 0, bottom: 0, left: 0};
-	const width = 600 - margin.left - margin.right;
-    const height = 600 - margin.top - margin.bottom;
+	const width = window.innerWidth; //600 - margin.left - margin.right;
+    const height = 400 - margin.top - margin.bottom;
 
-    const crowdContainer = d3.select("#visuals").append("div").attr("id", "crowd-container");
+    const crowdContainer = d3.select("#crowd-container");
 
     // Adding the svg element
-    let svg = d3.select("#crowd-container")
+    let svg = crowdContainer
                 .append("svg")
-                .attr("width", width)
+                .attr("width", "100%")
                 .attr("height", height)
                 .attr("id", "crowd-svg");
 

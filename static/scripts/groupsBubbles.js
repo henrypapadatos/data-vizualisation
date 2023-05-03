@@ -15,8 +15,6 @@ function drawGroups() {
     let height = 954;
     let size = Math.max(width, height);
 
-    const distributionContainer = d3.select("#visuals").append("div").attr("id", "bubbleGroup-container");
-
     // Adding the svg element
     let svg = d3.select("#bubbleGroup-container")
         .append("svg")
