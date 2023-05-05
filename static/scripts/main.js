@@ -118,11 +118,11 @@ function displayVisuals() {
 	const children = document.getElementById("children").value;
 
 	createSlider();
-	// drawLineChart();
-	// drawGroups();
-	// draw2DMap2(income, adults, children);
-	// drawCrowd(100);
-	// drawCharityBubbles();
+	drawLineChart();
+	drawGroups();
+	draw2DMap2(income, adults, children);
+	drawCrowd(100);
+	drawCharityBubbles();
 	
 	// Scroll visuals into view
 	calculateButton.scrollIntoView({behavior: "smooth"});
@@ -131,7 +131,6 @@ function displayVisuals() {
 
 
 whenDocumentLoaded(() => {
-	displayVisuals()
 	populateCountriesDropdown();
 	armCalculateButton();
 });
