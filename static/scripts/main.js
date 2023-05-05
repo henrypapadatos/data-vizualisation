@@ -126,8 +126,6 @@ function displayVisuals() {
 
 
 whenDocumentLoaded(() => {
-	displayVisuals();
 	populateCountriesDropdown();
 	armCalculateButton();
-
 });
