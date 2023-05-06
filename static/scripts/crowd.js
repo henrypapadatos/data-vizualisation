@@ -10,7 +10,8 @@ function indexInRow(index){
 
 function drawCrowd(people) {
     const margin = {top: 0, right: 0, bottom: 0, left: 0};
-	const width = window.innerWidth; //600 - margin.left - margin.right;
+    const parentElement = document.getElementById("crowd-container")
+	const width = parentElement.offsetWidth; 
     const height = 400 - margin.top - margin.bottom;
 
     const crowdContainer = d3.select("#crowd-container");
@@ -23,12 +24,14 @@ function drawCrowd(people) {
                 .attr("id", "crowd-svg");
 
     // Adding a group element for the crowd
-    let crowd = svg.append("g").attr("class", "crowd");
+    let crowd = svg.append("g")
+                    .attr("class", "pb-5");
 
-    let r = 24;
+    let r = 20;
+    const bottomPadding = height * 0.25;
     let epsilon = -10;
     let start_x = width / 2;
-    let start_y = height - r;
+    let start_y = height - r - bottomPadding;
     let x = (2 * r + epsilon) / Math.sqrt(2);
     const colors = ["light-yellow", "yellow", "orange", "red", "pink", "purple", "dark-purple", "darkest-purple"]
     let availableRowIndexes = [];

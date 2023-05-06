@@ -61,52 +61,70 @@ input[type="range"]::-webkit-slider-runnable-track {
     right:0;
     transform: translateY(-50%);
     margin-right: 80px;
+    padding: 16px 0;
 }
   
 #slider {
     height: 500px;
     width: 30px;
-    background: var(--grey);
-    border: transparent;
 }
+
+/* Hide markers on slider handles */
+#slider .noUi-handle::before,
+#slider .noUi-handle::after {
+    display: none;
+}
+
+/* Restyle the slider handle */
+.noUi-vertical .noUi-handle {
+    width: 40px;
+    height: 15px;
+    right: -6px;
+    bottom: -8px;
+    border-radius: 9px;
+}
+
+/* Make toich area bigger */
+.noUi-touch-area {
+    border: 1px solid transparent;
+    position: absolute;
+    top: -10px;
+    left: -10px;
+    right: -10px;
+    bottom: -10px;
+    width: auto;
+    height: auto;
+}
+
 
 .noUi-connect {
     background: linear-gradient(to bottom, var(--pink), var(--light-yellow));;
 }
 
+
 .noUi-value-vertical {
     -webkit-transform: translate(0, -50%);
     transform: translate(0, -50%);
     padding-left: 60px;
-    
+}
+
+.noUi-value-large {
+    color: #222222;
+    font-size: 15px;
+    margin-left: 10px;
 }
 
 .noUi-value-sub {
-    color: #bbb;
-    font-size: 12px;
-}
-
-.noUi-pips {
-    position: absolute;
-    z-index: 10;
-    display: flex;
-    justify-content: center;
-    color: #999;
+    color: #222222;
+    font-size: 13px;
+    margin-left: 10px;
 }
 
 .noUi-pips-vertical {
     left:50%;
     padding: 0%;
-    z-index: 10;
     display: flex;
-    justify-content: center;
-
+    justify-content: space-around;
 }
   
-#value-bubble {
-    background-color: greenyellow;
-    border: 1px solid #ccc;
-    border-radius: 50%;
-    padding: 5px 10px;
-    font-size: 12px;
-}
+
