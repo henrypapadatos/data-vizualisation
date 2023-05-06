@@ -8,9 +8,8 @@ function bubbles(){
     const bubblesContainer = d3.select("#visuals")
         .append("div")
         .attr("id", "bubbles-container")
-        .attr("class", "relative container p-6")
-        //.style("position","relative");
-        //.style('background-color', 'yellow');
+        .attr("class", "container relative p-6");
+        //.style("justify-content", "center");
 
     
     var svg = bubblesContainer
@@ -60,12 +59,12 @@ function bubbles(){
         .attr("id", "button_section")
         .attr("class", "flex flex-row absolute rounded-lg")
         .style("justify-content", "center")
-        .style("top", "60px")
-        .style("left","220px")
-        .style("gap", "8px")    
-        .style("width", "9")  
-        .style("height", "9")    
-        .style("background-color", "gwwc-grey")
+        .style("top", "0px")
+        .style("left","0px")
+        .style("gap", "8px");  
+        //.style("width", "auto")  
+        //.style("height", "auto")    
+        //.style("background-color", "gwwc-red")
     buttons.forEach(e => { 
         buttons_section//bubbles.selectAll('button')
             .append("button")
@@ -203,11 +202,17 @@ function bubbles(){
                 var box = d3.select('body')
                     .append("div")
                     .attr("id", "charity-box")
-                    .attr("class", "charity-box")
+                    //.attr("class", "charity-box")
+                    .style("position", "absolute")
                     .style("left", event.pageX + "px")
                     .style("top", event.pageY + "px")
                 box.style("width", "240px")
                     .style("height", "240px")
+                    .style("background-color","white")
+                    .style("border","1px solid #ba2934;")
+                    .style("padding","10px")
+                    .style("font-family","'Metropolis', sans-serif;")
+                    .style("font-size","13px")
                     .text(`Name : ${d.name} Description : ${d.description}`);
                 // Update the position of the box as the mouse moves
                 d3.select('body')

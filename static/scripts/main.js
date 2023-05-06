@@ -34,35 +34,10 @@ function populateCountriesDropdown() {
 	}
 }
 
-function rangeSliderController() {
-	const rangeSlider = document.getElementById("donation-slider");
-	const sliderValueLabel = document.getElementById("donation-slider-val");
-
-	rangeSlider.oninput = () => {
-		if (rangeSlider.value > 10) {
-			rangeSlider.step = 5;
-		}
-		else {
-			rangeSlider.step = 1;
-		}
-		sliderValueLabel.textContent = rangeSlider.value + "%";
-	};
-}
-
 function createSlider() {
-	const sliderContainer = d3.select("#visuals").append("div").attr("id", "floating-slider-container")
-	sliderContainer.append("div").attr("id", "slider")
-	// sliderContainer.append("div").attr("id", "value-bubble")
 
 	const sliderElement = document.getElementById("slider");
-	// const valueBubble = document.getElementById("value-bubble");
-
-	function filterPips(value, type){
-		if (type === 0) {
-			return value < 5 ? -1 : 2;
-		}
-		return value % 10 ? 2 : 1;
-	}
+	const valueBubble = document.getElementById("value-bubble");
 
 	noUiSlider.create(sliderElement, {
 		start: 10,
@@ -80,15 +55,45 @@ function createSlider() {
 		  density: 10,
 		  stepped: true
 		}
-	  });
+	});
 	  
-	  sliderElement.noUiSlider.on('update', (values, handle) => {
+	sliderElement.noUiSlider.on('update', (values, handle) => {
 		// Update value button
-		// valueBubble.innerText = Math.round(parseFloat(values[handle]));
-	  });
-	  
-	  // Update the value bubble on page load
-	  sliderElement.noUiSlider.set(10);
+		let newValue = Math.round(parseFloat(values[handle]));
+		valueBubble.innerText = newValue + "%";
+		for (let i = 0; i < valueBubble.classList.length; i++) {
+			if (valueBubble.classList[i] === "pl-2" && newValue >= 10) {
+				valueBubble.classList.remove("pl-2");
+				valueBubble.classList.add("pl-1");
+			}
+			if (valueBubble.classList[i] === "pl-1" && newValue < 10) {
+				valueBubble.classList.remove("pl-1");
+				valueBubble.classList.add("pl-2");
+			}
+		}
+	});
+	
+	// Update the value bubble on page load
+	sliderElement.noUiSlider.set(10);
+	
+	// Reorder the two noUi elements
+	const nuUiBaseElement = sliderElement.children[0];
+	const noUiPipsElement = sliderElement.children[1];
+	sliderElement.insertBefore(noUiPipsElement, nuUiBaseElement);
+
+	// Change the z-index of the pips element
+	noUiPipsElement.style.zIndex = 1;
+
+	// Remove the last marker element
+	noUiPipsElement.children[noUiPipsElement.children.length - 2].remove()
+
+	// Change the pip values to have a % sign
+	for (let i = 0; i < noUiPipsElement.children.length; i++) {
+
+		if (noUiPipsElement.children[i].classList.contains("noUi-value")) {
+			noUiPipsElement.children[i].innerHTML += "%";
+		}
+	}
 }
 
 function armCalculateButton() {
@@ -116,8 +121,8 @@ function displayVisuals() {
 	drawLineChart();
 	drawGroups();
 	draw2DMap2(income, adults, children);
-	drawCharityBubbles();
 	drawCrowd(100);
+	drawCharityBubbles();
 	
 	// Scroll visuals into view
 	calculateButton.scrollIntoView({behavior: "smooth"});
@@ -126,8 +131,6 @@ function displayVisuals() {
 
 
 whenDocumentLoaded(() => {
-	displayVisuals();
 	populateCountriesDropdown();
 	armCalculateButton();
-
 });
