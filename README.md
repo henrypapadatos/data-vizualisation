@@ -65,7 +65,88 @@ Our approach to improving the GWWC calculator is original because we are using n
 
 ## Milestone 2 (7th May, 5pm)
 
-**10% of the final grade**
+### Goal
+
+The project’s goal is to provide a clear overview of one’s relative position in terms of material wealth to the rest of the world. The user will learn “how rich they are” through computations made from their input and different visualizations. And they will then realize the impact they can have by donating a fraction of their income to effective charities. To convey this, we plan to use 5 visuals: 
+
+
+
+* a dynamic scrolling line graph
+* a graph of 2 grouped bubbles
+* an interactive map of the world, colored using a heatmap
+* an interactive bubble plot of various effective charities
+* an animated crowd plot
+
+The visuals will be further described and shown in the following paragraphs. 
+
+One constraint we have is that everything has to look as good on a mobile device as on a computer. 
+
+**Please find the initial version of our website [here](https://henrypapadatos.github.io/).**
+
+
+### Project component breakdown
+
+The different visuals themselves form 5 independent components of the project. Additionally, since the user also has to interact with the calculator we need an input form to get some information from the user (country, income,...).
+We also need to create a range slider that the user can interact with to control how much of their income they could potentially be donating and what effect that has on the other visuals.  To make the slider we will likely use the [noUiSlider](https://www.npmjs.com/package/nouislider) package.
+
+![Screenshot 2023-05-06 152147](https://user-images.githubusercontent.com/63106608/236626907-934bf3a6-84a7-47bd-a2f0-93879c5f8be4.jpg)
+
+
+### Dynamic line graph
+
+**Description:** The dynamic line graph will draw out the global wealth distribution and show where exactly the user is located based on their input income. The graph is animated and will slowly fill out, up to the user's income. The idea is to show that at the end of the distribution (where the user probably is), the income grows really quickly. 
+
+**Extra ideas:** When the user moves the donation slider, the X value of the graph will update to the new wealth of the user (= base wealth - donations). 
+
+**Tools we will use:** The “[interactive D3](https://moodle.epfl.ch/pluginfile.php/2321914/mod_resource/content/0/5_2_More_interactive_d3.pdf)” lecture and [these](https://observablehq.com/@d3/line-chart) [two](https://observablehq.com/@mbostock/icelandic-population-by-age-1841-2019) examples from D3. 
+
+<img src="https://user-images.githubusercontent.com/63106608/236626962-137ed0c3-7ac6-45ad-89ea-7d2d5271b9a5.jpg"  width="80%" height="40%">
+
+
+### Bubble graph
+
+**Description:** The goal of this visualization is to give a sense of the number of people richer and poorer than you. Each dot will represent 20 million people (we’ll have 400 dots in total). When a user interacts with the donation sliders, his wealth changes. Some dots will migrate from one group to the other accordingly. 
+
+**Extra ideas:** If the interaction with the donation slider doesn’t lead to a change of at least 20 million people, a dot will split into a few smaller dots (each small dot will represent a smaller amount of people) and then, some of these small dots will migrate. 
+
+**Tools we will use:** We use a library called d3-force to simulate physics that will enable us to apply defined forces on circles.
+
+<img src="https://user-images.githubusercontent.com/63106608/236626986-8f9fc188-095c-4334-b974-9e6dbd2f55d8.jpg"  width="60%" height="30%">
+
+
+### World heatmap 
+
+**Description:** The world heatmap will take into account the user’s input yearly salary and will color the world based on how many average incomes the user’s income equals. When hovering the mouse over any country the country name and relevant statistics will be displayed to the user.
+
+**Extra ideas:** When the users hover over the map, the country below the cursor gets a bit bigger. The map could also have a legend to the side that shows the numerical ranges for each color.
+
+**Tools we will use:** The “[map](https://moodle.epfl.ch/pluginfile.php/2389261/mod_resource/content/0/8_1_Maps.pdf)” lecture and the [topojson package](https://www.npmjs.com/package/topojson) with a precompiled topological json file. 
+
+<img src="https://user-images.githubusercontent.com/63106608/236627148-c6b99280-9ba0-4136-87f9-fe91b21ee0b7.png"  width="80%" height="40%">
+
+
+
+### Interactive bubble plot of various effective charities
+
+**Description:** The goal of this visualization is to present a few effective charities (found on the [giving what we can](https://www.givingwhatwecan.org/best-charities-to-donate-to-2023) website). Each bubble is a charity and when the user hovers over them, à description appears. The user can also show a subset of the charities based on their cause area.
+
+**Extra ideas:** When selecting one cause-area we can further distinguish the different charities on their intervention technique ( advocacy, medication distribution, …). One could also change the size of the bubbles according to some metric, e.g. room for further funding.
+
+**Tools we use:** We use d3-force like for the bubble graph.
+
+<img src="https://user-images.githubusercontent.com/63106608/236627406-baa37ad0-a1c3-4b40-8a71-c2b77833de0c.jpg"  width="40%" height="20%">
+
+
+
+### Animated crowd plot 
+
+**Description**: The animated crowd plot consists of sequentially created circles in an upside down pyramid shape to convey a crowd of people showing how many people you could save over the course of your life if you donated X% of your income. Each circle is colored randomly to show that people of different ethnicities will benefit. 
+
+**Extra ideas**: Instead of just circles we could use stick-figure SVGs on the sides of the crowd to further establish that this is a crowd of people.
+
+**Tools we use**: This plot got inspiration from the first course homework with D3 where circles are dynamically created and colored. 
+
+![cropped](https://user-images.githubusercontent.com/63106608/236627419-4050461c-5478-4d2a-8597-7029c67b3664.gif)
 
 
 ## Milestone 3 (4th June, 5pm)
