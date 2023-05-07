@@ -21,10 +21,10 @@ function bubbles(){
     
 
     const cornerBoxData = [
-        { className: 'top-left', top: height / 8, left: width / 8, text: 'Human wellbeing' },
-        { className: 'top-right', top: height / 8, left: width * (3/4), text: 'Climate Change' },
+        { className: 'top-left', top: height / 8, left: width / 8, text: 'Global Health' },
+        { className: 'top-right', top: height / 8, left: width * (3/4), text: 'Biological Risks' },
         { className: 'bottom-left', top:  height * (5/8), left: width / 8, text: 'Animal Welfare' },
-        { className: 'bottom-right', top: height * (5/8), left:  width * (5/8), text: 'Creating a better future' }
+        { className: 'bottom-right', top: height * (5/8), left:  width * (5/8), text: 'Climate Crisis' }
     ];
     
     bubblesContainer.selectAll('.cause_area-box')
@@ -43,13 +43,13 @@ function bubbles(){
         .text(d => d.text);
 
     const buttons = [
-        //{id : 'button_cause', text : 'Cause Separation'},
-        //{id : 'combine', text : 'Combine'},
-        {id: 'All', text : 'All'},
-        {id : 'button_Animal_welfare', text : 'Animal welfare'},
-        {id : 'button_Human_wellbeing', text : 'Human wellbeing'},
-        {id : 'button_Creating_a_better_future', text : 'Creating a better future'},
-        {id : 'button_Climate_Change', text : 'Climate Change'}
+        {id : 'button_cause', text : 'Cause Separation'},
+        {id : 'combine', text : 'Combine'},
+        //{id: 'All', text : 'All'},
+        {id : 'button_Animal_welfare', text : 'Animal Welfare'},
+        {id : 'button_Human_wellbeing', text : 'Global Health'},
+        {id : 'button_Creating_a_better_future', text : 'Biological Risks'},
+        {id : 'button_Climate_Change', text : 'Climate Crisis'}
         ]
     const cause_areas = ["Animal welfare", "Human wellbeing", "Creating a better future", "Climate Change"];
 
@@ -121,29 +121,9 @@ function bubbles(){
 
 
     let separated_bubbles = false;
-/*
-    d3.select("#button_cause").on('click', () => {
-        simulation
-            .force("x", forceX_Separate)
-            .force("y", forceY_Separate)
-            .alphaTarget(0.5)
-            .restart();
-        d3.select("#bubbles-container").selectAll('.cause_area-box')
-            .style('opacity', '1.0');
-        separated_bubbles = true;
-        });
 
-    d3.select("#combine").on('click', () => {
-        simulation
-            .force("x", forceX_Combine)
-            .force("y", forceY_Combine)
-            .alphaTarget(0.5)
-            .restart();
-        d3.select("#bubbles-container").selectAll('.cause_area-box')
-            .style('opacity', '0.0');
-        separated_bubbles = false;
-    });
-*/
+
+/*
     d3.select("#All").on('click', () => {
         simulation
             .force("x", forceX_Separate)
@@ -153,7 +133,7 @@ function bubbles(){
         d3.select("#bubbles-container").selectAll('.cause_area-box')
             .style('opacity', '1.0');
         separated_bubbles = true;
-        });
+        });*/
     d3.csv("static/data/charities.csv").then(ready);
 
     function ready(datapoints) {
@@ -212,7 +192,7 @@ function bubbles(){
                     .style("border","1px solid #ba2934;")
                     .style("padding","10px")
                     .style("font-family","'Metropolis', sans-serif;")
-                    .style("font-size","13px")
+                    .style("font-size","14px")
                     .text(`Name : ${d.name} Description : ${d.description}`);
                 // Update the position of the box as the mouse moves
                 d3.select('body')
@@ -230,6 +210,26 @@ function bubbles(){
         var circles = join_circles(var_datapoints);
         let removedCircles = false;
         let last_clicked_cause = "";
+        function merge_bubbles(){
+            // put everything back to center
+            simulation
+                .nodes(var_datapoints)
+                .force("x", forceX_Combine)
+                .force("y", forceY_Combine)
+                .alphaTarget(0.5)
+                .restart();
+            separated_bubbles = false
+   
+        }
+        function separate_bubbles(){
+            simulation
+                .nodes(var_datapoints)
+                .force("x", forceX_Separate)
+                .force("y", forceY_Separate)
+                .alphaTarget(0.5)
+                .restart();
+            separated_bubbles = true
+        }
         function filter_cause_area(cause_area){
             //filter the bubbles accordingly
             if (removedCircles == false || (removedCircles = true &&  last_clicked_cause != cause_area)) {
@@ -243,22 +243,9 @@ function bubbles(){
             }
             circles = join_circles(var_datapoints);
             join_defs();
-            last_clicked_cause = cause_area
-
-            // put everything back to center
-            if(separated_bubbles == true){
-                simulation
-                    .nodes(var_datapoints)
-                    .force("x", forceX_Separate)
-                    .force("y", forceY_Separate)
-            } else {
-                simulation
-                    .nodes(var_datapoints)
-                    .force("x", forceX_Combine)
-                    .force("y", forceY_Combine)
-                    .alphaTarget(0.5)
-                    .restart()
-            }             
+            last_clicked_cause = cause_area       
+            merge_bubbles();
+            
         }
         
         cause_areas.forEach(cause_area => { 
@@ -267,7 +254,23 @@ function bubbles(){
             });
             
         });
-        
+        d3.select("#button_cause").on('click', () => {
+            var_datapoints = original_datapoints;
+            circles = join_circles(var_datapoints);
+            join_defs();  
+            separate_bubbles();          
+            d3.select("#bubbles-container").selectAll('.cause_area-box')
+                .style('opacity', '1.0');
+            });
+    
+        d3.select("#combine").on('click', () => {
+            var_datapoints = original_datapoints;
+            circles = join_circles(var_datapoints);
+            join_defs();            
+            merge_bubbles();
+            d3.select("#bubbles-container").selectAll('.cause_area-box')
+                .style('opacity', '0.0');
+        });
         //text label
         
 /*         const labels = svg.selectAll('.label')
