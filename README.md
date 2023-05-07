@@ -144,7 +144,7 @@ We also need to create a range slider that the user can interact with to control
 
 **Tools we use:** We use d3-force like for the bubble graph.
 
-<img src="https://user-images.githubusercontent.com/63106608/236627406-baa37ad0-a1c3-4b40-8a71-c2b77833de0c.jpg"  width="40%" height="20%">
+<img src="https://user-images.githubusercontent.com/45995390/236673344-a633ba72-9b7f-4d09-8f8f-92ca0ca4a936.png" width="40%" height="20%">
 
 
 
