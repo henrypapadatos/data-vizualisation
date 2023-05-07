@@ -81,8 +81,8 @@ The visuals will be further described and shown in the following paragraphs.
 
 One constraint we have is that everything has to look as good on a mobile device as on a computer. 
 
-**Please find the initial version of our website [here](https://henrypapadatos.github.io/). (!! DOESN'T WORK ON FIREFOX !!)**
-
+**Please find the initial version of our website [here](https://henrypapadatos.github.io/). 
+Disclaimer: the website doesn't work properly on firefox so far. And the cache sometimes causes problems, make sure to empty it!
 
 ### Project component breakdown
 
