@@ -126,6 +126,16 @@ We also need to create a range slider that the user can interact with to control
 
 
 
+### Animated crowd plot 
+
+**Description**: The animated crowd plot consists of sequentially created circles in an upside down pyramid shape to convey a crowd of people showing how many people you could save over the course of your life if you donated X% of your income. Each circle is colored randomly to show that people of different ethnicities will benefit. 
+
+**Extra ideas**: Instead of just circles we could use stick-figure SVGs on the sides of the crowd to further establish that this is a crowd of people.
+
+**Tools we use**: This plot got inspiration from the first course homework with D3 where circles are dynamically created and colored. 
+
+![cropped](https://user-images.githubusercontent.com/63106608/236627419-4050461c-5478-4d2a-8597-7029c67b3664.gif)
+
 ### Interactive bubble plot of various effective charities
 
 **Description:** The goal of this visualization is to present a few effective charities (found on the [giving what we can](https://www.givingwhatwecan.org/best-charities-to-donate-to-2023) website). Each bubble is a charity and when the user hovers over them, à description appears. The user can also show a subset of the charities based on their cause area.
@@ -137,16 +147,6 @@ We also need to create a range slider that the user can interact with to control
 <img src="https://user-images.githubusercontent.com/63106608/236627406-baa37ad0-a1c3-4b40-8a71-c2b77833de0c.jpg"  width="40%" height="20%">
 
 
-
-### Animated crowd plot 
-
-**Description**: The animated crowd plot consists of sequentially created circles in an upside down pyramid shape to convey a crowd of people showing how many people you could save over the course of your life if you donated X% of your income. Each circle is colored randomly to show that people of different ethnicities will benefit. 
-
-**Extra ideas**: Instead of just circles we could use stick-figure SVGs on the sides of the crowd to further establish that this is a crowd of people.
-
-**Tools we use**: This plot got inspiration from the first course homework with D3 where circles are dynamically created and colored. 
-
-![cropped](https://user-images.githubusercontent.com/63106608/236627419-4050461c-5478-4d2a-8597-7029c67b3664.gif)
 
 
 ## Milestone 3 (4th June, 5pm)
