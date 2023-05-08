@@ -122,7 +122,8 @@ function draw2DMap2(income, adults, children) {
 		.attr("height", height)
 		.style("fill", "#faf4f4");
 
-	d3.json("https://raw.githubusercontent.com/holtzy/D3-graph-gallery/master/DATA/world.geojson").then((data) => {
+	// https://raw.githubusercontent.com/holtzy/D3-graph-gallery/master/DATA/world.geojson
+	d3.json("static/data/world.geojson").then((data) => {
 
 		// Draw the map
 		map.selectAll("path")

@@ -28,7 +28,7 @@
         <script src="https://unpkg.com/topojson@3"></script>
         <script src="https://unpkg.com/topojson-client@2"></script>
         <script src="https://cdnjs.cloudflare.com/ajax/libs/noUiSlider/15.7.0/nouislider.min.js"></script>
-
+        <script crossorigin src="https://unpkg.com/country-to-currency" ></script>
         <script type="module" src="static/scripts/main.js"></script> 
 
         <script type="module">
@@ -149,7 +149,7 @@
                                 <div class="relative inline-flex text-base items-center box-border border-b border-black hover:shadow-md">
                                     <input class="bg-beige w-full h-2 py-3 focus:outline-none text-center text-sm" id="income" type="text" value="123123">
                                     <div class="currency-container">
-                                        <p class="currency">USD</p>
+                                        <p id="currency-label" class="currency">USD</p>
                                     </div>
                                 </div>
                                 <p class="text-gray-600 text-xs text-left pt-1">Enter your annual <strong>post-tax</strong> household income in USD</p>

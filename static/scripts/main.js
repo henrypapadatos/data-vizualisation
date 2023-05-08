@@ -110,6 +110,19 @@ function armCalculateButton() {
 	});
 }
 
+function armContrySelection() {
+	const countrySelect = document.getElementById("country-select");
+	countrySelect.addEventListener("change", (event) => {
+		const selectedCountryCode = event.target.value;
+		for (let i = 0; i < COUNTRIES.length; i++) {
+			if (COUNTRIES[i].code === selectedCountryCode) {
+				document.getElementById("currency-label").innerText = countryToCurrency[COUNTRIES[i].alpha2Code];
+				break;
+			}			
+		}
+	});
+}
+
 function displayVisuals() {
 	const calculateButton = document.getElementById("calculate");
 	const countryCode = document.getElementById("select-country").value;
@@ -128,9 +141,8 @@ function displayVisuals() {
 	calculateButton.scrollIntoView({behavior: "smooth"});
 }
 
-
-
 whenDocumentLoaded(() => {
 	populateCountriesDropdown();
 	armCalculateButton();
+	armContrySelection();
 });
