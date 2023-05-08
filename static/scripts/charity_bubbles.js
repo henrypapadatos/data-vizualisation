@@ -5,12 +5,8 @@ function drawCharityBubbles() {
 }
 function bubbles(){
     var width = 1000, height = 1000;
-    const bubblesContainer = d3.select("#visuals")
-        .append("div")
-        .attr("id", "bubbles-container")
-        .attr("class", "container relative p-6");
-        //.style("justify-content", "center");
-
+    const bubblesContainer = d3.select("#bubbles-container")
+    
     
     var svg = bubblesContainer
         .append("svg")

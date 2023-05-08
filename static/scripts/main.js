@@ -1,10 +1,11 @@
-import COUNTRIES from "../data/countries.json" assert { type: "json" };
+// import COUNTRIES from "../data/countries.json" assert { type: "json" };
 import { draw2DMap, draw2DMap2 } from "./maps.js";
 import { drawCrowd } from "./crowd.js";
 import { drawLineChart } from "./distribution.js";
 import { drawCharityBubbles } from "./charity_bubbles.js";
 import { drawGroups } from "./groupsBubbles.js";
 
+let visualsDisplayed = false;
 
 function whenDocumentLoaded(action) {
 	if (document.readyState === "loading") {
@@ -17,21 +18,27 @@ function whenDocumentLoaded(action) {
 
 function cleanup() {
 	// Remove all graphs from the page when the tries to use the calculator again
-	document.getElementById("visuals").innerHTML = "";
+	document.getElementById("distribution-container").innerHTML = "";
+	document.getElementById("bubbleGroup-container").innerHTML = "";
+	document.getElementById("map-container").innerHTML = "";
+	document.getElementById("crowd-container").innerHTML = "";
+	document.getElementById("bubbles-container").innerHTML = "";
 }
 
-function populateCountriesDropdown() {
+function populateCountriesDropdown(countries) {
 	const dropdown = document.getElementById('select-country');
-	
-	for (let i = 0; i < COUNTRIES.length; i++) {
-		if (COUNTRIES[i].code === "US") {
+
+	for (let i = 0; i < countries.length; i++) {
+		if (countries[i].code === "US") {
 			continue;
 		}
 		const option = document.createElement('option');
-		option.text = COUNTRIES[i].name;
-		option.value = COUNTRIES[i].code;
+		option.text = countries[i].name;
+		option.value = countries[i].code;
 		dropdown.add(option);
 	}
+
+	
 }
 
 function createSlider() {
@@ -97,30 +104,46 @@ function createSlider() {
 }
 
 function armCalculateButton() {
-	const calculateButton = document.getElementById("calculate");
+	const calculateButton = document.getElementById("calc_button");
 	const visuals = document.getElementById("visuals");
+	
 	calculateButton.addEventListener("click", function() {
+	
 		// Clear the contents of #visuals
-		//cleanup();
+		if (visualsDisplayed) {
+			cleanup();
+		}
 
 		visuals.classList.remove("hidden");
-
-		console.log("button clicked");
 		displayVisuals();
+		visualsDisplayed = true;
 	});
 }
 
-function armContrySelection() {
+function armContrySelection(countries) {
+
 	const countrySelect = document.getElementById("country-select");
+	
 	countrySelect.addEventListener("change", (event) => {
 		const selectedCountryCode = event.target.value;
-		for (let i = 0; i < COUNTRIES.length; i++) {
-			if (COUNTRIES[i].code === selectedCountryCode) {
-				document.getElementById("currency-label").innerText = countryToCurrency[COUNTRIES[i].alpha2Code];
+		for (let i = 0; i < countries.length; i++) {
+			if (countries[i].code === selectedCountryCode) {
+				document.getElementById("currency-label").innerText = countryToCurrency[countries[i].alpha2Code];
 				break;
 			}			
 		}
 	});
+}
+
+function inputSectionSetup() {
+	fetch("static/data/countries.json")
+		.then(response => response.json())
+		.then(countries => {
+			populateCountriesDropdown(countries);
+			armCalculateButton();
+			armContrySelection(countries);
+		})
+	
 }
 
 function displayVisuals() {
@@ -130,7 +153,9 @@ function displayVisuals() {
 	const adults = document.getElementById("adults").value;
 	const children = document.getElementById("children").value;
 
-	createSlider();
+	if (!visualsDisplayed) {
+		createSlider();
+	} 
 	drawLineChart();
 	drawGroups();
 	draw2DMap2(income, adults, children);
@@ -141,8 +166,9 @@ function displayVisuals() {
 	calculateButton.scrollIntoView({behavior: "smooth"});
 }
 
+
+// ==================== MAIN ====================
+
 whenDocumentLoaded(() => {
-	populateCountriesDropdown();
-	armCalculateButton();
-	armContrySelection();
+	inputSectionSetup()
 });

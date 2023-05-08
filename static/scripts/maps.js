@@ -1,5 +1,8 @@
-import GNI_PER_CAPITA from "../data/gni_per_capita.json" assert { type: "json" };
+// import GNI_PER_CAPITA from "../data/gni_per_capita.json" assert { type: "json" };
 export {draw2DMap, draw2DMap2};
+
+const response = await fetch("static/data/gni_per_capita.json"); 
+const GNI_PER_CAPITA = await response.json();
 
 function draw2DMap(income, adults, children) {
 	// Code and tutorial from https://bost.ocks.org/mike/map
