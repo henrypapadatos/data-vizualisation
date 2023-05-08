@@ -135,12 +135,47 @@ function armContrySelection(countries) {
 	});
 }
 
+function enforceInputValidation() {
+	const incomeInput = document.getElementById("income");
+	const adultsInput = document.getElementById("adults");
+	const childrenInput = document.getElementById("children");
+
+	incomeInput.addEventListener("input", (event) => {
+		if (event.target.value < 0) {
+			event.target.value = 0;
+		}
+		if (event.target.value > 9999999) {
+			event.target.value = 9999999; // A max of 10M a year should be enough
+		}
+	});
+
+	adultsInput.addEventListener("input", (event) => {
+		if (event.target.value < 1) {
+			event.target.value = 1;
+		}
+		if (event.target.value > 9) {
+			event.target.value = 9;
+		}
+	});
+
+	childrenInput.addEventListener("input", (event) => {
+		console.log(event.target.value);
+		if (event.target.value < 0) {
+			event.target.value = 0;
+		}
+		if (event.target.value > 9) {
+			event.target.value = 9;
+		}
+	});
+}
+
 function inputSectionSetup() {
+	enforceInputValidation();
+	armCalculateButton();
 	fetch("static/data/countries.json")
 		.then(response => response.json())
 		.then(countries => {
 			populateCountriesDropdown(countries);
-			armCalculateButton();
 			armContrySelection(countries);
 		})
 	
@@ -152,7 +187,7 @@ function displayVisuals() {
 	const income = document.getElementById("income").value;
 	const adults = document.getElementById("adults").value;
 	const children = document.getElementById("children").value;
-
+	console.log(countryCode, income, adults, children);
 	if (!visualsDisplayed) {
 		createSlider();
 	} 

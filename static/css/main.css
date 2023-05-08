@@ -793,6 +793,10 @@ video {
   padding: 1rem;
 }
 
+.p-6 {
+  padding: 1.5rem;
+}
+
 .\!px-3 {
   padding-left: 0.75rem !important;
   padding-right: 0.75rem !important;
@@ -986,6 +990,20 @@ body {
   font: 11px sans-serif;
   background: #ddd;
   border: solid 1px #aaa;
+}
+
+/* Chrome, Safari, Edge, Opera */
+
+input::-webkit-outer-spin-button,
+input::-webkit-inner-spin-button {
+  -webkit-appearance: none;
+  margin: 0;
+}
+
+/* Firefox */
+
+input[type=number] {
+  -moz-appearance: textfield;
 }
 
 input[type="range"]::-webkit-slider-thumb {
