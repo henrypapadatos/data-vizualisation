@@ -1,5 +1,5 @@
 // import COUNTRIES from "../data/countries.json" assert { type: "json" };
-import { draw2DMap, draw2DMap2 } from "./maps.js";
+import { draw2DMap, draw2DMap2, draw2DMap3} from "./maps.js";
 import { drawCrowd } from "./crowd.js";
 import { drawLineChart } from "./distribution.js";
 import { drawCharityBubbles } from "./charity_bubbles.js";
@@ -27,9 +27,10 @@ function cleanup() {
 
 function populateCountriesDropdown(countries) {
 	const dropdown = document.getElementById('select-country');
+	const countriesToIgnore = ["US", "ATA"]
 
 	for (let i = 0; i < countries.length; i++) {
-		if (countries[i].code === "US") {
+		if (countriesToIgnore.contains[countries[i].code]) {
 			continue;
 		}
 		const option = document.createElement('option');
@@ -103,25 +104,8 @@ function createSlider() {
 	}
 }
 
-function armCalculateButton() {
-	const calculateButton = document.getElementById("calc_button");
-	const visuals = document.getElementById("visuals");
-	
-	calculateButton.addEventListener("click", function() {
-	
-		// Clear the contents of #visuals
-		if (visualsDisplayed) {
-			cleanup();
-		}
-
-		visuals.classList.remove("hidden");
-		displayVisuals();
-		visualsDisplayed = true;
-	});
-}
-
 function armContrySelection(countries) {
-
+	
 	const countrySelect = document.getElementById("country-select");
 	
 	countrySelect.addEventListener("change", (event) => {
@@ -139,16 +123,16 @@ function enforceInputValidation() {
 	const incomeInput = document.getElementById("income");
 	const adultsInput = document.getElementById("adults");
 	const childrenInput = document.getElementById("children");
-
+	
 	incomeInput.addEventListener("input", (event) => {
 		if (event.target.value < 0) {
-			event.target.value = 0;
+			event.target.value = 0; 
 		}
 		if (event.target.value > 9999999) {
 			event.target.value = 9999999; // A max of 10M a year should be enough
 		}
 	});
-
+	
 	adultsInput.addEventListener("input", (event) => {
 		if (event.target.value < 1) {
 			event.target.value = 1;
@@ -157,7 +141,7 @@ function enforceInputValidation() {
 			event.target.value = 9;
 		}
 	});
-
+	
 	childrenInput.addEventListener("input", (event) => {
 		console.log(event.target.value);
 		if (event.target.value < 0) {
@@ -167,6 +151,58 @@ function enforceInputValidation() {
 			event.target.value = 9;
 		}
 	});
+}
+
+// function displayError() {
+// 	const error = document.getElementById("error");
+// 	error.classList.remove("hidden");
+// }
+
+function armCalculateButton() {
+	const calculateButton = document.getElementById("calc_button");
+	const visuals = document.getElementById("visuals");
+	const globalMedianIncomePerAdult = 15547;
+	
+	
+	calculateButton.addEventListener("click", function() {
+		const income = document.getElementById("income").value;
+		const adults = document.getElementById("adults").value;
+
+		if ((income  / adults) < globalMedianIncomePerAdult) {
+			displayError("Sorry, the income you entered is below the global median income. We only have data for incomes higher than the global median.");
+			return;
+		}
+	
+		// Clear the contents of #visuals
+		if (visualsDisplayed) {
+			cleanup();
+		}
+
+		visuals.classList.remove("hidden");
+
+		displayVisuals();
+		visualsDisplayed = true;
+	});
+}
+
+function displayVisuals() {
+	const calculateButton = document.getElementById("calculate");
+	const countryCode = document.getElementById("select-country").value;
+	const income = document.getElementById("income").value;
+	const adults = document.getElementById("adults").value;
+	const children = document.getElementById("children").value;
+
+	if (!visualsDisplayed) {
+		createSlider();
+	} 
+	drawLineChart();
+	drawGroups();
+	draw2DMap(income, adults, children);
+	drawCrowd(100);
+	drawCharityBubbles();
+	
+	// Scroll visuals into view
+	calculateButton.scrollIntoView({behavior: "smooth"});
 }
 
 function inputSectionSetup() {
@@ -179,26 +215,6 @@ function inputSectionSetup() {
 			armContrySelection(countries);
 		})
 	
-}
-
-function displayVisuals() {
-	const calculateButton = document.getElementById("calculate");
-	const countryCode = document.getElementById("select-country").value;
-	const income = document.getElementById("income").value;
-	const adults = document.getElementById("adults").value;
-	const children = document.getElementById("children").value;
-	console.log(countryCode, income, adults, children);
-	if (!visualsDisplayed) {
-		createSlider();
-	} 
-	drawLineChart();
-	drawGroups();
-	draw2DMap2(income, adults, children);
-	drawCrowd(100);
-	drawCharityBubbles();
-	
-	// Scroll visuals into view
-	calculateButton.scrollIntoView({behavior: "smooth"});
 }
 
 

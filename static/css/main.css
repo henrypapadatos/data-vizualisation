@@ -1032,7 +1032,7 @@ input[type="range"]::-webkit-slider-runnable-track {
   top: 50%;
   right:0;
   transform: translateY(-50%);
-  margin-right: 80px;
+  margin-right: 45px;
   padding: 16px 0;
 }
 

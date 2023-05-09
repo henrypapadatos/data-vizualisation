@@ -1,5 +1,5 @@
 // import GNI_PER_CAPITA from "../data/gni_per_capita.json" assert { type: "json" };
-export {draw2DMap, draw2DMap2};
+export {draw2DMap, draw2DMap2, draw2DMap3};
 
 const response = await fetch("static/data/gni_per_capita.json"); 
 const GNI_PER_CAPITA = await response.json();
@@ -10,7 +10,7 @@ function draw2DMap(income, adults, children) {
 
 	const margin = {top: 0, right: 0, bottom: 0, left: 0};
 	const width = document.getElementById("map-container").offsetWidth - margin.left - margin.right; ;
-    const height = 600 - margin.top - margin.bottom;
+	const height =  (width - margin.top - margin.bottom) * 9 / 16 ;
 
 	d3.json("static/data/updated-countries-50m.json").then((world) => {
 		const land = topojson.feature(world, world.objects.countries);
@@ -23,19 +23,18 @@ function draw2DMap(income, adults, children) {
 					.attr("height", height)
                     .attr("id", "map-svg");
 		
+		// // Adding a background rectangle
+		// svg.append("rect")
+		// 	.attr("width", width)
+		// 	.attr("height", height)
+		// 	.style("fill", "#faf4f4");
+
 		// Adding a group element for the map
 		let map = svg.append("g").attr("class", "map");
 
 		// Adding legend color scale
-		var color = d3.scaleLinear().range(["white", "red"]);
-		color.domain([1, 50]);
-
-		// Adding a background rectangle
-		map.append("rect")
-			.attr("width", width)
-			.attr("height", height)
-			.style("fill", "#faf4f4");
-
+		var color = d3.scaleLinear().range(["white", "#770434"]);
+		color.domain([1, 20]);
 
 		// Adding individual countries as paths
 		map.selectAll(".country")
@@ -44,6 +43,8 @@ function draw2DMap(income, adults, children) {
 			.append("path")
 			.attr("class", function(country) { return "country " + country.properties.code;  }) 
 			.attr("d", d3.geoPath().projection(projection))
+			.style("stroke", "grey")
+			.attr("stroke-width", "0.4px")
 			.attr("fill", function(country) { 
 				// Color based on the proportion of your average income compared to other countries
 				
@@ -59,38 +60,40 @@ function draw2DMap(income, adults, children) {
 				if (ratio < 1) {
 					ratio = 1;
 				}
-				else if (ratio > 50) {
-					ratio = 50;
+				else if (ratio > 20) {
+					ratio = 20;
 				}
 				return color(ratio); 
 			})
-			.on("mouseover", function(country) {
+			.on("mouseover", function(event) {
 				// Update the information box with the country name
-				d3.select("#map-container")
+				d3.select("body")
 					.append("div")
 					.attr("id", "info-box")
 					.html(() => {
-						if (country_ratios[country.target.__data__.properties.code] == undefined) {
-							return `<h3>${country.target.__data__.properties.name}</h3><p>No data available</p>`
+						if (country_ratios[event.target.__data__.properties.code] == undefined) {
+							return `<h3>${event.target.__data__.properties.name}</h3><p>No data available</p>`
 						}
-						return `<h3>${country.target.__data__.properties.name}</h3>
-                                <p>Has <strong>${country_ratios[country.target.__data__.properties.code]} times</strong> lower average income that your</p>`	
+						return `<h3>${event.target.__data__.properties.name}</h3>
+                                <p>Has <strong>${country_ratios[event.target.__data__.properties.code]} times</strong> lower average income that your</p>`	
 					})
-					.style("left", (country.x + 0 + "px"))
-					.style("top", (country.y + 0 +"px"));
+					.style("left", event.clientX + 30 + "px")
+					.style("top", event.target.getBoundingClientRect().top + window.scrollY +  10 +"px");
 			})
-			.on("mouseout", function(country) {
+			.on("mouseout", () =>{
 				// Hide the information box
 				d3.select('#info-box').remove();
 			});
 
 		// https://observablehq.com/@harrystevens/introducing-d3-geo-scale-bar
-		map.call(d3.zoom()
+		svg.call(d3.zoom()
 			.scaleExtent([1, 3])
 			.translateExtent([[0, 0], [width, height]])
 			.on("zoom", event => {
 				map.attr("transform", event.transform);
-                d3.selectAll(".country").attr("stroke-width", 1 / event.transform.k  + "px");
+
+				// A nice feature, but sadly causes the map to lag
+                // d3.selectAll(".country").attr("stroke-width", 1 / event.transform.k  + "px");
 			})
 		);
 
@@ -101,8 +104,10 @@ function draw2DMap(income, adults, children) {
 function draw2DMap2(income, adults, children) {
 	let country_ratios = {};
 	const margin = {top: 0, right: 0, bottom: 0, left: 0};
+	// As written here https://stackoverflow.com/questions/14265112/d3-js-map-svg-auto-fit-into-parent-container-and-resize-with-window
+	// the unscaled equirectangular map is 640x360 so height = (9 * width) / 16
 	const width = document.getElementById("map-container").offsetWidth - margin.left - margin.right; ;
-    const height = 600 - margin.top - margin.bottom;
+    const height =  (width - margin.top - margin.bottom) * 9 / 16 ;
 	let projection = d3.geoNaturalEarth1();
 
 	// Adding the svg element
@@ -112,18 +117,19 @@ function draw2DMap2(income, adults, children) {
 				.attr("height", height)
 				.attr("id", "map-svg");
 	
+	// Adding a background rectangle
+	// svg.append("rect")
+	// 	.attr("width", width)
+	// 	.attr("height", height)
+	// 	.style("fill", "#faf4f4");
+		
 	// Adding a group element for the map
-	let map = svg.append("g").attr("class", "map");
+	let map = svg.append("g").attr("id", "map");
 
 	// Adding legend color scale
-	var color = d3.scaleLinear().range(["white", "red"]);
+	var color = d3.scaleLinear().range(["white", "#ba175b"]);
 	color.domain([1, 50]);
 
-	// Adding a background rectangle
-	map.append("rect")
-		.attr("width", width)
-		.attr("height", height)
-		.style("fill", "#faf4f4");
 
 	// https://raw.githubusercontent.com/holtzy/D3-graph-gallery/master/DATA/world.geojson
 	d3.json("static/data/world.geojson").then((data) => {
@@ -133,6 +139,7 @@ function draw2DMap2(income, adults, children) {
 			.data(data.features)
 			.enter().append("path")
 			.style("stroke", "grey")
+			.attr("stroke-width", "0.4px")
 				.attr("class", "country")
 				.attr("d", d3.geoPath().projection(projection))
 				.attr("fill", function(country) { 
@@ -155,13 +162,15 @@ function draw2DMap2(income, adults, children) {
 					return color(ratio); 
 				})
 				.on("mouseover", function(event) {
+					// If button is pressed, do not show the information box (assuming user is dragging with mouse)
+					if (event.buttons != 0) {
+						return;
+					}
 					// Update the information box with the country name
 					d3.select("body")
 						.append("div")
 						.attr("id", "info-box")
 						.html(() => {
-							// console.log(event.clientX, event.clientY)
-							// console.log(event.target.getBoundingClientRect())
 							if (country_ratios[event.target.__data__.id] == undefined) {
 								return `<h3>${event.target.__data__.properties.name}</h3><p>No data available</p>`
 							}
@@ -171,21 +180,83 @@ function draw2DMap2(income, adults, children) {
 						.style("left", event.clientX + 30 + "px")
 						.style("top", event.target.getBoundingClientRect().top + window.scrollY +  10 +"px");
 				})
-				.on("mouseout", function(country) {
+				.on("mouseout", () => {
 					// Hide the information box
 					d3.select('#info-box').remove();
 				});
 		
 		// https://observablehq.com/@harrystevens/introducing-d3-geo-scale-bar
-		map.call(d3.zoom()
+		svg.call(d3.zoom()
 			.scaleExtent([1, 3])
 			.translateExtent([[0, 0], [width, height]])
 			.on("zoom", event => {
 				map.attr("transform", event.transform);
-                d3.selectAll(".country").attr("stroke-width", 1 / event.transform.k  + "px");
+				
+				// A nice feature, but sadly causes the map to lag
+                // d3.selectAll(".country").attr("stroke-width", 1 / event.transform.k  + "px");
 			})
 		);
 	})
+}
+
+function draw2DMap3(income, adults, children) {
+	let country_ratios = {};
+	const margin = {top: 0, right: 0, bottom: 0, left: 0};
+	// As written here https://stackoverflow.com/questions/14265112/d3-js-map-svg-auto-fit-into-parent-container-and-resize-with-window
+	// the unscaled equirectangular map is 640x360 so height = (16 * width) / 9
+	const width = document.getElementById("map-container").offsetWidth - margin.left - margin.right; ;
+    const height = 16 / 9 * (width - margin.top - margin.bottom);
+	
+	// Adding the svg element
+	let svg = d3.select("#map-container")
+		.append("svg")
+		.attr("width", width)
+		.attr("height", height)
+		.attr("id", "map-svg");
+	
+	const projection = d3.geoNaturalEarth1();
+	const pathGenerator = d3.geoPath().projection(projection);
+
+	// Adding a group element for the map
+	let map = svg.append("g").attr("class", "map");
+
+	// Adding legend color scale
+	var color = d3.scaleLinear().range(["white", "red"]);
+	color.domain([1, 50]);
+
+	// Adding a background rectangle
+	map.append("rect")
+		.attr("width", width)
+		.attr("height", height)
+		.style("fill", "#faf4f4");
+
+	Promise.all([
+		d3.tsv('https://unpkg.com/world-atlas@1.1.4/world/50m.tsv'),
+		d3.json('https://unpkg.com/world-atlas@1.1.4/world/50m.json')
+		]).then(([tsvData, topoJSONdata]) => {
+		
+		const countryName = {};
+		tsvData.forEach(country => {
+			countryName[country.iso_n3] = country.iso_a3;
+		});
+		console.log("countryName", countryName)
+
+		const countries = topojson.feature(topoJSONdata, topoJSONdata.objects.countries);
+		console.log("countries", countries)
+		map.selectAll('path').data(countries.features)
+		  .enter().append('path')
+			.attr('class', 'country')
+			.attr('d', pathGenerator)
+			.attr("fill", 'green')
+	});
+
+	// https://observablehq.com/@harrystevens/introducing-d3-geo-scale-bar
+	svg.call(d3.zoom()
+		.scaleExtent([1, 3])
+		.on("zoom", event => {
+			map.attr("transform", event.transform);
+		})
+	);
 }
 
 
