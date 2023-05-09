@@ -30,7 +30,7 @@ function populateCountriesDropdown(countries) {
 	const countriesToIgnore = ["US", "ATA"]
 
 	for (let i = 0; i < countries.length; i++) {
-		if (countriesToIgnore.contains[countries[i].code]) {
+		if (countriesToIgnore.includes[countries[i].code]) {
 			continue;
 		}
 		const option = document.createElement('option');
