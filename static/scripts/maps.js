@@ -1,4 +1,3 @@
-// import GNI_PER_CAPITA from "../data/gni_per_capita.json" assert { type: "json" };
 export {draw2DMap, draw2DMap2, draw2DMap3};
 
 const response = await fetch("static/data/gni_per_capita.json"); 
@@ -23,17 +22,18 @@ function draw2DMap(income, adults, children) {
 					.attr("height", height)
                     .attr("id", "map-svg");
 		
-		// // Adding a background rectangle
+		// Adding a background rectangle
 		// svg.append("rect")
 		// 	.attr("width", width)
 		// 	.attr("height", height)
-		// 	.style("fill", "#faf4f4");
+		// 	.style("fill", "#ADD8E6")
+		// 	.style("border-radius", "10px");
 
 		// Adding a group element for the map
 		let map = svg.append("g").attr("class", "map");
 
 		// Adding legend color scale
-		var color = d3.scaleLinear().range(["white", "#770434"]);
+		var color = d3.scaleLinear().range(["white", "#ba2934"]);
 		color.domain([1, 20]);
 
 		// Adding individual countries as paths
@@ -65,6 +65,7 @@ function draw2DMap(income, adults, children) {
 				}
 				return color(ratio); 
 			})
+
 			.on("mouseover", function(event) {
 				// Update the information box with the country name
 				d3.select("body")
@@ -72,14 +73,15 @@ function draw2DMap(income, adults, children) {
 					.attr("id", "info-box")
 					.html(() => {
 						if (country_ratios[event.target.__data__.properties.code] == undefined) {
-							return `<h3>${event.target.__data__.properties.name}</h3><p>No data available</p>`
+							return `<h3 class="font-medium text-sm">${event.target.__data__.properties.name}</h3><p class="text-xs">No data available</p>`
 						}
-						return `<h3>${event.target.__data__.properties.name}</h3>
-                                <p>Has <strong>${country_ratios[event.target.__data__.properties.code]} times</strong> lower average income that your</p>`	
+						return `<h3 class="font-medium text-sm">${event.target.__data__.properties.name}</h3>
+						<p class="text-xs">Your income is aprox. <strong>${country_ratios[event.target.__data__.properties.code]}&nbsp;times</strong><br>their average income</p>`	
 					})
-					.style("left", event.clientX + 30 + "px")
-					.style("top", event.target.getBoundingClientRect().top + window.scrollY +  10 +"px");
+					.style("left", event.pageX + 10 + "px")
+					.style("top", event.pageY - 40 + "px");;
 			})
+
 			.on("mouseout", () =>{
 				// Hide the information box
 				d3.select('#info-box').remove();
@@ -172,10 +174,10 @@ function draw2DMap2(income, adults, children) {
 						.attr("id", "info-box")
 						.html(() => {
 							if (country_ratios[event.target.__data__.id] == undefined) {
-								return `<h3>${event.target.__data__.properties.name}</h3><p>No data available</p>`
+								return `<h3 class="font-medium text-base">${event.target.__data__.properties.name}</h3><p class="text-sm">No data available</p>`
 							}
-							return `<h3>${event.target.__data__.properties.name}</h3>
-									<p>Has <strong>${country_ratios[event.target.__data__.id]} times</strong> lower average income that your</p>`	
+							return `<h3 class="font-medium text-base">${event.target.__data__.properties.name}</h3>
+									<p class="text-sm">Your income is aprox. <strong>${country_ratios[event.target.__data__.id]} times</strong> their average income</p>`	
 						})
 						.style("left", event.clientX + 30 + "px")
 						.style("top", event.target.getBoundingClientRect().top + window.scrollY +  10 +"px");

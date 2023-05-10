@@ -25,13 +25,12 @@ body {
 
 #info-box {
     position: absolute;
-    text-align: left;
-    width: 120px;
-    height: 100px;
-    padding: 0 10px 10px 10px;
-    font: 11px sans-serif;
-    background: #ddd;
-    border: solid 1px #aaa;
+    padding: 5px 10px;
+    background: rgba(255, 255, 255, 0.8);
+    /*background-color: #e86f2ba0;*/
+    backdrop-filter: blur(1px);
+    border: solid 1px var(--grey);
+    border-radius: 10px;
 }
 
 /* Chrome, Safari, Edge, Opera */
