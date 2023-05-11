@@ -1,6 +1,6 @@
 // import COUNTRIES from "../data/countries.json" assert { type: "json" };
 import { draw2DMap, draw2DMap2, draw2DMap3} from "./maps.js";
-import { drawCrowd } from "./crowd.js";
+import { drawCrowdofCircles, drawCrowdofPeople } from "./crowd.js";
 import { drawLineChart } from "./distribution.js";
 import { drawCharityBubbles } from "./charity_bubbles.js";
 import { drawGroups } from "./groupsBubbles.js";
@@ -198,7 +198,7 @@ function displayVisuals() {
 	drawLineChart();
 	drawGroups();
 	draw2DMap(income, adults, children);
-	drawCrowd(100);
+	drawCrowdofPeople(100);
 	drawCharityBubbles();
 	
 	// Scroll visuals into view
@@ -222,4 +222,4 @@ function inputSectionSetup() {
 
 whenDocumentLoaded(() => {
 	inputSectionSetup()
-});
+});	
