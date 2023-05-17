@@ -76,7 +76,7 @@ input[type="range"]::-webkit-slider-runnable-track {
 }
   
 #slider {
-    height: 500px;
+    height: 65vh;
     width: 30px;
 }
 
@@ -107,7 +107,6 @@ input[type="range"]::-webkit-slider-runnable-track {
     height: auto;
 }
 
-
 .noUi-connect {
     background: linear-gradient(to bottom, var(--pink), var(--light-yellow));;
 }
@@ -137,5 +136,14 @@ input[type="range"]::-webkit-slider-runnable-track {
     display: flex;
     justify-content: space-around;
 }
-  
 
+.visual {
+    position: relative;
+    transform: translateY(150px);
+    opacity: 0;
+    transition: all 1s ease;
+}
+.visual.active {
+    transform: translateY(0px);
+    opacity: 1;
+}
