@@ -185,20 +185,39 @@ function armCalculateButton() {
 	});
 }
 
+function changeSliderPosition() {
+	const floatingElement = document.getElementById('floating-slider-container');
+	const barrier_location = 100; // % value. Adjust this value depending on viewport height
+	
+	// Get the current scroll position
+	const scrollPosition = window.pageYOffset || document.documentElement.scrollTop;
+	const viewportHeight = window.innerHeight || document.documentElement.clientHeight;
+
+	// Calculate the new top value based on the scroll position
+	if (scrollPosition / viewportHeight * 100 < 50) {
+		floatingElement.style.top = barrier_location - scrollPosition / viewportHeight * 100 + '%';
+	}
+	else {
+		floatingElement.style.top = 50 + '%';
+	}
+
+}
+
 function displayVisuals() {
 	
 	if (!visualsDisplayed) {
 		createSlider();
+		window.addEventListener("scroll", changeSliderPosition);
 	} 
 	drawLineChart();
-	// drawGroups();
-	// draw2DMap(income, adults, children);
-	// drawCrowdofPeople(100);
-	// drawCharityBubbles();
-	
+
 	// Scroll visuals into view
 	const calculateButton = document.getElementById("calculate");
 	calculateButton.scrollIntoView({behavior: "smooth"});
+	// const scrollPosition = window.pageYOffset || document.documentElement.scrollTop;
+	// const floatingElement = document.getElementById('floating-slider-container');
+	// floatingElement.style.top = 360 + 'px';
+	// console.log(scrollPosition);
 }
 
 function inputSectionSetup() {
@@ -248,10 +267,11 @@ function revealSection() {
 	}
 }
 
+
 // ==================== MAIN ====================
 
 whenDocumentLoaded(() => {
 	inputSectionSetup()
-	// displayVisuals();
 	window.addEventListener("scroll", revealSection);
+	
 });	
