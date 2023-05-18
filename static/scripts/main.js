@@ -236,6 +236,7 @@ function revealSection() {
 	const sections = document.querySelectorAll(".visual");
 	const revealpoint = 120;
 	const windowdheight = window.innerHeight;
+	const income = document.getElementById("income").value;
 
 	for (let i = 0; i < sections.length; i++) {
 		if (sections[i].classList.contains("active")) {
@@ -248,11 +249,10 @@ function revealSection() {
 			sections[i].classList.add("active");
 			switch (sections[i].id) {
 				case "bubbleGroup-container":
-					drawGroups();
+					drawGroups(income)
 					break;
 				case "map-container":
 					const countryCode = document.getElementById("select-country").value;
-					const income = document.getElementById("income").value;
 					const adults = document.getElementById("adults").value;
 					const children = document.getElementById("children").value;
 					draw2DMap(income, adults, children);
