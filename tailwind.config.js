@@ -13,6 +13,7 @@ module.exports = {
         "gwwc-yellow":     "#e86f2b",
         "gwwc-light-yellow":"#e8c52b",
         "gwwc-orange":     "#cc4115",
+        "gwwc-light-orange": "#F5D9D0",
         "gwwc-red":        "#ba2934",
         "gwwc-pink":       "#da3552",
         "gwwc-purple":     "#ba175b",
@@ -22,7 +23,7 @@ module.exports = {
         "gwwc-dark-grey":  "#817777",
         "gwwc-grey":       "#B1A9A9",
         "gwwc-light-grey": "#ebe4e4",
-        "gwwc-off-white":   "#f4f4f4"  
+        "gwwc-off-white":   "#f4f4f4"
       }
     },
   },
