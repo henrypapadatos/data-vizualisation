@@ -107,7 +107,8 @@ input[type="range"]::-webkit-slider-runnable-track {
 }
 
 .noUi-connect {
-    background: linear-gradient(to bottom, var(--pink), var(--light-yellow));;
+    background: linear-gradient(to bottom, var(--pink), var(--light-yellow));
+    box-shadow: 0px 2px 3px var(--black);
 }
 
 

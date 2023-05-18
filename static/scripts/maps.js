@@ -1,4 +1,4 @@
-export {draw2DMap, draw2DMap2, draw2DMap3};
+export {draw2DMap};
 
 const response = await fetch("static/data/gni_per_capita.json"); 
 const GNI_PER_CAPITA = await response.json();
