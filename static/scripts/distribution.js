@@ -122,7 +122,7 @@ function LineChart(data, {
             .attr("text-anchor", "start")
             .text(yLabel));
   
-    svg.append("path")
+    let path = svg.append("path")
         .attr("fill", "none")
         .attr("stroke", color)
         .attr("stroke-width", strokeWidth)
@@ -130,6 +130,23 @@ function LineChart(data, {
         .attr("stroke-linejoin", strokeLinejoin)
         .attr("stroke-opacity", strokeOpacity)
         .attr("d", line(I));
-  
+        
+    //create the path transition to show the line progressively
+    const transitionPath = d3
+    .transition()
+    .ease(d3.easeSin)
+    .duration(2500);
+
+    // get the total length of the path
+    let totalLength = path.node().getTotalLength();
+
+    //set the stroke dasharray and offset to the total length to hide the line first
+    //then transition the stroke dashoffset to 0 to show the line
+    path
+    .attr("stroke-dasharray", totalLength)
+    .attr("stroke-dashoffset", totalLength)
+    .transition(transitionPath)
+    .attr("stroke-dashoffset", 0);
+
     return svg.node();
   };
