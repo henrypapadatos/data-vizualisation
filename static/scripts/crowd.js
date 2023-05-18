@@ -96,7 +96,8 @@ function drawCrowdofPeople(people) {
                 .append("svg")
                 .attr("width", "100%")
                 .attr("height", height)
-                .attr("id", "crowd-svg");
+                .attr("id", "crowd-svg")
+                .style("padding-top", "50px");
 
     // Adding a group element for the crowd
     let crowd = svg.append("g")

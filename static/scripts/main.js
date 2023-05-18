@@ -186,22 +186,18 @@ function armCalculateButton() {
 }
 
 function displayVisuals() {
-	const calculateButton = document.getElementById("calculate");
-	const countryCode = document.getElementById("select-country").value;
-	const income = document.getElementById("income").value;
-	const adults = document.getElementById("adults").value;
-	const children = document.getElementById("children").value;
-
+	
 	if (!visualsDisplayed) {
 		createSlider();
 	} 
 	drawLineChart();
-	drawGroups(income);
-	draw2DMap(income, adults, children);
-	drawCrowdofPeople(100);
-	drawCharityBubbles();
+	// drawGroups();
+	// draw2DMap(income, adults, children);
+	// drawCrowdofPeople(100);
+	// drawCharityBubbles();
 	
 	// Scroll visuals into view
+	const calculateButton = document.getElementById("calculate");
 	calculateButton.scrollIntoView({behavior: "smooth"});
 }
 
@@ -217,9 +213,45 @@ function inputSectionSetup() {
 	
 }
 
+function revealSection() {
+	const sections = document.querySelectorAll(".visual");
+	const revealpoint = 120;
+	const windowdheight = window.innerHeight;
+
+	for (let i = 0; i < sections.length; i++) {
+		if (sections[i].classList.contains("active")) {
+			continue;
+		}
+
+		let revealtop = sections[i].getBoundingClientRect().top;
+		
+		if (revealtop < windowdheight - revealpoint) {
+			sections[i].classList.add("active");
+			switch (sections[i].id) {
+				case "bubbleGroup-container":
+					drawGroups();
+					break;
+				case "map-container":
+					const countryCode = document.getElementById("select-country").value;
+					const income = document.getElementById("income").value;
+					const adults = document.getElementById("adults").value;
+					const children = document.getElementById("children").value;
+					draw2DMap(income, adults, children);
+					break;
+				case "crowd-container":
+					drawCrowdofPeople(100);
+					break;
+				case "bubbles-container":
+					drawCharityBubbles();
+			}
+		}
+	}
+}
 
 // ==================== MAIN ====================
 
 whenDocumentLoaded(() => {
 	inputSectionSetup()
+	// displayVisuals();
+	window.addEventListener("scroll", revealSection);
 });	
