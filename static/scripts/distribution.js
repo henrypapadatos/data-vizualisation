@@ -65,7 +65,7 @@ function LineChart(data, {
     const D = d3.map(data, defined);
     // Compute default domains.
     if (xDomain === undefined) xDomain = [0, d3.max(X)];
-    if (yDomain === undefined) yDomain = [0, d3.max(Y)];
+    if (yDomain === undefined) yDomain = [0, d3.max(Y)+5000];
 
     // Construct scales and axes.
     const xScale = xType(xDomain, xRange).nice();
