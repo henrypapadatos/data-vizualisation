@@ -1,6 +1,6 @@
 // import COUNTRIES from "../data/countries.json" assert { type: "json" };
-import { draw2DMap, draw2DMap2, draw2DMap3} from "./maps.js";
-import { drawCrowdofCircles, drawCrowdofPeople } from "./crowd.js";
+import { draw2DMap } from "./maps.js";
+import { drawCrowdofPeople } from "./crowd.js";
 import { drawLineChart } from "./distribution.js";
 import { drawCharityBubbles } from "./charity_bubbles.js";
 import { drawGroups } from "./groupsBubbles.js";
@@ -92,6 +92,9 @@ function createSlider() {
 	// Change the z-index of the pips element
 	noUiPipsElement.style.zIndex = 1;
 
+	// Remove the first marker element
+	noUiPipsElement.children[0].remove()
+
 	// Remove the last marker element
 	noUiPipsElement.children[noUiPipsElement.children.length - 2].remove()
 
@@ -104,7 +107,7 @@ function createSlider() {
 	}
 }
 
-function armContrySelection(countries) {
+function armCountrySelection(countries) {
 	
 	const countrySelect = document.getElementById("country-select");
 	
@@ -214,10 +217,6 @@ function displayVisuals() {
 	// Scroll visuals into view
 	const calculateButton = document.getElementById("calculate");
 	calculateButton.scrollIntoView({behavior: "smooth"});
-	// const scrollPosition = window.pageYOffset || document.documentElement.scrollTop;
-	// const floatingElement = document.getElementById('floating-slider-container');
-	// floatingElement.style.top = 360 + 'px';
-	// console.log(scrollPosition);
 }
 
 function inputSectionSetup() {
@@ -227,16 +226,34 @@ function inputSectionSetup() {
 		.then(response => response.json())
 		.then(countries => {
 			populateCountriesDropdown(countries);
-			armContrySelection(countries);
+			armCountrySelection(countries);
 		})
 	
 }
+
+function animateValue(obj, start, end, duration) {
+	let startTimestamp = null;
+	const step = (timestamp) => {
+	  if (!startTimestamp) startTimestamp = timestamp;
+	  const progress = Math.min((timestamp - startTimestamp) / duration, 1);
+	  obj.innerHTML = Math.floor(progress * (end - start) + start).toString().replace(/\B(?=(\d{3})+(?!\d))/g, ",");
+	  if (progress < 1) {
+		window.requestAnimationFrame(step);
+	  }
+	};
+	window.requestAnimationFrame(step);
+  }
 
 function revealSection() {
 	const sections = document.querySelectorAll(".visual");
 	const revealpoint = 120;
 	const windowdheight = window.innerHeight;
 	const income = document.getElementById("income").value;
+	const countryCode = document.getElementById("select-country").value;
+	const adults = document.getElementById("adults").value;
+	const children = document.getElementById("children").value;
+
+	
 
 	for (let i = 0; i < sections.length; i++) {
 		if (sections[i].classList.contains("active")) {
@@ -252,10 +269,12 @@ function revealSection() {
 					drawGroups(income)
 					break;
 				case "map-container":
-					const countryCode = document.getElementById("select-country").value;
-					const adults = document.getElementById("adults").value;
-					const children = document.getElementById("children").value;
 					draw2DMap(income, adults, children);
+					break;
+				case "impact-container":
+					// https://css-tricks.com/animating-number-counters/#the-new-school-css-solution
+					animateValue(document.getElementById("bednet-count"), 0, 5432, 3000);
+					animateValue(document.getElementById("vitamin-count"), 0, 12301, 3000);
 					break;
 				case "crowd-container":
 					drawCrowdofPeople(100);

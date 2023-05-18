@@ -1,4 +1,4 @@
-export {drawCrowdofCircles, drawCrowdofPeople};
+export {drawCrowdofPeople};
 
 function onLevelofPyramid(index){
     return Math.floor(( -1 + Math.sqrt(1 + 8 * index) ) / 2) + 1;
