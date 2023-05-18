@@ -33,8 +33,9 @@ function draw2DMap(income, adults, children) {
 		let map = svg.append("g").attr("class", "map");
 
 		// Adding legend color scale
-		var color = d3.scaleLinear().range(["white", "#ba2934"]);
-		color.domain([1, 20]);
+		// const color = d3.scaleLinear().range(["white", "#a4141c"]);
+		// color.domain([1, 20]);
+		const color = d3.scaleThreshold().domain([1, 3, 5, 10, 20, 100]).range(['#eeeeee', '#fee5da', '#fbbba3', '#fb9276', '#fa6b51', '#dd302e', '#a4141c'])
 
 		// Adding individual countries as paths
 		map.selectAll(".country")
@@ -53,16 +54,14 @@ function draw2DMap(income, adults, children) {
 				}
 				let ppp_avg_income = GNI_PER_CAPITA[country.properties.code]["income"]
 				let ratio = income /  (ppp_avg_income * adults);
-
-				ratio = Math.round(ratio)
+				if (ratio < 5) {
+					ratio = ratio.toFixed(1);
+				}
+				else {
+					ratio = Math.round(ratio);
+				}
 				country_ratios[country.properties.code] = ratio;
-
-				if (ratio < 1) {
-					ratio = 1;
-				}
-				else if (ratio > 20) {
-					ratio = 20;
-				}
+				
 				return color(ratio); 
 			})
 
