@@ -81,6 +81,7 @@ function bubbles(){
     // Add div elements for the four corners
     var defs = svg.append("defs"); 
 
+    // radiusScale for
     var radiusScale = d3.scaleSqrt().domain([10,50]).range([25,100])
 
     // the simulation is a collection of forces
@@ -103,7 +104,7 @@ function bubbles(){
             return (height * (3/4) + 100)
         }}).strength(0.05)        
 
-    var forceX_Combine = d3.forceX(width / 2).strength(0.05)
+    var forceX_Combine = d3.forceX(d => width / 2).strength(0.05)
 
     var forceY_Combine = d3.forceY(d => height /2).strength(0.05)
 
@@ -147,7 +148,7 @@ function bubbles(){
                 .text(d => d.name);  */
         }
 
-        
+        //definitions to add images
         function join_defs(){
             defs.selectAll(".artist-pattern")
             .data(var_datapoints)
@@ -166,6 +167,8 @@ function bubbles(){
         }
         
         join_defs()
+
+        // join all the circles with the data
         function join_circles(var_datapoints){
             var circles = svg.selectAll('.charity')
             .data(var_datapoints)

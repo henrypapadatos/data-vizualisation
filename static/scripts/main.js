@@ -196,7 +196,7 @@ function displayVisuals() {
 		createSlider();
 	} 
 	drawLineChart();
-	drawGroups();
+	drawGroups(income);
 	draw2DMap(income, adults, children);
 	drawCrowdofPeople(100);
 	drawCharityBubbles();
