@@ -1190,7 +1190,16 @@ input[type="range"]::-webkit-slider-runnable-track {
 .disabled\:opacity-50:disabled {
   opacity: 0.5;
 }
+.title-bubble-group {
+  /* background-color: rgb(0, 0, 0); */
+  /* border: 1px solid #ffffff; */
+  /* padding: 10px; */
+  font: sans-serif;
+  font-size: 20px;
+  color: "white";
+  font-size: "4vh";
 
+}
 @media (min-width: 600px) {
   .sm\:max-w-\[50\%\] {
     max-width: 50%;
