@@ -10,7 +10,6 @@ let visualsDisplayed = false;
 function whenDocumentLoaded(action) {
 	if (document.readyState === "loading") {
 		document.addEventListener("DOMContentLoaded", action);
-		drawCharityBubbles();
 	} else {
 		action();
 	}
@@ -146,7 +145,6 @@ function enforceInputValidation() {
 	});
 	
 	childrenInput.addEventListener("input", (event) => {
-		console.log(event.target.value);
 		if (event.target.value < 0) {
 			event.target.value = 0;
 		}

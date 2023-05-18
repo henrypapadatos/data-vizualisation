@@ -86,13 +86,20 @@ function drawCrowdofCircles(people) {
 function drawCrowdofPeople(people) {
     const margin = {top: 0, right: 0, bottom: 0, left: 0};
     const parentElement = document.getElementById("crowd-container")
-	const width = parentElement.offsetWidth; 
     const height = 400 - margin.top - margin.bottom;
-    const crowdContainer = d3.select("#crowd-container");
+    const parentWidth = parentElement.clientWidth; 
     const scale = 0.008
+    const r = 20;
+    const epsilon = -10;
+    const start_x = parentWidth / 2;
+    const start_y = height * 0.15;
+    const x = (2 * r + epsilon) / Math.sqrt(2);
+    const colors = ["light-yellow", "yellow", "orange", "red", "pink", "purple", "dark-purple", "darkest-purple"]
+    const stickfigure = "M 3026 12790 c -654 -83 -1182 -573 -1305 -1214 c -44 -224 -37 -438 19 -661 c 126 -501 503 -903 1000 -1065 c 106 -35 154 -45 310 -69 c 32 -5 -323 -9 -856 -10 c -869 -1 -914 -2 -987 -21 c -176 -45 -329 -134 -470 -275 c -167 -167 -299 -403 -352 -630 c -34 -147 -36 -271 -33 -1985 l 3 -1695 l 480 0 l 480 0 l 3 1688 l 2 1687 l 160 0 l 160 0 l 2 -4267 l 3 -4268 l 702 -3 l 703 -2 l 2 2291 l 3 2290 l 145 0 l 145 0 l 3 -2290 l 2 -2291 l 703 2 l 702 3 l 3 4268 l 2 4267 l 160 0 l 160 0 l 2 -1687 l 3 -1688 l 480 0 l 480 0 l 0 1745 c 0 1633 -1 1751 -18 1840 c -77 406 -331 770 -651 930 c -189 94 -130 90 -1165 91 c -596 1 -884 5 -841 11 c 414 58 741 235 994 538 c 379 451 458 1092 202 1623 c -76 157 -158 271 -295 408 c -227 226 -468 357 -775 420 c -114 23 -357 33 -470 19 z"
+    let availableRowIndexes = [];
 
     // Adding the svg element
-    let svg = crowdContainer
+    let svg = d3.select("#crowd-container")
                 .append("svg")
                 .attr("width", "100%")
                 .attr("height", height)
@@ -102,14 +109,9 @@ function drawCrowdofPeople(people) {
     // Adding a group element for the crowd
     let crowd = svg.append("g")
                     .attr("class", "pb-5 h-full w-full")
-                    .attr("transform", `matrix(${scale} 0 0 -${scale} 500 300)`);
-    const r = 20;
-    let epsilon = -10;
-    let start_x = width / 2;
-    let x = (2 * r + epsilon) / Math.sqrt(2);
-    let availableRowIndexes = [];
-    const colors = ["light-yellow", "yellow", "orange", "red", "pink", "purple", "dark-purple", "darkest-purple"]
-    const stickfigure = "M 3026 12790 c -654 -83 -1182 -573 -1305 -1214 c -44 -224 -37 -438 19 -661 c 126 -501 503 -903 1000 -1065 c 106 -35 154 -45 310 -69 c 32 -5 -323 -9 -856 -10 c -869 -1 -914 -2 -987 -21 c -176 -45 -329 -134 -470 -275 c -167 -167 -299 -403 -352 -630 c -34 -147 -36 -271 -33 -1985 l 3 -1695 l 480 0 l 480 0 l 3 1688 l 2 1687 l 160 0 l 160 0 l 2 -4267 l 3 -4268 l 702 -3 l 703 -2 l 2 2291 l 3 2290 l 145 0 l 145 0 l 3 -2290 l 2 -2291 l 703 2 l 702 3 l 3 4268 l 2 4267 l 160 0 l 160 0 l 2 -1687 l 3 -1688 l 480 0 l 480 0 l 0 1745 c 0 1633 -1 1751 -18 1840 c -77 406 -331 770 -651 930 c -189 94 -130 90 -1165 91 c -596 1 -884 5 -841 11 c 414 58 741 235 994 538 c 379 451 458 1092 202 1623 c -76 157 -158 271 -295 408 c -227 226 -468 357 -775 420 c -114 23 -357 33 -470 19 z"
+                    .attr("transform", `matrix(${scale} 0 0 -${scale} ${parentWidth} ${height})`);
+
+    // Adding the crowd of people
     const drawings = crowd.selectAll("path")
         .data(d3.range(people))
         .enter()
@@ -131,8 +133,8 @@ function drawCrowdofPeople(people) {
             });
             let a = (2 * r + epsilon) * level;
             let distBtwCircles = Math.sqrt(2 * Math.pow(a, 2)) / level;
-            let translate_x = start_x - level * x / scale + randomRowIndex * distBtwCircles / scale;
-            let translate_y =  -1 * epsilon * level / scale;
+            let translate_x = (-start_x - level * x  + randomRowIndex * distBtwCircles) / scale;
+            let translate_y = (start_y - epsilon * level) / scale;
 
             // Squished closer together version
             // let translate_y = start_y - (level * x * 25) - epsilon * level / scale;
