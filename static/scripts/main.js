@@ -209,7 +209,8 @@ function displayVisuals() {
 		createSlider();
 		window.addEventListener("scroll", changeSliderPosition);
 	} 
-	drawLineChart();
+	const income = document.getElementById("income").value;
+	drawLineChart(income);
 
 	// Scroll visuals into view
 	const calculateButton = document.getElementById("calculate");

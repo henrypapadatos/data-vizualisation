@@ -3,14 +3,15 @@ export {drawLineChart};
 // Copyright 2021 Observable, Inc.
 // Released under the ISC license.
 // https://observablehq.com/@d3/line-chart
-function drawLineChart() {
+function drawLineChart(income) {
     console.log("drawLineChart");
     d3.json("/static/data/income_centiles.json").then((data) => {
         let line_chart = LineChart(data, {
+            income: income,
             x: d => d.percentage,
             y: d => d.international_dollars,
             yLabel: "Income (international dollars)",
-            xlabel: "Percentage of world population",
+            xLabel: "Percentage of world population [%]",
         });
     });
     // const distributionContainer = d3.select("#root").append("div").attr("id", "distribution-container");
@@ -24,6 +25,7 @@ function drawLineChart() {
 
 
 function LineChart(data, {
+    income, // income of the user
     x = ([x]) => x, // given d in data, returns the (temporal) x-value
     y = ([, y]) => y, // given d in data, returns the (quantitative) y-value
     defined, // for gaps in data
@@ -34,9 +36,10 @@ function LineChart(data, {
     marginLeft = 60, // left margin, in pixels
     width = 640, // outer width, in pixels
     height = 400, // outer height, in pixels
-    xType = d3.scaleUtc, // the x-scale type
+    xType = d3.scaleLinear, // the x-scale type
     xDomain, // [xmin, xmax]
     xRange = [marginLeft, width - marginRight], // [left, right]
+    xLabel,
     yType = d3.scaleLinear, // the y-scale type
     yDomain, // [ymin, ymax]
     yRange = [height - marginBottom, marginTop], // [bottom, top]
@@ -49,17 +52,23 @@ function LineChart(data, {
     strokeOpacity = 1, // stroke opacity of line
   } = {}) {
     // Compute values.
-    const X = d3.map(data, x);
-    const Y = d3.map(data, y);
+    let X = d3.map(data, x);
+    let Y = d3.map(data, y);
+
+    //keep onnly the y values smaller than the income
+    Y = Y.filter(function(d) { return d < income; });
+    //truncate X to make it the same length as Y
+    X = X.slice(0, Y.length);
+
     const I = d3.range(X.length);
     if (defined === undefined) defined = (d, i) => !isNaN(X[i]) && !isNaN(Y[i]);
     const D = d3.map(data, defined);
     // Compute default domains.
-    if (xDomain === undefined) xDomain = d3.extent(X);
+    if (xDomain === undefined) xDomain = [0, d3.max(X)];
     if (yDomain === undefined) yDomain = [0, d3.max(Y)];
-  
+
     // Construct scales and axes.
-    const xScale = xType(xDomain, xRange);
+    const xScale = xType(xDomain, xRange).nice();
     const yScale = yType(yDomain, yRange);
     const xAxis = d3.axisBottom(xScale).ticks(width / 80).tickSizeOuter(0);
     const yAxis = d3.axisLeft(yScale).ticks(height / 40, yFormat);
@@ -78,7 +87,7 @@ function LineChart(data, {
                 .append("svg")
                 .attr("width", width)
                 .attr("height", height)
-                .attr("viewBox", [-10, -10, width, height])
+                .attr("viewBox", [-10, -10, width, height+20])
                 .attr("style", "max-width: 100%; height: auto; height: intrinsic;")
                 .attr("id", "map-svg");
   
@@ -90,7 +99,14 @@ function LineChart(data, {
   
     svg.append("g")
         .attr("transform", `translate(0,${height - marginBottom})`)
-        .call(xAxis);
+        .call(xAxis)
+        .call(g => g.select(".domain").remove())
+        .call(g => g.append("text")
+            .attr("x", width - 150)
+            .attr("y", marginBottom)
+            .attr("fill", "currentColor")
+            .attr("text-anchor", "start")
+            .text(xLabel));
     
     svg.append("g")
         .attr("transform", `translate(${marginLeft},0)`)
@@ -101,7 +117,7 @@ function LineChart(data, {
             .attr("stroke-opacity", 0.1))
         .call(g => g.append("text")
             .attr("x", -marginLeft)
-            .attr("y", marginTop)
+            .attr("y", marginTop-5)
             .attr("fill", "currentColor")
             .attr("text-anchor", "start")
             .text(yLabel));
