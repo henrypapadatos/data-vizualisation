@@ -1,4 +1,3 @@
-// import COUNTRIES from "../data/countries.json" assert { type: "json" };
 import { draw2DMap } from "./maps.js";
 import { drawCrowdofPeople } from "./crowd.js";
 import { drawLineChart } from "./distribution.js";
@@ -161,7 +160,6 @@ function enforceInputValidation() {
 
 function armCalculateButton() {
 	const calculateButton = document.getElementById("calc_button");
-	const visuals = document.getElementById("visuals");
 	const globalMedianIncomePerAdult = 15547;
 	
 	
@@ -179,10 +177,7 @@ function armCalculateButton() {
 			cleanup();
 		}
 
-		visuals.classList.remove("hidden");
-
 		displayVisuals();
-		visualsDisplayed = true;
 	});
 }
 
@@ -204,18 +199,26 @@ function changeSliderPosition() {
 
 }
 
-function displayVisuals() {
+async function displayVisuals() {
+	const income = document.getElementById("income").value;
+	const calculateButton = document.getElementById("calculate");
+	const adults = document.getElementById("adults").value;
+	
+	visuals.classList.remove("hidden");
+	
+	// Loading this here to avoid lag later
+	await draw2DMap(income, adults, children);
 	
 	if (!visualsDisplayed) {
 		createSlider();
 		window.addEventListener("scroll", changeSliderPosition);
+		visualsDisplayed = true;
 	} 
-	const income = document.getElementById("income").value;
+
 	drawLineChart(income);
 
 	// Scroll visuals into view
-	const calculateButton = document.getElementById("calculate");
-	calculateButton.scrollIntoView({behavior: "smooth"});
+	calculateButton.scrollIntoView({behavior: "smooth"});	
 }
 
 function inputSectionSetup() {
@@ -226,8 +229,7 @@ function inputSectionSetup() {
 		.then(countries => {
 			populateCountriesDropdown(countries);
 			armCountrySelection(countries);
-		})
-	
+		})	
 }
 
 function animateValue(obj, start, end, duration) {
@@ -241,18 +243,13 @@ function animateValue(obj, start, end, duration) {
 	  }
 	};
 	window.requestAnimationFrame(step);
-  }
+}
 
 function revealSection() {
 	const sections = document.querySelectorAll(".visual");
 	const revealpoint = 120;
 	const windowdheight = window.innerHeight;
-	const income = document.getElementById("income").value;
-	const countryCode = document.getElementById("select-country").value;
-	const adults = document.getElementById("adults").value;
-	const children = document.getElementById("children").value;
-
-	
+	const income = document.getElementById("income").value;	
 
 	for (let i = 0; i < sections.length; i++) {
 		if (sections[i].classList.contains("active")) {
@@ -268,7 +265,7 @@ function revealSection() {
 					drawGroups(income)
 					break;
 				case "map-container":
-					draw2DMap(income, adults, children);
+					// draw2DMap(income, adults, children);
 					break;
 				case "impact-container":
 					// https://css-tricks.com/animating-number-counters/#the-new-school-css-solution
@@ -290,6 +287,5 @@ function revealSection() {
 
 whenDocumentLoaded(() => {
 	inputSectionSetup()
-	window.addEventListener("scroll", revealSection);
-	
+	window.addEventListener("scroll", revealSection);	
 });	
