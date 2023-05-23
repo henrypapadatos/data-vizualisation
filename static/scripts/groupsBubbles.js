@@ -19,7 +19,6 @@ function drawGroups(income) {
   // Get the income reduction value from the input element
   const incomeInput = document.getElementById("value-bubble");
   let donation_fraq = (parseFloat(incomeInput.innerText) / 100);
-  console.log("income_input", incomeInput);
 
   let [proportionGroupPoorer, proportionGroupRicher] = findGroupProportions(income, donation_fraq)
 

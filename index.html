@@ -133,7 +133,7 @@
                             <div class="w-full border-none input-underline inline-flex relative flex-col align-top min-w-0">
                                 <label class="scale-75 origin-top-left text-left" data-shrink="true" for="select-country">Country</label>
                                 <select class="bg-beige border-b border-black hover:shadow-md py-1 focus:outline-none max-w-full text-sm" tabindex="0" role="button" aria-haspopup="listbox" id="select-country">
-                                    <option class="" value="USA" selected>United States of America</option>
+                                    <option class="" value="US" selected>United States of America</option>
                                 </select>
                                 <p class="text-gray-600 text-xs text-left pt-1">Select your country</p>
                             </div>
@@ -193,7 +193,11 @@
                         <p>Bubbles grouping text</p>
                     </div>
                     <div id="map-container" class="visual min-h-[70vh] pt-5">
-                        <p class="">Map text</p>
+                        <p id="map-text" class="font-semibold text-2xl">
+                            <span>Your income would still be more than </span>
+                            <span id="global-median" class="text-3xl font-bold">39.3 times</span> 
+                            <span> the global median</span>
+                        </p>
                     </div>
                     <div id="impact-container" class="visual min-h-[70vh] pt-5 flex flex-col justify-between">
                         <h3 class="font-bold text-4xl">… and each year your donations could fund …</h3>

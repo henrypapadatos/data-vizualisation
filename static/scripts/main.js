@@ -3,6 +3,9 @@ import { drawCrowdofPeople } from "./crowd.js";
 import { drawLineChart } from "./distribution.js";
 import { drawCharityBubbles } from "./charity_bubbles.js";
 import { drawGroups } from "./groupsBubbles.js";
+import { convertIncomeToPPP, getEquivalizeIncome } from './utility.js'
+import { loadImpactVisuals } from "./impact_comparisons.js";
+// import { MEDIAN_INCOME } from './utility.js'
 
 let visualsDisplayed = false;
 
@@ -28,12 +31,12 @@ function populateCountriesDropdown(countries) {
 	const countriesToIgnore = ["US", "ATA"]
 
 	for (let i = 0; i < countries.length; i++) {
-		if (countriesToIgnore.includes[countries[i].code]) {
+		if (countriesToIgnore.includes[countries[i].alpha2Code]) {
 			continue;
 		}
 		const option = document.createElement('option');
 		option.text = countries[i].name;
-		option.value = countries[i].code;
+		option.value = countries[i].alpha2Code;
 		dropdown.add(option);
 	}
 
@@ -111,12 +114,7 @@ function armCountrySelection(countries) {
 	
 	countrySelect.addEventListener("change", (event) => {
 		const selectedCountryCode = event.target.value;
-		for (let i = 0; i < countries.length; i++) {
-			if (countries[i].code === selectedCountryCode) {
-				document.getElementById("currency-label").innerText = countryToCurrency[countries[i].alpha2Code];
-				break;
-			}			
-		}
+		document.getElementById("currency-label").innerText = countryToCurrency[selectedCountryCode];
 	});
 }
 
@@ -201,13 +199,17 @@ function changeSliderPosition() {
 
 async function displayVisuals() {
 	const income = document.getElementById("income").value;
-	const calculateButton = document.getElementById("calculate");
+	const countryAlpha2Code = document.getElementById("select-country").value;
+	const internationalDollarIncome = convertIncomeToPPP(income, countryAlpha2Code);
 	const adults = document.getElementById("adults").value;
+	const children = document.getElementById("children").value;
+	const equivalizeIncome = getEquivalizeIncome(internationalDollarIncome, adults, children)
+	const calculateButton = document.getElementById("calculate");
 	
 	visuals.classList.remove("hidden");
 	
 	// Loading this here to avoid lag later
-	await draw2DMap(income, adults, children);
+	await draw2DMap(equivalizeIncome, adults, children);
 	
 	if (!visualsDisplayed) {
 		createSlider();
@@ -215,7 +217,7 @@ async function displayVisuals() {
 		visualsDisplayed = true;
 	} 
 
-	drawLineChart(income);
+	drawLineChart(equivalizeIncome);
 
 	// Scroll visuals into view
 	calculateButton.scrollIntoView({behavior: "smooth"});	
@@ -232,25 +234,18 @@ function inputSectionSetup() {
 		})	
 }
 
-function animateValue(obj, start, end, duration) {
-	let startTimestamp = null;
-	const step = (timestamp) => {
-	  if (!startTimestamp) startTimestamp = timestamp;
-	  const progress = Math.min((timestamp - startTimestamp) / duration, 1);
-	  obj.innerHTML = Math.floor(progress * (end - start) + start).toString().replace(/\B(?=(\d{3})+(?!\d))/g, ",");
-	  if (progress < 1) {
-		window.requestAnimationFrame(step);
-	  }
-	};
-	window.requestAnimationFrame(step);
-}
-
 function revealSection() {
-	const sections = document.querySelectorAll(".visual");
 	const revealpoint = 120;
 	const windowdheight = window.innerHeight;
-	const income = document.getElementById("income").value;	
-
+	const sections = document.querySelectorAll(".visual");
+	const income = document.getElementById("income").value;
+	const adults = document.getElementById("adults").value;
+	const children = document.getElementById("children").value;
+	const countryAlpha2Code = document.getElementById("select-country").value;
+	const internationalDollarIncome = convertIncomeToPPP(income, countryAlpha2Code);
+	const equivalizeIncome = getEquivalizeIncome(internationalDollarIncome, adults, children)
+	
+	
 	for (let i = 0; i < sections.length; i++) {
 		if (sections[i].classList.contains("active")) {
 			continue;
@@ -262,15 +257,13 @@ function revealSection() {
 			sections[i].classList.add("active");
 			switch (sections[i].id) {
 				case "bubbleGroup-container":
-					drawGroups(income)
+					drawGroups(equivalizeIncome)
 					break;
 				case "map-container":
-					// draw2DMap(income, adults, children);
+					// draw2DMap(income, adults, children); // <= Moved to displayVisuals()
 					break;
 				case "impact-container":
-					// https://css-tricks.com/animating-number-counters/#the-new-school-css-solution
-					animateValue(document.getElementById("bednet-count"), 0, 5432, 3000);
-					animateValue(document.getElementById("vitamin-count"), 0, 12301, 3000);
+					loadImpactVisuals(equivalizeIncome);
 					break;
 				case "crowd-container":
 					drawCrowdofPeople(100);

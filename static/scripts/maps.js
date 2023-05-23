@@ -1,4 +1,5 @@
 export {draw2DMap};
+import { getEquivalizeIncome } from './utility.js'
 // import { changeMapLoaded } from "./main";
 
 const response = await fetch("static/data/gni_per_capita.json"); 
@@ -197,11 +198,11 @@ function draw2DMapFailAttempt(income, adults, children) {
 }
 
 function draw2DMap(income, adults, children) {
+
 	return new Promise(resolve => {
 
 		// Code and tutorial from https://bost.ocks.org/mike/map
 		let country_ratios = {};
-	
 		const margin = {top: 0, right: 0, bottom: 0, left: 0};
 		const width = document.getElementById("map-container").offsetWidth - margin.left - margin.right; ;
 		const height =  (width - margin.top - margin.bottom) * 9 / 16 ;
@@ -216,7 +217,7 @@ function draw2DMap(income, adults, children) {
 						.attr("width", width)
 						.attr("height", height)
 						.attr("id", "map-svg");
-			
+
 			// Adding a background rectangle
 			// svg.append("rect")
 			// 	.attr("width", width)
@@ -233,7 +234,7 @@ function draw2DMap(income, adults, children) {
 			// Adding individual countries as paths
 			map.selectAll(".country")
 				.data(land.features)
-				  .enter()
+				.enter()
 				.append("path")
 				.attr("class", function(country) { return "country " + country.properties.code;  }) 
 				.attr("d", d3.geoPath().projection(projection))
@@ -256,16 +257,13 @@ function draw2DMap(income, adults, children) {
 					if (!(country.properties.code in GNI_PER_CAPITA)) {
 						return "white";
 					}
+					// Load the first visual after all countries have been drawn
 					if (i == 240) {
-						console.log("lsat country", i);
-						resolve();
-						// // Scroll visuals into view
-						// const calculateButton = document.getElementById("calculate");
-						// calculateButton.scrollIntoView({behavior: "smooth"});	
+						resolve();	
 					}
 					
 					let ppp_avg_income = GNI_PER_CAPITA[country.properties.code]["income"]
-					let ratio = income /  (ppp_avg_income * adults);
+					let ratio = income / getEquivalizeIncome(ppp_avg_income, adults, children);
 					if (ratio < 5) {
 						ratio = ratio.toFixed(1);
 					}
