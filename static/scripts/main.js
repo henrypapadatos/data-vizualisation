@@ -19,6 +19,7 @@ function whenDocumentLoaded(action) {
 
 function cleanup() {
 	// Remove all graphs from the page when the tries to use the calculator again
+	document.getElementById("title-text").innerHTML = "";
 	document.getElementById("distribution-container").innerHTML = "";
 	document.getElementById("bubbleGroup-container").innerHTML = "";
 	document.getElementById("map-container").innerHTML = "";
@@ -158,14 +159,18 @@ function enforceInputValidation() {
 
 function armCalculateButton() {
 	const calculateButton = document.getElementById("calc_button");
-	const globalMedianIncomePerAdult = 15547;
+	const globalMedianIncomePerFamily = 10000;
 	
 	
 	calculateButton.addEventListener("click", function() {
 		const income = document.getElementById("income").value;
 		const adults = document.getElementById("adults").value;
+		const children = document.getElementById("children").value;
+		const countryAlpha2Code = document.getElementById("select-country").value;
+		const internationalDollarIncome = convertIncomeToPPP(income, countryAlpha2Code);
+		const equivalizeIncome = getEquivalizeIncome(internationalDollarIncome, adults, children);
 
-		if ((income  / adults) < globalMedianIncomePerAdult) {
+		if (equivalizeIncome < globalMedianIncomePerFamily) {
 			displayError("Sorry, the income you entered is below the global median income. We only have data for incomes higher than the global median.");
 			return;
 		}
@@ -199,11 +204,11 @@ function changeSliderPosition() {
 
 async function displayVisuals() {
 	const income = document.getElementById("income").value;
-	const countryAlpha2Code = document.getElementById("select-country").value;
-	const internationalDollarIncome = convertIncomeToPPP(income, countryAlpha2Code);
 	const adults = document.getElementById("adults").value;
 	const children = document.getElementById("children").value;
-	const equivalizeIncome = getEquivalizeIncome(internationalDollarIncome, adults, children)
+	const countryAlpha2Code = document.getElementById("select-country").value;
+	const internationalDollarIncome = convertIncomeToPPP(income, countryAlpha2Code);
+	const equivalizeIncome = getEquivalizeIncome(internationalDollarIncome, adults, children);
 	const calculateButton = document.getElementById("calculate");
 	
 	visuals.classList.remove("hidden");
@@ -211,6 +216,15 @@ async function displayVisuals() {
 	// Loading this here to avoid lag later
 	await draw2DMap(equivalizeIncome, adults, children);
 	
+	d3.select("#title-text")
+		.append("p")
+		.attr("class", "font-bold text-4xl")
+		.text("If you have a household income of $" + income.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ","));
+	d3.select("#title-text")
+		.append("p")
+		.attr("class", "font-semibold text-xl")
+		.text("(in a household of " + adults + " adults and " + children + " children)");
+
 	if (!visualsDisplayed) {
 		createSlider();
 		window.addEventListener("scroll", changeSliderPosition);
@@ -266,7 +280,7 @@ function revealSection() {
 					loadImpactVisuals(equivalizeIncome);
 					break;
 				case "crowd-container":
-					drawCrowdofPeople(100);
+					drawCrowdofPeople(equivalizeIncome);
 					break;
 				case "bubbles-container":
 					drawCharityBubbles();
