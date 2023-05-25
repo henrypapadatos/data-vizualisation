@@ -4,6 +4,9 @@ import { getEquivalizeIncome } from './utility.js'
 
 const response = await fetch("static/data/gni_per_capita.json"); 
 const GNI_PER_CAPITA = await response.json();
+
+let country_ratios = {};
+
 // WorkingBatchingAlternative
 function draw2DMapBatched2(income, adults, children){
 	return new Promise(resolve => {
@@ -197,12 +200,57 @@ function draw2DMapFailAttempt(income, adults, children) {
 	});
 }
 
+function createEventListener(income, adults, children) {
+	const sliderElement = document.getElementById("slider");
+	sliderElement.addEventListener('mouseup', () => {
+		console.log("vb", document.getElementById("value-bubble").innerText)
+		const donationAmount = parseInt(document.getElementById("value-bubble").innerText.slice(0, -1));
+		console.log(donationAmount)
+		const afterDonationIncome = income * ((100 - donationAmount) / 100);
+		console.log("afterDonationIncome",afterDonationIncome)
+        redraw2DMap(afterDonationIncome, adults, children);
+    })
+}
+
+function redraw2DMap(income, adults, children) {
+	
+	const map = d3.select("#map");
+	const color = d3.scaleThreshold().domain([1, 3, 5, 10, 20, 100]).range(['#eeeeee', '#fee5da', '#fbbba3', '#fb9276', '#fa6b51', '#dd302e', '#a4141c'])
+	
+	map.selectAll(".country")
+		.attr("fill", function(country, i) { 
+		
+			// Color based on the proportion of your average income compared to other countries
+			if (!(country.properties.code in GNI_PER_CAPITA)) {
+				return "white";
+			}
+			
+			let ppp_avg_income = GNI_PER_CAPITA[country.properties.code]["income"]
+			// console.log("ppp_avg_income", ppp_avg_income)
+			let newRatio = income / getEquivalizeIncome(ppp_avg_income, adults, children);
+			// console.log("newRatio", newRatio)
+			// console.log("country.properties.code", country.properties.code)
+			// console.log("getEquivalizeIncome(ppp_avg_income, adults, children)", getEquivalizeIncome(ppp_avg_income, adults, children))
+			if (newRatio < 5) {
+				newRatio = newRatio.toFixed(1);
+			}
+			else {
+				newRatio = Math.round(newRatio);
+			}
+			country_ratios[country.properties.code] = newRatio;
+			// console.log("color", color(newRatio))
+			return color(newRatio); 
+		})
+}
+
 function draw2DMap(income, adults, children) {
+	createEventListener(income, adults, children);
+
+	const afterDonationIncome = income * 0.9;
 
 	return new Promise(resolve => {
 
 		// Code and tutorial from https://bost.ocks.org/mike/map
-		let country_ratios = {};
 		const margin = {top: 0, right: 0, bottom: 0, left: 0};
 		const width = document.getElementById("map-container").offsetWidth - margin.left - margin.right; ;
 		const height =  (width - margin.top - margin.bottom) * 9 / 16 ;
@@ -226,7 +274,8 @@ function draw2DMap(income, adults, children) {
 			// 	.style("border-radius", "10px");
 	
 			// Adding a group element for the map
-			let map = svg.append("g").attr("class", "map");
+			let map = svg.append("g")
+				.attr("id", "map");
 	
 			// Adding legend color scale
 			const color = d3.scaleThreshold().domain([1, 3, 5, 10, 20, 100]).range(['#eeeeee', '#fee5da', '#fbbba3', '#fb9276', '#fa6b51', '#dd302e', '#a4141c'])
@@ -263,7 +312,7 @@ function draw2DMap(income, adults, children) {
 					}
 					
 					let ppp_avg_income = GNI_PER_CAPITA[country.properties.code]["income"]
-					let ratio = income / getEquivalizeIncome(ppp_avg_income, adults, children);
+					let ratio = afterDonationIncome / getEquivalizeIncome(ppp_avg_income, adults, children);
 					if (ratio < 5) {
 						ratio = ratio.toFixed(1);
 					}

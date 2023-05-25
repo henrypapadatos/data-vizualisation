@@ -219,7 +219,7 @@ async function displayVisuals() {
 	d3.select("#title-text")
 		.append("p")
 		.attr("class", "font-bold text-4xl")
-		.text("If you have a household income of $" + income.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ","));
+		.text("If you have a household income of " + income.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ","));
 	d3.select("#title-text")
 		.append("p")
 		.attr("class", "font-semibold text-xl")

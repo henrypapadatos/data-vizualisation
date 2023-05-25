@@ -86,11 +86,9 @@ function createEventListener(householdIncome) {
     const sliderElement = document.getElementById("slider");
     const crowdContainer = document.getElementById("crowd-container")
  
-	sliderElement.addEventListener('mouseup', (values, handle) => {
-        if (crowdContainer.classList.contains("active")) {
-            crowdContainer.innerHTML = "";
-            drawCrowdofPeople(householdIncome);
-        }
+	sliderElement.addEventListener('mouseup', () => {
+        crowdContainer.innerHTML = "";
+        drawCrowdofPeople(householdIncome);
     })
 }
 
@@ -104,7 +102,7 @@ function drawCrowdofPeople(householdIncome) {
     const height = 400 - margin.top - margin.bottom;
     const parentWidth = parentElement.clientWidth; 
 
-    const donationAmount = parseInt(document.getElementById("value-bubble").innerText.slice(0, 2));
+    const donationAmount = parseInt(document.getElementById("value-bubble").innerText.slice(0, -1));
     let people = (householdIncome * (donationAmount / 100) / COST_OF_SAVING_A_LIFE * 10).toFixed(1);
 
     const r = 40;
