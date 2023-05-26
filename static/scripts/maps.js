@@ -1,9 +1,9 @@
 export {draw2DMap};
 import { getEquivalizeIncome } from './utility.js'
-// import { changeMapLoaded } from "./main";
 
 const response = await fetch("static/data/gni_per_capita.json"); 
 const GNI_PER_CAPITA = await response.json();
+const MEDIAN_INCOME = GNI_PER_CAPITA["WLD"].income
 
 let country_ratios = {};
 
@@ -117,6 +117,7 @@ function draw2DMapWorkingBatchedPrototype(income, adults, children){
 	})
 }
 
+// https://www.mongodb.com/blog/post/digging-into-d3-internals-to-eliminate-jank-over-large-data-sets
 function draw2DMapFailAttempt(income, adults, children) {
 	// Code and tutorial from https://bost.ocks.org/mike/map
 	let country_ratios = {};
@@ -203,12 +204,12 @@ function draw2DMapFailAttempt(income, adults, children) {
 function createEventListener(income, adults, children) {
 	const sliderElement = document.getElementById("slider");
 	sliderElement.addEventListener('mouseup', () => {
-		console.log("vb", document.getElementById("value-bubble").innerText)
 		const donationAmount = parseInt(document.getElementById("value-bubble").innerText.slice(0, -1));
-		console.log(donationAmount)
 		const afterDonationIncome = income * ((100 - donationAmount) / 100);
-		console.log("afterDonationIncome",afterDonationIncome)
-        redraw2DMap(afterDonationIncome, adults, children);
+		let ratioToMedianIncome = (afterDonationIncome / getEquivalizeIncome(MEDIAN_INCOME, adults, children)).toFixed(1);
+		document.getElementById("map-title-text").innerHTML = `Your after-donation income is <u class="font-bold">${ratioToMedianIncome}</u> times the global median income of the same household size.`;
+        
+		redraw2DMap(afterDonationIncome, adults, children);
     })
 }
 
@@ -226,11 +227,9 @@ function redraw2DMap(income, adults, children) {
 			}
 			
 			let ppp_avg_income = GNI_PER_CAPITA[country.properties.code]["income"]
-			// console.log("ppp_avg_income", ppp_avg_income)
+		
 			let newRatio = income / getEquivalizeIncome(ppp_avg_income, adults, children);
-			// console.log("newRatio", newRatio)
-			// console.log("country.properties.code", country.properties.code)
-			// console.log("getEquivalizeIncome(ppp_avg_income, adults, children)", getEquivalizeIncome(ppp_avg_income, adults, children))
+		
 			if (newRatio < 5) {
 				newRatio = newRatio.toFixed(1);
 			}
@@ -238,11 +237,11 @@ function redraw2DMap(income, adults, children) {
 				newRatio = Math.round(newRatio);
 			}
 			country_ratios[country.properties.code] = newRatio;
-			// console.log("color", color(newRatio))
 			return color(newRatio); 
 		})
 }
 
+// TO TRY: https://web.dev/rendering-performance/
 function draw2DMap(income, adults, children) {
 	createEventListener(income, adults, children);
 
@@ -254,13 +253,22 @@ function draw2DMap(income, adults, children) {
 		const margin = {top: 0, right: 0, bottom: 0, left: 0};
 		const width = document.getElementById("map-container").offsetWidth - margin.left - margin.right; ;
 		const height =  (width - margin.top - margin.bottom) * 9 / 16 ;
+
+		const mapConatiner = d3.select("#map-container");
+		let ratioToMedianIncome = (afterDonationIncome / getEquivalizeIncome(MEDIAN_INCOME, adults, children)).toFixed(1);
+
+		mapConatiner
+			.append("p")
+			.attr("id", "map-title-text")
+			.attr("class", "font-semibold text-2xl")
+			.html(`Your after-donation income is <u class="font-bold">${ratioToMedianIncome}</u> times the global median income of the same household size.`);
 	
 		d3.json("static/data/updated-countries-50m.json").then((world) => {
 			const land = topojson.feature(world, world.objects.countries);
 			const projection = d3.geoNaturalEarth1().fitSize([width, height], land);
 			
 			// Adding the svg element
-			let svg = d3.select("#map-container")
+			let svg = mapConatiner
 						.append("svg")
 						.attr("width", width)
 						.attr("height", height)
@@ -344,18 +352,21 @@ function draw2DMap(income, adults, children) {
 					// Hide the information box
 					d3.select('#info-box').remove();
 				});
-	
-			// https://observablehq.com/@harrystevens/introducing-d3-geo-scale-bar
-			svg.call(d3.zoom()
-				.scaleExtent([1, 3])
-				.translateExtent([[0, 0], [width, height]])
-				.on("zoom", event => {
-					map.attr("transform", event.transform);
-	
-					// A nice feature, but sadly causes the map to lag
-					// d3.selectAll(".country").attr("stroke-width", 1 / event.transform.k  + "px");
-				})
-			);
+			
+			// Adding a zoom feature only if the screen is small 
+			if (window.screen.width < 1024) {
+				// https://observablehq.com/@harrystevens/introducing-d3-geo-scale-bar
+				svg.call(d3.zoom()
+					.scaleExtent([1, 3])
+					.translateExtent([[0, 0], [width, height]])
+					.on("zoom", event => {
+						map.attr("transform", event.transform);
+		
+						// A nice feature, but sadly causes the map to lag
+						// d3.selectAll(".country").attr("stroke-width", 1 / event.transform.k  + "px");
+					})
+				);
+			}
 	
 		});
 	})

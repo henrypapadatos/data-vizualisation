@@ -1,6 +1,16 @@
 const costOfBednet = 5;
 const costOfVitamin = 1;
 
+function createEventListener() {
+    const sliderElement = document.getElementById("slider");
+    const crowdContainer = document.getElementById("crowd-container")
+ 
+	sliderElement.addEventListener('mouseup', () => {
+        crowdContainer.innerHTML = "";
+        drawCrowdofPeople(householdIncome);
+    })
+}
+
 export function loadImpactVisuals(income){
     const possibleBednets = Math.floor(income / costOfBednet);
     const possibleVitamins = Math.floor(income / costOfVitamin);
