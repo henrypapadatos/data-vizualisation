@@ -161,10 +161,11 @@ function LineChart(
         .call(xAxis)
         .call(g => g.select(".domain").remove())
         .call(g => g.append("text")
-            .attr("x", width - 150)
+            .attr("x", width - 200)
             .attr("y", marginBottom)
             .attr("fill", "currentColor")
             .attr("text-anchor", "start")
+            .attr("font-size", "12px")
             .text(xLabel));
     
     //plot y axis
@@ -180,6 +181,7 @@ function LineChart(
             .attr("y", marginTop-5)
             .attr("fill", "currentColor")
             .attr("text-anchor", "start")
+            .attr("font-size", "12px")
             .text(yLabel));
 
     //This is for the black dot at the end of the line
