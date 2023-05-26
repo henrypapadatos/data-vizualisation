@@ -208,18 +208,18 @@ async function displayVisuals() {
 	const children = document.getElementById("children").value;
 	const countryAlpha2Code = document.getElementById("select-country").value;
 	const internationalDollarIncome = convertIncomeToPPP(income, countryAlpha2Code);
-	const equivalizeIncome = getEquivalizeIncome(internationalDollarIncome, adults, children);
+	let equivalizeIncome = getEquivalizeIncome(internationalDollarIncome, adults, children);
 	const calculateButton = document.getElementById("calculate");
 	
 	visuals.classList.remove("hidden");
 	
 	// Loading this here to avoid lag later
 	await draw2DMap(equivalizeIncome, adults, children);
-	
+
 	d3.select("#title-text")
 		.append("p")
-		.attr("class", "font-bold text-4xl")
-		.text("If you have a household income of " + income.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ","));
+		.attr("class", "font-bold text-3xl")
+		.text("If you have a household income of " + income.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ",") + " "+document.getElementById("currency-label").innerText);
 	d3.select("#title-text")
 		.append("p")
 		.attr("class", "font-semibold text-xl")
@@ -230,6 +230,17 @@ async function displayVisuals() {
 		window.addEventListener("scroll", changeSliderPosition);
 		visualsDisplayed = true;
 	} 
+	
+	//round the equivalized income to the nearest 10
+	equivalizeIncome = Math.round(equivalizeIncome/10)*10;
+
+	d3.select('#distribution-container')
+		.append("p")
+		.attr("class", "font-normal text-base flex justify-center px-5")
+		.text("After taking into account the purchase power parity of your country, your household income is equivalent to " + 
+				equivalizeIncome.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ",") + 
+				" USD per year. Have a look at the graph below, the black dot shows where you lie on the global income distribution, and the red dot is adjusted for the donation amount you selected using the slider on the right.");
+
 
 	drawLineChart(equivalizeIncome);
 
