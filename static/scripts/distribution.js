@@ -34,7 +34,7 @@ function LineChart(data, {
     marginRight = 30, // right margin, in pixels
     marginBottom = 30, // bottom margin, in pixels
     marginLeft = 60, // left margin, in pixels
-    width = 640, // outer width, in pixels
+    width = 800, // outer width, in pixels
     height = 400, // outer height, in pixels
     xType = d3.scaleLinear, // the x-scale type
     xDomain, // [xmin, xmax]
@@ -51,6 +51,9 @@ function LineChart(data, {
     strokeWidth = 1.5, // stroke width of line, in pixels
     strokeOpacity = 1, // stroke opacity of line
   } = {}) {
+
+    width = document.getElementById("distribution-container").offsetWidth - marginLeft - marginRight;
+    //height = width*0.6;
     // Compute values.
     let X = d3.map(data, x);
     let Y = d3.map(data, y);
@@ -88,7 +91,7 @@ function LineChart(data, {
                 .attr("width", width)
                 .attr("height", height)
                 .attr("viewBox", [-10, -10, width, height+20])
-                .attr("style", "max-width: 100%; height: auto; height: intrinsic;")
+                .attr("style", "max-width: 100%; height: auto; ")
                 .attr("id", "map-svg");
   
     // const svg = d3.create("svg")
