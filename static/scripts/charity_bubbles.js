@@ -7,6 +7,7 @@ function bubbles(){
     var width = 1000, height = 1000;
     const bubblesContainer = d3.select("#bubbles-container")
     let isTransitioning = false;
+    let causeDescriptionHere = null;
     const TRANS_DURATION = 1000;
 
     var svg = bubblesContainer
@@ -273,19 +274,21 @@ function bubbles(){
 
 
 
-        var causeDescriptionHere = null;
+        
 
 
         function cause_areas_description_out(){
             isTransitioning = true;
             d3.select(causeDescriptionHere).transition().duration(TRANS_DURATION)
-            .ease(d3.easeCubicInOut) 
-            .style("opacity", 0)
+                .ease(d3.easeCubicInOut) 
+                .style("opacity", 0)
             //.style("font-size", "0px")
-            .on("end", function() {
+                .on("end", function() {
+                causeDescriptionHere = null;
                 d3.select(this).remove();
-                causeDescriptionHere = null
+                
                 isTransitioning = false;
+                console.log("REMOVED")
             });
         }
         cause_areas.forEach(cause_area => { 
