@@ -1,20 +1,21 @@
 const costOfBednet = 5;
 const costOfVitamin = 1;
 
-function createEventListener() {
+function createEventListener(income) {
     const sliderElement = document.getElementById("slider");
-    const crowdContainer = document.getElementById("crowd-container")
  
 	sliderElement.addEventListener('mouseup', () => {
-        crowdContainer.innerHTML = "";
-        drawCrowdofPeople(householdIncome);
+		loadImpactVisuals(income);
     })
 }
 
 export function loadImpactVisuals(income){
-    const possibleBednets = Math.floor(income / costOfBednet);
-    const possibleVitamins = Math.floor(income / costOfVitamin);
-    animateValue(document.getElementById("bednet-count"), 0, possibleBednets, 3000);
+	createEventListener(income)
+	const donationPercent = parseInt(document.getElementById("value-bubble").innerText.slice(0, -1));
+    const donationAmount = income * (donationPercent / 100);
+    const possibleBednets = Math.floor(donationAmount / costOfBednet);
+    const possibleVitamins = Math.floor(donationAmount / costOfVitamin);
+	animateValue(document.getElementById("bednet-count"), 0, possibleBednets, 3000);
     animateValue(document.getElementById("vitamin-count"), 0, possibleVitamins, 3000);
 }
 
