@@ -77,7 +77,7 @@ function bubbles(){
         .on("mouseover", function(event, d) {
             // Open the URL in a new tab when clicking on the circle
             d3.select(this)
-            .style('border', '3px solid #e8c52b');
+            .style('border', '2px solid #e8c52b');
         })
         .on("mouseout", function(event, d) {
             // Open the URL in a new tab when clicking on the circle
