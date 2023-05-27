@@ -284,6 +284,10 @@ function revealSection() {
 					break;
 				case "bubbles-container":
 					drawCharityBubbles();
+					let visualDelay = document.querySelectorAll(".visualDelay");
+					for (const element of visualDelay) {
+						element.classList.toggle("transformed-state");
+					  }
 			}
 		}
 	}

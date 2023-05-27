@@ -46,7 +46,8 @@ function drawGroups(income) {
     .select("#bubbleGroup-container")
     .append("svg")
     .attr("viewBox", [0, 0, width, height])
-    .style("background", "black")
+    //.style("background", "rgb(250 244 244)")
+    .style("background", "rgb(250 244 244)")
     .attr("stroke", "currentColor")
     .attr("stroke-width", 1.5)
     .attr("id", "bubblegroups-svg");
@@ -113,16 +114,16 @@ function drawGroups(income) {
     .attr("class", ".title-bubble-group")
     .attr("x", 50)
     .attr("y", 40)
-    .text(d => `People richer than you (${(proportionGroupRicher * 100).toFixed(2)}%)`)
+    .text(d => `People richer than you (${(proportionGroupRicher * 100).toFixed(1)}%)`)
     .attr("alignment-baseline", "middle")
-    .attr("font-size", "4vh").attr("color", "white").attr("fill","white");
+    .attr("font-size", "4vh").attr("color", "black").attr("fill","black");
   var title_poorer_text = title_poorer.append("text")
     .attr("class", ".title-bubble-group")
     .attr("x", 50)
     .attr("y", 40)
-    .text(d => `People poorer than you (${(proportionGroupPoorer * 100).toFixed(2)}%)`)
+    .text(d => `People poorer than you (${(proportionGroupPoorer * 100).toFixed(1)}%)`)
     .attr("alignment-baseline", "middle")
-    .attr("font-size", "4vh").attr("color", "white").attr("fill","white");   
+    .attr("font-size", "4vh").attr("color", "black").attr("fill","black");   
     // Get the slider element
     const sliderElement = document.getElementById("slider");
 
@@ -207,7 +208,7 @@ function drawGroups(income) {
     .attr("x", 0)
     .attr("y", 0)
     .text("Legend")
-    .attr("color", "white")
+    .attr("color", "black")
     .attr("font-size", "6vh");
 
   // Add legend circles
@@ -223,9 +224,10 @@ function drawGroups(income) {
     .attr("fill", d => (d.group === "poorer" ? COLOR_POOR : COLOR_RICH));
 
   // Add legend labels
+  const nb_people_bubble = POP_PER_CIRCLE.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ",")
   const legendLabels = legend
     .selectAll(".legend-label")
-    .data([{ group: "poorer", label: `${POP_PER_CIRCLE.toExponential(2)} poorer people` }, { group: "richer", label: `${POP_PER_CIRCLE.toExponential(2)} richer people` }])
+    .data([{group: "poorer", label: nb_people_bubble + " poorer people" }, {group: "richer", label: nb_people_bubble + " richer people"}])
     .enter()
     .append("text")
     .attr("class", "legend-label")
@@ -233,9 +235,9 @@ function drawGroups(income) {
     .attr("y", (_, i) => 60 + i * 40)
     .text(d => d.label)
     .attr("alignment-baseline", "middle")
-    .attr("fill", "white")
+    .attr("fill", "black")
     .attr("font-size", "4vh")
-    .attr("color", "white");
+    .attr("color", "black");
 
   
 }
