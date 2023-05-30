@@ -5,12 +5,12 @@ function drawCharityBubbles() {
 }
 
 function bubbles(){
-    var width = 950, height = 700;
+    var width = 970, height = 500;
     const bubblesContainer = d3.select("#bubbles-container")
     let isTransitioning = false;
     let causeDescriptionHere = null;
     const TRANS_DURATION = 1000;
-    const SIZE_CIRCLE =33;
+    const SIZE_CIRCLE =27;
 
     var svg = bubblesContainer
     .append("svg")
@@ -98,7 +98,7 @@ function bubbles(){
         .attr('class', 'dot')
         .style('top', d => d.top ? d.top + 'px' : null)
         .style('left', d => d.left ? d.left + 'px' : null)
-        */
+    */
     const buttons = [
         {id : 'button_separation', text : 'Cause Separation'},
         {id : 'combine', text : 'Combine'},
@@ -158,19 +158,23 @@ function bubbles(){
     */
 
     var forceX_Separate = d3.forceX(function(d)  {
-        if(d.cause_area == 'Global Health and Development' || d.cause_area == 'Catastrophic Risks'){
-            return cornerBoxData[0].left
-        }else{
-            return cornerBoxData[3].left - 30
-        }}).strength(0.05)
+        let offset = 0; 
+        if(d.cause_area === 'Global Health and Development' || d.cause_area === 'Catastrophic Risks'){
+            return width * (4/16)  -3 //- 60
+        }else if (d.cause_area === 'Animal Welfare' || d.cause_area === 'Funds'){
+            return width * (12/16) - 23 //- 75 
+        }
+        return offset
+        }
+            ).strength(0.05) 
 
     var forceY_Separate = d3.forceY(function(d)  {
         if(d.cause_area == 'Global Health and Development' || d.cause_area == 'Animal Welfare'){
             
-            return cornerBoxData[0].top + SIZE_CIRCLE*2
+            return cornerBoxData[0].top + SIZE_CIRCLE*1.8
         }else{
             return cornerBoxData[3].top + SIZE_CIRCLE*1
-        }}).strength(0.05)        
+        }}).strength(0.06)        
 
     var forceX_Combine = d3.forceX(d => width / 2).strength(0.05)
 
@@ -178,20 +182,20 @@ function bubbles(){
 
 
     var simulation = d3.forceSimulation()
-        //.force("center", d3.forceCenter(width / 2, height / 2))
-        .force("charge", d3.forceManyBody().strength(-(SIZE_CIRCLE + 1)))
+        .force("center", d3.forceCenter(width / 2, height / 2))
+        .force("charge", d3.forceManyBody().strength(-(SIZE_CIRCLE)))
         .force("x", forceX_Combine)
         .force("y", forceY_Combine)
         .force("collide", d3.forceCollide(function(d) {
             //return //radiusScale(d.cost_effectiveness) +2
-            return SIZE_CIRCLE + 3
+            return SIZE_CIRCLE + 4
         }))
         ;
 
     let separated_bubbles = false;
 
 
-    /*
+    
     d3.select("#All").on('click', () => {
         simulation
             .force("x", forceX_Separate)
@@ -201,7 +205,7 @@ function bubbles(){
         d3.select("#bubbles-container").selectAll('.cause_area-box')
             .style('opacity', '1.0');
         separated_bubbles = true;
-        });*/
+        });
     d3.csv("static/data/charities.csv").then(ready);
 
 
@@ -315,6 +319,7 @@ function bubbles(){
             // put everything back to center
             simulation
                 .nodes(var_datapoints)
+                .force("center", null)
                 .force("x", forceX_Combine)
                 .force("y", forceY_Combine)
                 .alphaTarget(0.5)
@@ -325,6 +330,7 @@ function bubbles(){
         function separate_bubbles(){
             simulation
                 .nodes(var_datapoints)
+                .force("center", null)
                 .force("x", forceX_Separate)
                 .force("y", forceY_Separate)
                 .alphaTarget(0.5)
@@ -467,7 +473,7 @@ function bubbles(){
         simulation.nodes(var_datapoints).on('tick', ticked)
         setTimeout(() => {
             separate_bubbles();
-          }, 7000);
+          }, 4000);
 
         
         

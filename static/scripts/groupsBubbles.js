@@ -108,22 +108,25 @@ function drawGroups(income) {
 
 */
 
-  var title_poorer = svg.append("g").attr("class", "title").attr("transform",`translate(${7.25*(width / 12)}, ${(height/10) })`);
-  var title_richer = svg.append("g").attr("class", "title").attr("transform", `translate(${width / 12}, ${height/10})`);
-  var title_richer_text = title_richer.append("text")
-    .attr("class", ".title-bubble-group")
-    .attr("x", 50)
-    .attr("y", 40)
-    .text(d => `People richer than you (${(proportionGroupRicher * 100).toFixed(1)}%)`)
-    .attr("alignment-baseline", "middle")
-    .attr("font-size", "4vh").attr("color", "black").attr("fill","black");
-  var title_poorer_text = title_poorer.append("text")
-    .attr("class", ".title-bubble-group")
-    .attr("x", 50)
-    .attr("y", 40)
-    .text(d => `People poorer than you (${(proportionGroupPoorer * 100).toFixed(1)}%)`)
-    .attr("alignment-baseline", "middle")
-    .attr("font-size", "4vh").attr("color", "black").attr("fill","black");   
+  var title_poorer_text = svg.append("text")
+  .attr("class", "title-bubble-group")
+  .text(d => `People poorer than you (${(proportionGroupPoorer * 100).toFixed(1)}%)`)
+  .attr("x", 3 * (width / 4))
+  .attr("y", height / 8)
+  .attr("text-anchor", "middle")
+  .attr("alignment-baseline", "middle")
+  .attr("font-size", "7vh")
+  .attr("fill", "black");
+
+  var title_richer_text = svg.append("text")
+  .attr("class", "title-bubble-group")
+  .text(d => `People richer than you (${(proportionGroupRicher * 100).toFixed(1)}%)`)
+  .attr("x", 1 * (width / 4))
+  .attr("y", height / 8)
+  .attr("text-anchor", "middle")
+  .attr("alignment-baseline", "middle")
+  .attr("font-size", "7vh")
+  .attr("fill", "black");
     // Get the slider element
     const sliderElement = document.getElementById("slider");
 
@@ -209,7 +212,7 @@ function drawGroups(income) {
     .attr("y", 0)
     .text("Legend")
     .attr("color", "black")
-    .attr("font-size", "6vh");
+    .attr("font-size", "7vh");
 
   // Add legend circles
   const legendCircles = legend
@@ -236,7 +239,7 @@ function drawGroups(income) {
     .text(d => d.label)
     .attr("alignment-baseline", "middle")
     .attr("fill", "black")
-    .attr("font-size", "4vh")
+    .attr("font-size", "5vh")
     .attr("color", "black");
 
   
