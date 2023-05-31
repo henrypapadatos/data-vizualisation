@@ -57,7 +57,7 @@ function drawLineChart(income, transitionDuration) {
             marginLeft,
             marginRight,
             marginBottom,
-            transitionDuration,
+            transitionDuration-1000,
         );
 
         setTimeout(() => {
