@@ -237,7 +237,7 @@ async function displayVisuals() {
 	d3.select('#distribution-container')
 		.append("p")
 		.attr("class", "font-normal text-base flex justify-center px-5")
-		.text(`After taking into account the purchasing power parity of your country, your household income is equivalent to ${equivalizeIncome.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ",")} USD per year. Have a look at the graph below, the black dot shows where you lie on the global income distribution, and the red dot is adjusted for the donation amount you selected using the slider on the right.`);
+		.text(`After taking into account the purchasing power parity of your country, your household income is equivalent to ${equivalizeIncome.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ",")} USD per year. Have a look at the graph below to see where you lie on the global income distribution.`);
 
 	drawLineChart(equivalizeIncome);
 
