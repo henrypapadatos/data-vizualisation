@@ -6,7 +6,6 @@ export {drawLineChart};
 
 
 function drawLineChart(income, transitionDuration) {
-    console.log("drawLineChart");
     const height = 400;
     const marginLeft = 60;
     const marginRight = 30;
@@ -22,7 +21,7 @@ function drawLineChart(income, transitionDuration) {
             y: d => d.international_dollars,
         });
 
-        //keep onnly the y values smaller than the income
+        //keep only the y values smaller than the income
         Y = Y.filter(function(d) { return d < income; });
         //truncate X to make it the same length as Y
         X = X.slice(0, Y.length);

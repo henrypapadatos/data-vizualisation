@@ -1,10 +1,10 @@
-import { draw2DMap } from "./maps.js";
-import { drawCrowdofPeople } from "./crowd.js";
+import { draw2DMap, createEventListenerForMap} from "./maps.js";
+import { drawCrowdofPeople, createEventListenerForCrowd } from "./crowd.js";
 import { drawLineChart } from "./distribution.js";
 import { drawCharityBubbles } from "./charity_bubbles.js";
 import { drawGroups } from "./groupsBubbles.js";
-import { convertIncomeToPPP, getEquivalizeIncome } from './utility.js'
-import { loadImpactVisuals } from "./impact_comparisons.js";
+import { convertIncomeToPPP, getAfterDonationIncome, getEquivalizeIncome, getInputIncome, getMedianIncome, getPreDonationIncome } from './utility.js'
+import { createEventListenerForImpact, loadImpactVisuals } from "./impact_comparisons.js";
 
 let visualsDisplayed = false;
 
@@ -92,12 +92,23 @@ function createSlider() {
 	noUiPipsElement.children[0].remove();
 	noUiPipsElement.children[noUiPipsElement.children.length - 2].remove();
 
+	d3.select('#slider-text')
+		.append("p")
+		.text("Donation \n amount:")
+
 	// Change the pip values to have a % sign
 	Array.from(noUiPipsElement.children).forEach(child => {
 		if (child.classList.contains("noUi-value")) {
 			child.innerHTML += "%";
 		}
 	});
+
+	// Add event listeners for the slider
+	const adults = document.getElementById("adults").value;
+	const children = document.getElementById("children").value;
+	createEventListenerForMap(adults, children);
+	createEventListenerForImpact();
+	createEventListenerForCrowd();
 }
 
 // Handles country selection event
@@ -154,17 +165,10 @@ function displayError(message) {
 // Handles the calculate button click event
 function armCalculateButton() {
 	const calculateButton = document.getElementById("calc_button");
-	const globalMedianIncomePerFamily = 10000;
 	
 	calculateButton.addEventListener("click", function() {
-		const income = document.getElementById("income").value;
-		const adults = document.getElementById("adults").value;
-		const children = document.getElementById("children").value;
-		const countryAlpha2Code = document.getElementById("select-country").value;
-		const internationalDollarIncome = convertIncomeToPPP(income, countryAlpha2Code);
-		const equivalizeIncome = getEquivalizeIncome(internationalDollarIncome, adults, children);
 
-		if (equivalizeIncome < globalMedianIncomePerFamily) {
+		if (getPreDonationIncome() < getMedianIncome()) {
 			displayError("Sorry, the income you entered is below the global median income. We only have data for incomes higher than the global median.");
 			return;
 		}
@@ -202,52 +206,46 @@ function changeSliderPosition() {
 
 // Displays the visuals section
 async function displayVisuals() {
-	const income = document.getElementById("income").value;
 	const adults = document.getElementById("adults").value;
 	const children = document.getElementById("children").value;
-	const countryAlpha2Code = document.getElementById("select-country").value;
-	const internationalDollarIncome = convertIncomeToPPP(income, countryAlpha2Code);
-	let equivalizeIncome = getEquivalizeIncome(internationalDollarIncome, adults, children);
 	const calculateButton = document.getElementById("calculate");
+	let preDonationIncome = getPreDonationIncome();
 
 	visuals.classList.remove("hidden");
 
 	// Loading this here to avoid lag later
-	await draw2DMap(equivalizeIncome, adults, children);
+	await draw2DMap(preDonationIncome, adults, children);
 
 	d3.select("#title-text")
 		.append("p")
 		.attr("class", "font-bold text-3xl")
-		.text(`If you have a household income of ${income.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ",")} ${document.getElementById("currency-label").innerText}`);
+		.text(`If you have a household income of ${getInputIncome().toString().replace(/\B(?=(\d{3})+(?!\d))/g, ",")} ${document.getElementById("currency-label").innerText}`);
 	d3.select("#title-text")
 		.append("p")
 		.attr("class", "font-semibold text-xl")
 		.text(`(in a household of ${adults} adults and ${children} children)`);
 
 	if (!visualsDisplayed) {
-		//createSlider();
 		window.addEventListener("scroll", changeSliderPosition);
 
 		visualsDisplayed = true;
 	} 
 	
 	// Round the equivalized income to the nearest 10
-	equivalizeIncome = Math.round(equivalizeIncome/10)*10;
+	preDonationIncome = Math.round(preDonationIncome/10)*10;
 
 	d3.select('#distribution-container')
 		.append("p")
 		.attr("class", "font-normal text-base flex justify-center px-5")
-		.text(`After taking into account the purchasing power parity of your country, your household income is equivalent to ${equivalizeIncome.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ",")} USD per year. Have a look at the graph below to see where you lie on the global income distribution.`);
+		.text(`After taking into account the purchasing power parity of your country, your household income is equivalent to ${preDonationIncome.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ",")} USD per year. Have a look at the graph below to see where you lie on the global income distribution.`);
 
-	const distribution_transition_time = 4000;
-	drawLineChart(equivalizeIncome, distribution_transition_time);
+	const distribution_transition_time = 3000;
+	drawLineChart(preDonationIncome, distribution_transition_time);
 
 	//Write donation amount with a 
 	setTimeout(() => {
 		createSlider();
-		d3.select('#slider-text')
-			.append("p")
-			.text("Donation \n amount:")
+		document.getElementById("slider").classList.add("active");
 		}, distribution_transition_time);
 
 	// Scroll visuals into view
@@ -271,12 +269,7 @@ function revealSection() {
 	const revealPoint = 120;
 	const windowHeight = window.innerHeight;
 	const sections = Array.from(document.querySelectorAll(".visual"));
-	const income = document.getElementById("income").value;
-	const adults = document.getElementById("adults").value;
-	const children = document.getElementById("children").value;
-	const countryAlpha2Code = document.getElementById("select-country").value;
-	const internationalDollarIncome = convertIncomeToPPP(income, countryAlpha2Code);
-	const equivalizeIncome = getEquivalizeIncome(internationalDollarIncome, adults, children);
+	const equivalizeIncome = getPreDonationIncome();
   
 	sections.forEach(section => {
 	  if (section.classList.contains("active")) {
@@ -295,13 +288,13 @@ function revealSection() {
 			// draw2DMap(income, adults, children); // <= Moved to displayVisuals()
 			break;
 		  case "impact-container":
-			loadImpactVisuals(income);
+			loadImpactVisuals();
 			break;
 		  case "crowd-container":
-			drawCrowdofPeople(income, adults, children);
+			drawCrowdofPeople();
 			break;
 		  case "bubbles-container":
-			drawCharityBubbles(income, adults, children);
+			drawCharityBubbles();
 			let visualDelay = document.querySelectorAll(".visualDelay");
 			visualDelay.forEach(e => e.classList.toggle("transformed-state"));
 			break;

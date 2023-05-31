@@ -1,22 +1,23 @@
+import { getDonatedAmount, getPreDonationIncome } from "./utility.js";
+
 const costOfBednet = 5;
 const costOfVitamin = 1;
 
-function createEventListener(income) {
+export function createEventListenerForImpact() {
     const sliderElement = document.getElementById("slider");
  
-	sliderElement.addEventListener('mouseup', () => {
-		loadImpactVisuals(income);
+	sliderElement.noUiSlider.on('update', (values, handle) => {
+		const donationAmount = getDonatedAmount(); 
+		loadImpactVisuals(donationAmount);
     })
 }
 
-export function loadImpactVisuals(income){
-	createEventListener(income)
-	const donationPercent = parseInt(document.getElementById("value-bubble").innerText.slice(0, -1));
-    const donationAmount = income * (donationPercent / 100);
+export function loadImpactVisuals(donationAmount = getPreDonationIncome() * 0.1){
+	
     const possibleBednets = Math.floor(donationAmount / costOfBednet);
     const possibleVitamins = Math.floor(donationAmount / costOfVitamin);
-	animateValue(document.getElementById("bednet-count"), 0, possibleBednets, 3000);
-    animateValue(document.getElementById("vitamin-count"), 0, possibleVitamins, 3000);
+	animateValue(document.getElementById("bednet-count"), 0, possibleBednets, 1000);
+    animateValue(document.getElementById("vitamin-count"), 0, possibleVitamins, 1000);
 }
 
 function animateValue(obj, start, end, duration) {
