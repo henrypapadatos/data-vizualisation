@@ -261,7 +261,7 @@ function draw2DMap(income, adults, children) {
 			.append("p")
 			.attr("id", "map-title-text")
 			.attr("class", "font-semibold text-2xl")
-			.html(`Your after-donation income is <u class="font-bold">${ratioToMedianIncome}</u> times the global median income of the same household size.`);
+			.html(`Your post-donation income is <u class="font-bold">${ratioToMedianIncome}</u> times the global median income of the same household size.`);
 	
 		d3.json("static/data/updated-countries-50m.json").then((world) => {
 			const land = topojson.feature(world, world.objects.countries);
