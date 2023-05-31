@@ -1,6 +1,7 @@
 import { draw2DMap } from "./maps.js";
 import { drawCrowdofPeople } from "./crowd.js";
 import { drawLineChart } from "./distribution.js";
+import {Extract_data} from "./distribution.js";
 import { drawCharityBubbles } from "./charity_bubbles.js";
 import { drawGroups } from "./groupsBubbles.js";
 import { convertIncomeToPPP, getEquivalizeIncome } from './utility.js'
@@ -232,17 +233,45 @@ async function displayVisuals() {
 	} 
 	
 	// Round the equivalized income to the nearest 10
-	equivalizeIncome = Math.round(equivalizeIncome/10)*10;
+	const roundedIncome = Math.round(equivalizeIncome/10)*10;
 
 	d3.select('#distribution-container')
 		.append("p")
 		.attr("class", "font-normal text-base flex justify-center px-5")
-		.text(`After taking into account the purchasing power parity of your country, your household income is equivalent to ${equivalizeIncome.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ",")} USD per year. Have a look at the graph below to see where you lie on the global income distribution.`);
+		.text(`After taking into account the purchasing power parity of your country, your household income is equivalent to ${roundedIncome.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ",")} USD per year.`);
+
+	d3.select('#distribution-container')
+		.append("p")
+		.attr("class", "font-bold text-base flex justify-center px-5")
+		.text("Have a look at the graph below to see how your income compares to the rest of the world!");
+
+	d3.json("/static/data/income_centiles.json").then((data) => {
+			let X, Y;
+			[X,Y] = Extract_data(data, {
+				x: d => d.percentage,
+				y: d => d.international_dollars,
+			});
+			// print the income percentile
+			const closest_income = Y.reduce(function(prev, curr) { return (Math.abs(curr - equivalizeIncome) < Math.abs(prev - equivalizeIncome) ? curr : prev);});
+
+			//find the index of the new_income in the Y array
+			const new_percentile_index = Y.indexOf(closest_income);
+			let percentile = X[new_percentile_index];	
+
+			//round the percentile to 1 decimal place
+			percentile = Math.round(percentile * 10) / 10;
+
+			//write the percentile to the page
+			d3.select('#distribution-container')
+				.append("p")
+				.attr("class", "font-bold text-base flex justify-center px-5")
+				.text(`You are richer then ${percentile}% of the world. `);
+		});
 
 	const distribution_transition_time = 4000;
 	drawLineChart(equivalizeIncome, distribution_transition_time);
 
-	//Write donation amount with a 
+	//Create slider after the line chart is drawn
 	setTimeout(() => {
 		createSlider();
 		d3.select('#slider-text')

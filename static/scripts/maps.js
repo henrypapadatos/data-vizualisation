@@ -207,7 +207,7 @@ function createEventListener(income, adults, children) {
 		const donationAmount = parseInt(document.getElementById("value-bubble").innerText.slice(0, -1));
 		const afterDonationIncome = income * ((100 - donationAmount) / 100);
 		let ratioToMedianIncome = (afterDonationIncome / getEquivalizeIncome(MEDIAN_INCOME, adults, children)).toFixed(1);
-		document.getElementById("map-title-text").innerHTML = `Your after-donation income is <u class="font-bold">${ratioToMedianIncome}</u> times the global median income of the same household size.`;
+		document.getElementById("map-title-text").innerHTML = `Your post-donation income is <u class="font-bold">${ratioToMedianIncome}</u> times the global median income of the same household size.`;
         
 		redraw2DMap(afterDonationIncome, adults, children);
     })
