@@ -225,7 +225,7 @@ async function displayVisuals() {
 		.text(`(in a household of ${adults} adults and ${children} children)`);
 
 	if (!visualsDisplayed) {
-		createSlider();
+		//createSlider();
 		window.addEventListener("scroll", changeSliderPosition);
 
 		visualsDisplayed = true;
@@ -239,7 +239,16 @@ async function displayVisuals() {
 		.attr("class", "font-normal text-base flex justify-center px-5")
 		.text(`After taking into account the purchasing power parity of your country, your household income is equivalent to ${equivalizeIncome.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ",")} USD per year. Have a look at the graph below to see where you lie on the global income distribution.`);
 
-	drawLineChart(equivalizeIncome);
+	const distribution_transition_time = 4000;
+	drawLineChart(equivalizeIncome, distribution_transition_time);
+
+	//Write donation amount with a 
+	setTimeout(() => {
+		createSlider();
+		d3.select('#slider-text')
+			.append("p")
+			.text("Donation \n amount:")
+		}, distribution_transition_time);
 
 	// Scroll visuals into view
 	calculateButton.scrollIntoView({ behavior: "smooth" });

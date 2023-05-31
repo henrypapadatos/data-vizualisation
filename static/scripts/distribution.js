@@ -5,7 +5,7 @@ export {drawLineChart};
 // https://observablehq.com/@d3/line-chart
 
 
-function drawLineChart(income) {
+function drawLineChart(income, transitionDuration) {
     console.log("drawLineChart");
     const height = 400;
     const marginLeft = 60;
@@ -13,7 +13,6 @@ function drawLineChart(income) {
     const marginBottom = 30;
     const marginTop = 20;
     const width = document.getElementById("distribution-container").offsetWidth - marginLeft - marginRight;
-    const transitionDuration = 2500;
     const sliderElement = document.getElementById("slider");
     let X, Y;
 
