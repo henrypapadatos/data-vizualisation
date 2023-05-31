@@ -233,7 +233,7 @@ async function displayVisuals() {
 	} 
 	
 	// Round the equivalized income to the nearest 10
-	const roundedIncome = Math.round(equivalizeIncome/10)*10;
+	const roundedIncome = Math.round(preDonationIncome/10)*10;
 
 	d3.select('#distribution-container')
 		.append("p")
@@ -252,7 +252,7 @@ async function displayVisuals() {
 				y: d => d.international_dollars,
 			});
 			// print the income percentile
-			const closest_income = Y.reduce(function(prev, curr) { return (Math.abs(curr - equivalizeIncome) < Math.abs(prev - equivalizeIncome) ? curr : prev);});
+			const closest_income = Y.reduce(function(prev, curr) { return (Math.abs(curr - preDonationIncome) < Math.abs(prev - preDonationIncome) ? curr : prev);});
 
 			//find the index of the new_income in the Y array
 			const new_percentile_index = Y.indexOf(closest_income);
