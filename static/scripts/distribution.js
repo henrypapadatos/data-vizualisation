@@ -1,4 +1,5 @@
 export {drawLineChart};
+export {Extract_data};
 
 // Copyright 2021 Observable, Inc.
 // Released under the ISC license.
@@ -99,7 +100,7 @@ function drawLineChart(income, transitionDuration) {
                             .attr("text-anchor", "start")
                             .attr("font-size", "14px")
                             .attr("color", "red")
-                            .text('"after-donation" income'))
+                            .text('"Post-donation" income'))
                             .attr("id", 'new-income-text');
                 });
     
