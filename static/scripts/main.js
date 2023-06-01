@@ -161,8 +161,8 @@ function displayError(message) {
 	if (visualsDisplayed) {
 		cleanup();
 	}
-	const error = document.getElementById("error");
-	error.innerText = message;
+	const errorElement = document.getElementById("error");
+	errorElement.innerText = message;
 }
 
 // Handles the calculate button click event
@@ -172,7 +172,7 @@ function armCalculateButton() {
 	calculateButton.addEventListener("click", function() {
 
 		if (getPreDonationIncome() < getMedianIncome()) {
-			displayError("Sorry, the income you entered is below the global median income. We only have data for incomes higher than the global median.");
+			displayError("Sorry, but the income you entered is below the global median income. We only have data for incomes higher than the global median.");
 			return;
 		}
 	
