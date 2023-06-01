@@ -253,16 +253,15 @@ async function displayVisuals() {
 				x: d => d.percentage,
 				y: d => d.international_dollars,
 			});
-			// print the income percentile
-			const closest_income = Y.reduce(function(prev, curr) { return (Math.abs(curr - preDonationIncome) < Math.abs(prev - preDonationIncome) ? curr : prev);});
 
-			//find the index of the new_income in the Y array
-			const new_percentile_index = Y.indexOf(closest_income);
-			let percentile = X[new_percentile_index];	
-
-			//round the percentile to 1 decimal place
+			//keep only the y values smaller than the income
+			Y = Y.filter(function(d) { return d < preDonationIncome; });
+			//truncate X to make it the same length as Y
+			X = X.slice(0, Y.length);
+			// get the last value of the X array
+			let percentile = X[X.length-1];
+			// round the value to 1 decimal places
 			percentile = Math.round(percentile * 10) / 10;
-
 			//write the percentile to the page
 			d3.select('#distribution-container')
 				.append("p")
