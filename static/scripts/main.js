@@ -248,7 +248,7 @@ async function displayVisuals() {
 			window.open("http://en.wikipedia.org/wiki/Equivalisation");
 		})
 		.on("mouseover", function() {
-			d3.select(this).style("text-decoration", "underline");
+			d3.select(this).style("text-decoration", "underline").style("cursor", "pointer");
 		})
 		.on("mouseout", function() {
 			d3.select(this).style("text-decoration", "none");
