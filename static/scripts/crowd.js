@@ -1,4 +1,6 @@
-export {drawCrowdofPeople};
+import { getDonatedAmount, getPreDonationIncome } from "./utility.js";
+
+export {drawCrowdofPeople, createEventListenerForCrowd};
 
 function onLevelofPyramid(index){
     return Math.floor(( -1 + Math.sqrt(1 + 8 * index) ) / 2) + 1;
@@ -82,31 +84,27 @@ function drawCrowdofCircles(people) {
         .attr("r", r);
 }
 
-function createEventListener(householdIncome) {
+function createEventListenerForCrowd() {
     const sliderElement = document.getElementById("slider");
     const crowdContainer = document.getElementById("crowd-container")
  
 	sliderElement.addEventListener('mouseup', () => {
         crowdContainer.innerHTML = "";
-        drawCrowdofPeople(householdIncome);
+        drawCrowdofPeople(getDonatedAmount());
     })
 }
 
-function drawCrowdofPeople(householdIncome) {
-    createEventListener(householdIncome);
+function drawCrowdofPeople(donationAmount = getPreDonationIncome() * 0.1) {
 
     const COST_OF_SAVING_A_LIFE = 4500;
-
     const margin = {top: 0, right: 0, bottom: 0, left: 0};
     const parentElement = document.getElementById("crowd-container")
     const height = 400 - margin.top - margin.bottom;
-    const parentWidth = parentElement.clientWidth; 
-
-    const donationAmount = parseInt(document.getElementById("value-bubble").innerText.slice(0, -1));
-    let people = (householdIncome * (donationAmount / 100) / COST_OF_SAVING_A_LIFE * 10).toFixed(1);
+    const parentWidth = parentElement.clientWidth;  
+    const years = 10;
+    let people = (donationAmount / COST_OF_SAVING_A_LIFE * years).toFixed(1);
 
     const r = 40;
-    // const scale = 0.008
     const epsilon = -10;
     const start_x = parentWidth / 2;
     const start_y = height * 0.15;
@@ -122,6 +120,7 @@ function drawCrowdofPeople(householdIncome) {
     else if (people < 20) {
         scale = 0.012
     }
+    
 
     d3.select("#crowd-container")
         .append("p")
@@ -197,6 +196,6 @@ function drawCrowdofPeople(householdIncome) {
         .append("p")
         .attr("id", "crowd-text")
         .attr("class", "font-bold text-4xl")
-        .text("... " + people + " people every 10 years ...")
+        .text(`... ${people} people every ${years} years ...`)
 
 }

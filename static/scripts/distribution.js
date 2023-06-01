@@ -1,19 +1,18 @@
 export {drawLineChart};
+export {Extract_data};
 
 // Copyright 2021 Observable, Inc.
 // Released under the ISC license.
 // https://observablehq.com/@d3/line-chart
 
 
-function drawLineChart(income) {
-    console.log("drawLineChart");
+function drawLineChart(income, transitionDuration) {
     const height = 400;
     const marginLeft = 60;
     const marginRight = 30;
     const marginBottom = 30;
     const marginTop = 20;
     const width = document.getElementById("distribution-container").offsetWidth - marginLeft - marginRight;
-    const transitionDuration = 2500;
     const sliderElement = document.getElementById("slider");
     let X, Y;
 
@@ -23,7 +22,7 @@ function drawLineChart(income) {
             y: d => d.international_dollars,
         });
 
-        //keep onnly the y values smaller than the income
+        //keep only the y values smaller than the income
         Y = Y.filter(function(d) { return d < income; });
         //truncate X to make it the same length as Y
         X = X.slice(0, Y.length);
@@ -58,7 +57,7 @@ function drawLineChart(income) {
             marginLeft,
             marginRight,
             marginBottom,
-            transitionDuration,
+            transitionDuration-1000,
         );
 
         setTimeout(() => {
@@ -89,7 +88,20 @@ function drawLineChart(income) {
                     const newy = yScale(new_income);
                     d3.select("#income-circle")
                         .attr("cx", newx)
-                        .attr("cy", newy)
+                        .attr("cy", newy);
+
+                    d3.select("#new-income-text").remove();
+
+                    svg.append("g")
+                        .call(g => g.append("text")
+                            .attr("x",  newx-170)
+                            .attr("y", newy+2)
+                            .attr("fill", "currentColor")
+                            .attr("text-anchor", "start")
+                            .attr("font-size", "14px")
+                            .attr("color", "red")
+                            .text('"Post-donation" income'))
+                            .attr("id", 'new-income-text');
                 });
     
             }, transitionDuration);
@@ -151,7 +163,7 @@ function LineChart(
                 .append("svg")
                 .attr("width", width)
                 .attr("height", height)
-                .attr("viewBox", [-10, -10, width, height+20])
+                .attr("viewBox", [-10, -10, width, height+30])
                 .attr("style", "max-width: 100%; height: auto; ")
                 .attr("id", "distribution-svg");
 
@@ -162,7 +174,7 @@ function LineChart(
         .call(g => g.select(".domain").remove())
         .call(g => g.append("text")
             .attr("x", width - 200)
-            .attr("y", marginBottom)
+            .attr("y", marginBottom+15)
             .attr("fill", "currentColor")
             .attr("text-anchor", "start")
             .attr("font-size", "12px")
@@ -198,7 +210,7 @@ function LineChart(
         .attr('cy', 10)
         .attr('r', 4)
         .style('fill', 'black');
-  
+
     //create the path
     let path = svg.append("path")
         .attr("fill", "none")
@@ -210,6 +222,36 @@ function LineChart(
         .attr("d", line(I))
         .attr('marker-end', 'url(#dot)') //This is for the black dot at the end of the line
         .attr('fill', 'none');
+
+    // add a straight line from the black dot to the x-axis
+    const last_x = xScale(X[I[I.length-1]]);
+    const last_y = yScale(Y[I[I.length-1]]);
+    console.log(last_x);
+    console.log(last_y);
+    svg.append("line")
+        .attr("x1", last_x)
+        .attr("y1", last_y)
+        .attr("x2", last_x)
+        .attr("y2", height - marginBottom)
+        .attr("stroke-width", 1)
+        .attr("stroke", "black")
+        .attr("stroke-dasharray", "5,5");
+
+    // get the last value of the X array
+    let last_x_value = X[I[I.length-1]];
+    // round the value to 1 decimal places
+    last_x_value = Math.round(X[I[I.length-1]] * 10) / 10;
+    // convert the value to string and add a % sign
+    last_x_value = last_x_value.toString() + "%";
+    
+    svg.append("text")
+        .attr("x", last_x)
+        .attr("y", height - marginBottom + 28)
+        .attr("fill", "currentColor")
+        .attr("text-anchor", "middle")
+        .attr("font-size", "14px")
+        .attr("font-weight", "bold")
+        .text(last_x_value);
 
 
     //create the path transition to show the line progressively

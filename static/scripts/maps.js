@@ -1,9 +1,8 @@
-export {draw2DMap};
-import { getEquivalizeIncome } from './utility.js'
+export {draw2DMap, redraw2DMap, createEventListenerForMap};
+import { getEquivalizeIncome, getMedianIncome, getAfterDonationIncome} from './utility.js'
 
 const response = await fetch("static/data/gni_per_capita.json"); 
 const GNI_PER_CAPITA = await response.json();
-const MEDIAN_INCOME = GNI_PER_CAPITA["WLD"].income
 
 let country_ratios = {};
 
@@ -201,20 +200,21 @@ function draw2DMapFailAttempt(income, adults, children) {
 	});
 }
 
-function createEventListener(income, adults, children) {
+function createEventListenerForMap(adults, children) {
 	const sliderElement = document.getElementById("slider");
-	sliderElement.addEventListener('mouseup', () => {
-		const donationAmount = parseInt(document.getElementById("value-bubble").innerText.slice(0, -1));
-		const afterDonationIncome = income * ((100 - donationAmount) / 100);
-		let ratioToMedianIncome = (afterDonationIncome / getEquivalizeIncome(MEDIAN_INCOME, adults, children)).toFixed(1);
+	sliderElement.noUiSlider.on('update', (values, handle) => {
+		let ratioToMedianIncome = (
+			getEquivalizeIncome(getAfterDonationIncome(), adults, children) 
+			/ getEquivalizeIncome(getMedianIncome(), adults, children))
+			.toFixed(1);
 		document.getElementById("map-title-text").innerHTML = `Your after-donation income is <u class="font-bold">${ratioToMedianIncome}</u> times the global median income of the same household size.`;
         
-		redraw2DMap(afterDonationIncome, adults, children);
+		redraw2DMap(adults, children);
     })
 }
 
-function redraw2DMap(income, adults, children) {
-	
+function redraw2DMap() {
+
 	const map = d3.select("#map");
 	const color = d3.scaleThreshold().domain([1, 3, 5, 10, 20, 100]).range(['#eeeeee', '#fee5da', '#fbbba3', '#fb9276', '#fa6b51', '#dd302e', '#a4141c'])
 	
@@ -227,8 +227,7 @@ function redraw2DMap(income, adults, children) {
 			}
 			
 			let ppp_avg_income = GNI_PER_CAPITA[country.properties.code]["income"]
-		
-			let newRatio = income / getEquivalizeIncome(ppp_avg_income, adults, children);
+			let newRatio = getEquivalizeIncome(getAfterDonationIncome(), adults, children) / getEquivalizeIncome(ppp_avg_income, adults, children);
 		
 			if (newRatio < 5) {
 				newRatio = newRatio.toFixed(1);
@@ -243,7 +242,6 @@ function redraw2DMap(income, adults, children) {
 
 // TO TRY: https://web.dev/rendering-performance/
 function draw2DMap(income, adults, children) {
-	createEventListener(income, adults, children);
 
 	const afterDonationIncome = income * 0.9;
 
@@ -255,13 +253,13 @@ function draw2DMap(income, adults, children) {
 		const height =  (width - margin.top - margin.bottom) * 9 / 16 ;
 
 		const mapConatiner = d3.select("#map-container");
-		let ratioToMedianIncome = (afterDonationIncome / getEquivalizeIncome(MEDIAN_INCOME, adults, children)).toFixed(1);
+		let ratioToMedianIncome = (afterDonationIncome / getEquivalizeIncome(getMedianIncome(), adults, children)).toFixed(1);
 
 		mapConatiner
 			.append("p")
 			.attr("id", "map-title-text")
 			.attr("class", "font-semibold text-2xl")
-			.html(`Your after-donation income is <u class="font-bold">${ratioToMedianIncome}</u> times the global median income of the same household size.`);
+			.html(`Your post-donation income is <u class="font-bold">${ratioToMedianIncome}</u> times the global median income of the same household size.`);
 	
 		d3.json("static/data/updated-countries-50m.json").then((world) => {
 			const land = topojson.feature(world, world.objects.countries);
@@ -297,17 +295,6 @@ function draw2DMap(income, adults, children) {
 				.attr("d", d3.geoPath().projection(projection))
 				.style("stroke", "grey")
 				.attr("stroke-width", "0.4px")
-				// .attr("fill", "white")
-				// .transition()
-				// .duration(2000)
-				// .delay(function(country, i) {
-				// 	if (!(country.properties.code in GNI_PER_CAPITA)) {
-				// 		return 5;
-				// 	}
-				// 	let ppp_avg_income = GNI_PER_CAPITA[country.properties.code]["income"]
-				// 	let ratio = income /  (ppp_avg_income * adults);
-				// 	return i * 3;
-				// })
 				.attr("fill", function(country, i) { 
 	
 					// Color based on the proportion of your average income compared to other countries

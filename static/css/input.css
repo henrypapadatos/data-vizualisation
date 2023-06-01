@@ -75,8 +75,13 @@ input[type="range"]::-webkit-slider-runnable-track {
 }
   
 #slider {
-    height: 65vh;
+    height: 0;
     width: 30px;
+    transition:all 1s ease;
+}
+
+#slider.active {
+    height: 65vh;
 }
 
 /* Hide markers on slider handles */
