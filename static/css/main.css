@@ -640,8 +640,8 @@ video {
   min-height: 60vh;
 }
 
-.min-h-\[70vh\] {
-  min-height: 70vh;
+.min-h-\[50vh\] {
+  min-height: 50vh;
 }
 
 .w-6 {
@@ -726,6 +726,10 @@ video {
 
 .justify-between {
   justify-content: space-between;
+}
+
+.justify-evenly {
+  justify-content: space-evenly;
 }
 
 .space-x-2 > :not([hidden]) ~ :not([hidden]) {

@@ -159,7 +159,6 @@ function enforceInputValidation() {
 // Displays error message
 function displayError(message) {
 	const error = document.getElementById("error");
-	error.classList.remove("hidden");
 	error.innerText = message;
 }
 
@@ -182,7 +181,7 @@ function armCalculateButton() {
 			  .filter(section => section.classList.contains("active"))
 			  .forEach(section => section.classList.remove("active"));
 		}
-
+		document.getElementById("error").innerHTML = "";
 		displayVisuals();
 	});
 }
@@ -265,18 +264,19 @@ async function displayVisuals() {
 			d3.select('#distribution-container')
 				.append("p")
 				.attr("class", "font-bold text-base flex justify-center px-5")
-				.text(`You are richer then ${percentile}% of the world. `);
+				.text(`You are richer than ${percentile}% of the world. `);
 		});
 
 	const distribution_transition_time = 3000;
 	drawLineChart(preDonationIncome, distribution_transition_time);
 
 	//Create slider after the line chart is drawn
-	setTimeout(() => {
-		createSlider();
-		document.getElementById("slider").classList.add("active");
-		}, distribution_transition_time);
-
+	if (!document.getElementById("slider").classList.contains("active")) {
+		setTimeout(() => {
+			createSlider();
+			document.getElementById("slider").classList.add("active");
+			}, distribution_transition_time);
+	}
 	// Scroll visuals into view
 	calculateButton.scrollIntoView({ behavior: "smooth" });
 }

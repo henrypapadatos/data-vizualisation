@@ -120,20 +120,13 @@ function drawCrowdofPeople(donationAmount = getPreDonationIncome() * 0.1) {
     else if (people < 20) {
         scale = 0.012
     }
-    
-
-    d3.select("#crowd-container")
-        .append("p")
-        .attr("class", "text-4xl font-bold")
-        .text("... saving the lives of ...")
 
     // Adding the svg element
     let svg = d3.select("#crowd-container")
                 .append("svg")
                 .attr("width", "100%")
                 .attr("height", height)
-                .attr("id", "crowd-svg")
-                .style("padding-top", "50px");
+                .attr("id", "crowd-svg");
 
     // Adding a group element for the crowd
     let crowd = svg.append("g")

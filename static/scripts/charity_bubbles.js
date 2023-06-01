@@ -1,10 +1,6 @@
 export {drawCharityBubbles};
-function drawCharityBubbles() {
-    console.log("drawBubbles");
-    bubbles();
-}
 
-function bubbles(){
+function drawCharityBubbles(){
     var width = 970, height = 500;
     const bubblesContainer = d3.select("#bubbles-container")
     let isTransitioning = false;

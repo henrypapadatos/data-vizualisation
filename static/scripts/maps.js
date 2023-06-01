@@ -282,7 +282,12 @@ function draw2DMap(income, adults, children) {
 			// Adding a group element for the map
 			let map = svg.append("g")
 				.attr("id", "map");
-	
+			
+			mapConatiner
+				.append("p")
+				.attr("class", "")
+				.text("Hover over countries to see your income compared to their average income")
+
 			// Adding legend color scale
 			const color = d3.scaleThreshold().domain([1, 3, 5, 10, 20, 100]).range(['#eeeeee', '#fee5da', '#fbbba3', '#fb9276', '#fa6b51', '#dd302e', '#a4141c'])
 	
