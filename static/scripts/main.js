@@ -23,9 +23,6 @@ function cleanup() {
 	const visuals = document.getElementById("visuals");
 	visuals.classList.add("hidden");
 
-
-	
-
 	document.getElementById("title-text").innerHTML = "";
 	document.getElementById("distribution-container").innerHTML = "";
 	document.getElementById("bubbleGroup-container").innerHTML = "";
@@ -184,9 +181,6 @@ function armCalculateButton() {
 			sections
 			  .filter(section => section.classList.contains("active"))
 			  .forEach(section => section.classList.remove("active"));
-			let visualDelay = document.querySelectorAll(".visualDelay");
-			visualDelay.forEach(e => e.classList.toggle("transformed-state"));
-			
 		}
 
 		displayVisuals();
