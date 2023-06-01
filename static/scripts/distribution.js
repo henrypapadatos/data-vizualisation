@@ -16,6 +16,12 @@ function drawLineChart(income, transitionDuration) {
     const sliderElement = document.getElementById("slider");
     let X, Y;
 
+    d3.select('#distribution-container')
+    .append("p")
+    .attr("class", "font-bold text-base flex justify-center px-5")
+    .text("Have a look at the graph below to see how your income compares to the rest of the world!");
+
+
     d3.json("/static/data/income_centiles.json").then((data) => {
         [X,Y] = Extract_data(data, {
             x: d => d.percentage,
@@ -106,8 +112,16 @@ function drawLineChart(income, transitionDuration) {
     
             }, transitionDuration);
         
+        let percentile = X[X.length-1];
+        // round the value to 1 decimal places
+        percentile = Math.round(percentile * 10) / 10;
+        //write the percentile to the page
+        d3.select('#distribution-container')			
+            .append("p")
+            .attr("class", "font-bold text-3xl flex justify-center px-5")
+            .text(`You are richer then ${percentile}% of the world, but...`);
     });
-      
+    
 };      
         
 function Extract_data(data, {
@@ -163,7 +177,7 @@ function LineChart(
                 .append("svg")
                 .attr("width", width)
                 .attr("height", height)
-                .attr("viewBox", [-10, -10, width, height+30])
+                .attr("viewBox", [-10, -10, width, height+45])
                 .attr("style", "max-width: 100%; height: auto; ")
                 .attr("id", "distribution-svg");
 
