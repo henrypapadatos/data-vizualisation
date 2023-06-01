@@ -207,7 +207,7 @@ function createEventListenerForMap(adults, children) {
 			getEquivalizeIncome(getAfterDonationIncome(), adults, children) 
 			/ getEquivalizeIncome(getMedianIncome(), adults, children))
 			.toFixed(1);
-		document.getElementById("map-title-text").innerHTML = `Your after-donation income is <u class="font-bold">${ratioToMedianIncome}</u> times the global median income of the same household size.`;
+		document.getElementById("map-title-text").innerHTML = `... and your after-donation income is <u class="font-bold">${ratioToMedianIncome}</u> times the global median.`;
         
 		redraw2DMap(adults, children);
     })
@@ -253,13 +253,14 @@ function draw2DMap(income, adults, children) {
 		const height =  (width - margin.top - margin.bottom) * 9 / 16 ;
 
 		const mapConatiner = d3.select("#map-container");
+
 		let ratioToMedianIncome = (afterDonationIncome / getEquivalizeIncome(getMedianIncome(), adults, children)).toFixed(1);
 
 		mapConatiner
 			.append("p")
 			.attr("id", "map-title-text")
-			.attr("class", "font-semibold text-2xl")
-			.html(`Your post-donation income is <u class="font-bold">${ratioToMedianIncome}</u> times the global median income of the same household size.`);
+			.attr("class", "font-bold text-3xl")
+			.html(`... and your after-donation income is <u class="font-bold">${ratioToMedianIncome}</u> times the global median.`);
 	
 		d3.json("static/data/updated-countries-50m.json").then((world) => {
 			const land = topojson.feature(world, world.objects.countries);
@@ -271,22 +272,19 @@ function draw2DMap(income, adults, children) {
 						.attr("width", width)
 						.attr("height", height)
 						.attr("id", "map-svg");
-
-			// Adding a background rectangle
-			// svg.append("rect")
-			// 	.attr("width", width)
-			// 	.attr("height", height)
-			// 	.style("fill", "#ADD8E6")
-			// 	.style("border-radius", "10px");
 	
 			// Adding a group element for the map
 			let map = svg.append("g")
 				.attr("id", "map");
 			
+			let ending = "Hover over";
+			if (window.screen.width < 1024) {
+				ending = "Tap on";
+			}
 			mapConatiner
 				.append("p")
 				.attr("class", "")
-				.text("Hover over countries to see your income compared to their average income")
+				.text(`(${ending} countries to see your income compared to their average income)`)
 
 			// Adding legend color scale
 			const color = d3.scaleThreshold().domain([1, 3, 5, 10, 20, 100]).range(['#eeeeee', '#fee5da', '#fbbba3', '#fb9276', '#fa6b51', '#dd302e', '#a4141c'])

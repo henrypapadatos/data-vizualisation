@@ -302,8 +302,10 @@ function revealSection() {
 			break;
 		  case "map-container":
 			// draw2DMap(income, adults, children); // <= Moved to displayVisuals()
+			d3.select("#map-container").append("p").attr("id", "dots").attr("class", "font-bold text-3xl").text("...")
 			break;
 		  case "impact-container":
+			document.getElementById("dots").remove();
 			loadImpactVisuals();
 			break;
 		  case "crowd-container":
