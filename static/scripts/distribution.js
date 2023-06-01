@@ -177,7 +177,7 @@ function LineChart(
                 .append("svg")
                 .attr("width", width)
                 .attr("height", height)
-                .attr("viewBox", [-10, -10, width, height+30])
+                .attr("viewBox", [-10, -10, width, height+45])
                 .attr("style", "max-width: 100%; height: auto; ")
                 .attr("id", "distribution-svg");
 
