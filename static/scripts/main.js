@@ -158,6 +158,9 @@ function enforceInputValidation() {
 
 // Displays error message
 function displayError(message) {
+	if (visualsDisplayed) {
+		cleanup();
+	}
 	const error = document.getElementById("error");
 	error.innerText = message;
 }
