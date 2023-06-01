@@ -238,9 +238,22 @@ async function displayVisuals() {
 	const roundedIncome = Math.round(preDonationIncome/10)*10;
 
 	d3.select('#distribution-container')
-		.append("p")
-		.attr("class", "font-normal text-base flex justify-center px-5")
-		.text(`After taking into account the purchasing power parity of your country, your household income is equivalent to ${roundedIncome.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ",")} USD per year.`);
+		.append("div")
+		.attr("class", "font-normal pointer-events-auto flex justify-center px-5")
+		.text(`Your income is ${roundedIncome.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ",")} USD per year, we use\u00A0`)		
+		.append('div')
+		.attr("class", "font-medium hover:cursor-pointer cursor-pointer text-gwwc-purple")
+		.text("equivalized income.")
+		.on("click", function() {
+			window.open("http://en.wikipedia.org/wiki/Equivalisation");
+		})
+		.on("mouseover", function() {
+			d3.select(this).style("text-decoration", "underline");
+		})
+		.on("mouseout", function() {
+			d3.select(this).style("text-decoration", "none");
+		});
+		//.html("&nbspequivalized income.");
 
 	d3.select('#distribution-container')
 		.append("p")
