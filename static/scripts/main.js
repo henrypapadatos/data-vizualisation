@@ -238,9 +238,22 @@ async function displayVisuals() {
 	const roundedIncome = Math.round(preDonationIncome/10)*10;
 
 	d3.select('#distribution-container')
-		.append("p")
-		.attr("class", "font-normal text-base flex justify-center px-5")
-		.text(`After taking into account the purchasing power parity of your country, your household income is equivalent to ${roundedIncome.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ",")} USD per year.`);
+		.append("div")
+		.attr("class", "font-normal pointer-events-auto flex justify-center px-5")
+		.text(`Your income is ${roundedIncome.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ",")} USD per year, we use\u00A0`)		
+		.append('div')
+		.attr("class", "font-medium hover:cursor-pointer cursor-pointer text-gwwc-purple")
+		.text("equivalized income.")
+		.on("click", function() {
+			window.open("http://en.wikipedia.org/wiki/Equivalisation");
+		})
+		.on("mouseover", function() {
+			d3.select(this).style("text-decoration", "underline").style("cursor", "pointer");
+		})
+		.on("mouseout", function() {
+			d3.select(this).style("text-decoration", "none");
+		});
+		//.html("&nbspequivalized income.");
 
 	d3.select('#distribution-container')
 		.append("p")
@@ -253,16 +266,15 @@ async function displayVisuals() {
 				x: d => d.percentage,
 				y: d => d.international_dollars,
 			});
-			// print the income percentile
-			const closest_income = Y.reduce(function(prev, curr) { return (Math.abs(curr - preDonationIncome) < Math.abs(prev - preDonationIncome) ? curr : prev);});
 
-			//find the index of the new_income in the Y array
-			const new_percentile_index = Y.indexOf(closest_income);
-			let percentile = X[new_percentile_index];	
-
-			//round the percentile to 1 decimal place
+			//keep only the y values smaller than the income
+			Y = Y.filter(function(d) { return d < preDonationIncome; });
+			//truncate X to make it the same length as Y
+			X = X.slice(0, Y.length);
+			// get the last value of the X array
+			let percentile = X[X.length-1];
+			// round the value to 1 decimal places
 			percentile = Math.round(percentile * 10) / 10;
-
 			//write the percentile to the page
 			d3.select('#distribution-container')
 				.append("p")
