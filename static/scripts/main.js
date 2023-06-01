@@ -4,7 +4,7 @@ import { drawLineChart } from "./distribution.js";
 import {Extract_data} from "./distribution.js";
 import { drawCharityBubbles } from "./charity_bubbles.js";
 import { drawGroups } from "./groupsBubbles.js";
-import { convertIncomeToPPP, getAfterDonationIncome, getEquivalizeIncome, getInputIncome, getMedianIncome, getPreDonationIncome } from './utility.js'
+import { getInputIncome, getMedianIncome, getPreDonationIncome, getNumberOfAdults, getNumberOfChildren } from './utility.js'
 import { createEventListenerForImpact, loadImpactVisuals } from "./impact_comparisons.js";
 
 let visualsDisplayed = false;
@@ -138,7 +138,7 @@ function enforceInputValidation() {
 	});
 	
 	adultsInput.addEventListener("input", (event) => {
-		if (event.target.value < 1) {
+		if (event.target.value < 0) {
 			event.target.value = 1;
 		}
 		if (event.target.value > 9) {
@@ -154,6 +154,21 @@ function enforceInputValidation() {
 			event.target.value = 9;
 		}
 	});
+}
+
+function isInputOk() {
+	if (getInputIncome() === "" ) {
+		displayError("Please enter your income");
+		return false;
+	}
+	if (getNumberOfAdults() === "" || getNumberOfAdults() === "0") {
+		displayError("Please enter the number of adults in your household");
+		return false;
+	}
+	if (getNumberOfChildren() === "") {
+		document.getElementById("children").innerHTML = 0;
+	}
+	return true;
 }
 
 // Displays error message
@@ -213,6 +228,10 @@ async function displayVisuals() {
 	const children = document.getElementById("children").value;
 	const calculateButton = document.getElementById("calculate");
 	let preDonationIncome = getPreDonationIncome();
+	
+	if (!isInputOk()){
+		return
+	};
 
 	visuals.classList.remove("hidden");
 
@@ -223,10 +242,27 @@ async function displayVisuals() {
 		.append("p")
 		.attr("class", "font-bold text-3xl")
 		.text(`If you have a household income of ${getInputIncome().toString().replace(/\B(?=(\d{3})+(?!\d))/g, ",")} ${document.getElementById("currency-label").innerText}`);
-	d3.select("#title-text")
+		
+	// Round the equivalized income to the nearest 10
+	const roundedIncome = Math.round(preDonationIncome/10)*10;
+	d3.select('#title-text')
 		.append("p")
-		.attr("class", "font-semibold text-xl")
-		.text(`(in a household of ${adults} adults and ${children} children)`);
+		.attr("class", "font-semibold text.xl pointer-events-auto flex justify-center ")
+		.text(`Your household income is equivalent to ${roundedIncome.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ",")} Int$ after \u00A0`)		
+		.append('section')
+			.attr("class", "font-medium hover:cursor-pointer cursor-pointer text-gwwc-purple")
+			.text("equivalization")
+			.on("click", function() {
+				window.open("http://en.wikipedia.org/wiki/Equivalisation");
+			})
+			.on("mouseover", function() {
+				d3.select(this)
+					.style("text-decoration", "underline")
+					.style("cursor", "pointer");
+			})
+			.on("mouseout", function() {
+				d3.select(this).style("text-decoration", "none");
+			});
 
 	if (!visualsDisplayed) {
 		window.addEventListener("scroll", changeSliderPosition);
@@ -234,26 +270,7 @@ async function displayVisuals() {
 		visualsDisplayed = true;
 	} 
 	
-	// Round the equivalized income to the nearest 10
-	const roundedIncome = Math.round(preDonationIncome/10)*10;
 
-	d3.select('#distribution-container')
-		.append("div")
-		.attr("class", "font-normal pointer-events-auto flex justify-center px-5")
-		.text(`Your income is ${roundedIncome.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ",")} USD per year, we use\u00A0`)		
-		.append('div')
-		.attr("class", "font-medium hover:cursor-pointer cursor-pointer text-gwwc-purple")
-		.text("equivalized income.")
-		.on("click", function() {
-			window.open("http://en.wikipedia.org/wiki/Equivalisation");
-		})
-		.on("mouseover", function() {
-			d3.select(this).style("text-decoration", "underline").style("cursor", "pointer");
-		})
-		.on("mouseout", function() {
-			d3.select(this).style("text-decoration", "none");
-		});
-		//.html("&nbspequivalized income.");
 
 	d3.select('#distribution-container')
 		.append("p")

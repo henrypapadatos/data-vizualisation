@@ -192,7 +192,7 @@ function drawCrowdofPeople(donationAmount = getPreDonationIncome() * 0.1) {
     d3.select("#crowd-container")
         .append("p")
         .attr("id", "crowd-text")
-        .attr("class", "font-bold text-4xl")
+        .attr("class", "font-bold text-3xl")
         .text(`... ${people} people every ${years} years ...`)
 
 }
