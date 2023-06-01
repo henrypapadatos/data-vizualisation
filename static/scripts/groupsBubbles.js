@@ -6,7 +6,7 @@ const INCOME_CENTILES = await response.json();
 
 function drawGroups(income) {
   const WORLD_POPULATION = 7764951032
-  const NB_CIRCLES = 200;
+  const NB_CIRCLES = 194;
   const POP_PER_CIRCLE = Math.ceil(WORLD_POPULATION/NB_CIRCLES)
   const SIZE_CIRCLE = 16;
   const COLOR_POOR = "#cc4115"; 
@@ -128,11 +128,12 @@ function drawGroups(income) {
   .attr("font-size", "7vh")
   .attr("fill", "black");
     // Get the slider element
-    const sliderElement = document.getElementById("slider");
+  const sliderElement = document.getElementById("slider");
 
   // Event listener for slider update
   let newRich, newPoor = 0;
-  sliderElement.noUiSlider.on("update", (values, handle) => {
+
+  sliderElement.noUiSlider.on('update', (values, handle) => {
     donation_fraq =Math.round(parseFloat(values[handle]))/100;
     [proportionGroupPoorer, proportionGroupRicher] = findGroupProportions(income, donation_fraq)
     // Calculate the number of circles for the poorer and richer groups
@@ -260,3 +261,5 @@ function findGroupProportions(income, donation_fraq) {
   let proportionGroupRicher = 1 - proportionGroupPoorer;
   return [proportionGroupPoorer, proportionGroupRicher]
 }
+
+
