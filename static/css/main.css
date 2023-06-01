@@ -1170,6 +1170,30 @@ input[type="range"]::-webkit-slider-runnable-track {
   opacity: 1;
 }
 
+.visualDelay{
+  position: relative;
+  transform: translateY(10px);
+  opacity: 0;
+  transition-property: opacity;
+  transition-timing-function: ease-in-out;
+  transition-duration: 5s;
+  font-size: 2.25rem/* 36px */;
+  line-height: 2.5rem/* 40px */;
+  font-weight: 700;
+}
+
+.transformed-state {
+  transform: translateY(0px);
+  opacity: 1;
+  transition-property: opacity;
+  transition-timing-function: ease-in-out;
+  transition-duration: 5s;
+}
+
+.delay-1 {
+  transition-delay: 5s;
+}
+
 @media (min-width: 1024px) {
   .lg\:container {
     width: 100%;
