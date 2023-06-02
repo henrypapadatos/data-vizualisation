@@ -338,7 +338,6 @@ function revealSection() {
 			loadImpactVisuals();
 			break;
 		  case "crowd-container":
-			drawCrowdofPeople();
 			break;
 		  case "bubbles-container":
 			//drawCharityBubbles();
