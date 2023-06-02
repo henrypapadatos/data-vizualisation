@@ -100,13 +100,14 @@ function drawLineChart(income, transitionDuration) {
 
                     svg.append("g")
                         .call(g => g.append("text")
-                            .attr("x",  newx-170)
+                            .attr("x",  newx-180)
                             .attr("y", newy+2)
                             .attr("fill", "currentColor")
                             .attr("text-anchor", "start")
                             .attr("font-size", "14px")
+                            .attr("font-weight", "bold")
                             .attr("color", "red")
-                            .text('"Post-donation" income'))
+                            .text('"After-donation" income'))
                             .attr("id", 'new-income-text');
                 });
     
@@ -119,7 +120,7 @@ function drawLineChart(income, transitionDuration) {
         d3.select('#distribution-container')			
             .append("p")
             .attr("class", "font-bold text-3xl flex justify-center px-5")
-            .text(`... you are richer than ${percentile}% of the world, but ...`);
+            .text(`You are richer than ${percentile}% of the world. But...`);
     });
     
 };      
@@ -191,7 +192,7 @@ function LineChart(
             .attr("y", marginBottom+15)
             .attr("fill", "currentColor")
             .attr("text-anchor", "start")
-            .attr("font-size", "12px")
+            .attr("font-size", "14px")
             .text(xLabel));
     
     //plot y axis
@@ -207,7 +208,7 @@ function LineChart(
             .attr("y", marginTop-5)
             .attr("fill", "currentColor")
             .attr("text-anchor", "start")
-            .attr("font-size", "12px")
+            .attr("font-size", "14px")
             .text(yLabel));
 
     //This is for the black dot at the end of the line

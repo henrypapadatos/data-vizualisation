@@ -252,7 +252,7 @@ async function displayVisuals() {
 	d3.select('#title-text')
 		.append("p")
 		.attr("class", "font-semibold text.xl pointer-events-auto flex justify-center ")
-		.text(`Your household income is equivalent to ${roundedIncome.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ",")} international dollars after \u00A0`)		
+		.text(`Your household income is equivalent to ${roundedIncome.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ",")} international dollars after\u00A0`)		
 		.append('section')
 			.attr("class", "font-medium hover:cursor-pointer cursor-pointer text-gwwc-purple")
 			.text("equivalization")
