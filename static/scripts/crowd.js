@@ -99,6 +99,7 @@ function drawCrowdofPeople(donationAmount = getPreDonationIncome() * 0.1) {
     const COST_OF_SAVING_A_LIFE = 4500;
     const margin = {top: 0, right: 0, bottom: 0, left: 0};
     const parentElement = document.getElementById("crowd-container")
+    parentElement.innerHTML = "";
     const parentWidth = parentElement.clientWidth;  
     const height = 400 - margin.top - margin.bottom;
     const colors = ["light-yellow", "yellow", "orange", "red", "pink", "purple", "dark-purple", "darkest-purple"]
@@ -191,7 +192,7 @@ function drawCrowdofPeople(donationAmount = getPreDonationIncome() * 0.1) {
     d3.select("#crowd-container")
         .append("p")
         .attr("id", "crowd-text")
-        .attr("class", "font-bold text-4xl")
+        .attr("class", "font-bold text-3xl")
         .text(`... ${people} people every ${years} years ...`)
 
 }

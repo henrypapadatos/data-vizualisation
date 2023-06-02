@@ -4,7 +4,7 @@ import { drawLineChart } from "./distribution.js";
 import {Extract_data} from "./distribution.js";
 import { drawCharityBubbles } from "./charity_bubbles.js";
 import { drawGroups } from "./groupsBubbles.js";
-import { convertIncomeToPPP, getAfterDonationIncome, getEquivalizeIncome, getInputIncome, getMedianIncome, getPreDonationIncome } from './utility.js'
+import { getInputIncome, getMedianIncome, getPreDonationIncome, getNumberOfAdults, getNumberOfChildren } from './utility.js'
 import { createEventListenerForImpact, loadImpactVisuals } from "./impact_comparisons.js";
 
 let visualsDisplayed = false;
@@ -140,7 +140,7 @@ function enforceInputValidation() {
 	});
 	
 	adultsInput.addEventListener("input", (event) => {
-		if (event.target.value < 1) {
+		if (event.target.value < 0) {
 			event.target.value = 1;
 		}
 		if (event.target.value > 9) {
@@ -156,6 +156,21 @@ function enforceInputValidation() {
 			event.target.value = 9;
 		}
 	});
+}
+
+function isInputOk() {
+	if (getInputIncome() === "" ) {
+		displayError("Please enter your income");
+		return false;
+	}
+	if (getNumberOfAdults() === "" || getNumberOfAdults() === "0") {
+		displayError("Please enter the number of adults in your household");
+		return false;
+	}
+	if (getNumberOfChildren() === "") {
+		document.getElementById("children").innerHTML = 0;
+	}
+	return true;
 }
 
 // Displays error message
@@ -215,6 +230,10 @@ async function displayVisuals() {
 	const children = document.getElementById("children").value;
 	const calculateButton = document.getElementById("calculate");
 	let preDonationIncome = getPreDonationIncome();
+	
+	if (!isInputOk()){
+		return
+	};
 
 	visuals.classList.remove("hidden");
 
@@ -224,55 +243,37 @@ async function displayVisuals() {
 	d3.select("#title-text")
 		.append("p")
 		.attr("class", "font-bold text-3xl")
-		.text(`If you have a household income of ${getInputIncome().toString().replace(/\B(?=(\d{3})+(?!\d))/g, ",")} ${document.getElementById("currency-label").innerText}`);
-	d3.select("#title-text")
+		.text(`If you have a household income of ${getInputIncome().toString().replace(/\B(?=(\d{3})+(?!\d))/g, ",")} ${document.getElementById("currency-label").innerText}...`);
+		
+	// Round the equivalized income to the nearest 10
+	const roundedIncome = Math.round(preDonationIncome/10)*10;
+	d3.select('#title-text')
 		.append("p")
-		.attr("class", "font-semibold text-xl")
-		.text(`(in a household of ${adults} adults and ${children} children)`);
+		.attr("class", "font-semibold text.xl pointer-events-auto flex justify-center ")
+		.text(`Your household income is equivalent to ${roundedIncome.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ",")} international dollars after \u00A0`)		
+		.append('section')
+			.attr("class", "font-medium hover:cursor-pointer cursor-pointer text-gwwc-purple")
+			.text("equivalization")
+			.on("click", function() {
+				window.open("http://en.wikipedia.org/wiki/Equivalisation");
+			})
+			.on("mouseover", function() {
+				d3.select(this)
+					.style("text-decoration", "underline")
+					.style("cursor", "pointer");
+			})
+			.on("mouseout", function() {
+				d3.select(this).style("text-decoration", "none");
+			});
 
 	if (!visualsDisplayed) {
 		window.addEventListener("scroll", changeSliderPosition);
 
 		visualsDisplayed = true;
 	} 
-	
-	// Round the equivalized income to the nearest 10
-	const roundedIncome = Math.round(preDonationIncome/10)*10;
-
-	d3.select('#distribution-container')
-		.append("p")
-		.attr("class", "font-normal text-base flex justify-center px-5")
-		.text(`After taking into account the purchasing power parity of your country, your household income is equivalent to ${roundedIncome.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ",")} USD per year.`);
-
-	d3.select('#distribution-container')
-		.append("p")
-		.attr("class", "font-bold text-base flex justify-center px-5")
-		.text("Have a look at the graph below to see how your income compares to the rest of the world!");
-
-	d3.json("/static/data/income_centiles.json").then((data) => {
-			let X, Y;
-			[X,Y] = Extract_data(data, {
-				x: d => d.percentage,
-				y: d => d.international_dollars,
-			});
-
-			//keep only the y values smaller than the income
-			Y = Y.filter(function(d) { return d < preDonationIncome; });
-			//truncate X to make it the same length as Y
-			X = X.slice(0, Y.length);
-			// get the last value of the X array
-			let percentile = X[X.length-1];
-			// round the value to 1 decimal places
-			percentile = Math.round(percentile * 10) / 10;
-			//write the percentile to the page
-			d3.select('#distribution-container')
-				.append("p")
-				.attr("class", "font-bold text-base flex justify-center px-5")
-				.text(`You are richer than ${percentile}% of the world. `);
-		});
 
 	const distribution_transition_time = 3000;
-	drawLineChart(preDonationIncome, distribution_transition_time);
+	drawLineChart(preDonationIncome, distribution_transition_time)
 
 	//Create slider after the line chart is drawn
 	if (!document.getElementById("slider").classList.contains("active")) {
@@ -319,8 +320,10 @@ function revealSection() {
 			break;
 		  case "map-container":
 			// draw2DMap(income, adults, children); // <= Moved to displayVisuals()
+			d3.select("#map-container").append("p").attr("id", "dots").attr("class", "font-bold text-3xl").text("...")
 			break;
 		  case "impact-container":
+			document.getElementById("dots").remove();
 			loadImpactVisuals();
 			break;
 		  case "crowd-container":
