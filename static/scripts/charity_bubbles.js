@@ -8,6 +8,25 @@ function drawCharityBubbles(){
     const TRANS_DURATION = 1000;
     const SIZE_CIRCLE =27;
 
+
+    // Create a new paragraph element
+    const paragraph1 = document.createElement("p");
+    paragraph1.textContent = "... if you gave to effective charities ...";
+    paragraph1.classList.add("font-bold", "text-4xl");
+
+    // Append the paragraph element to the bubblesContainer
+    bubblesContainer.node().appendChild(paragraph1);
+
+
+    const paragraph2 = document.createElement("p");
+    paragraph2.textContent = "for different cause areas";
+    paragraph2.classList.add("delay_paragraph", "font-bold", "text-4xl");
+    
+    // Set initial opacity to 0
+    paragraph2.style.opacity = "0";
+    bubblesContainer.node().appendChild(paragraph2);
+
+
     var svg = bubblesContainer
     .append("svg")
     .attr("height", height)
@@ -468,8 +487,7 @@ function drawCharityBubbles(){
           }, 4000);
         */
 
-        // Select the paragraph element
-        const paragraph = document.querySelector(".delay_paragraph");
+
 
 
         document.addEventListener("bubblesContainerEvent", function()  {
@@ -486,8 +504,8 @@ function drawCharityBubbles(){
                 separate_bubbles();
             }, 5000);
             // Apply transition
-            paragraph.style.transition = "opacity 4.5s 4s";
-            paragraph.style.opacity = "1";
+            paragraph2.style.transition = "opacity 4.5s 4s";
+            paragraph2.style.opacity = "1";
         });
         bubblesContainer.append("p").text("(Hover over cells for more details and click on them to open the corresponding website)");
            
