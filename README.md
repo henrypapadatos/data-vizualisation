@@ -6,7 +6,8 @@
 | Hain Luud| 351637|
 | Tanguy Marbot| 316756|
 
-[Milestone 1](#milestone-1) • [Milestone 2](#milestone-2) • [Milestone 3](#milestone-3)
+<details>
+  <summary>Milestone 1</summary>
 
 ## Milestone 1 (23rd April, 5pm)
 
@@ -61,8 +62,11 @@ Another source of inspiration is the Our World in Data page for [global income i
 A third source of inspiration has been the [D3.js](https://d3js.org/) and [Observable](https://observablehq.com/) websites that highlight different methods of data visualization and show how one could make them.
 
 Our approach to improving the GWWC calculator is original because we are using new and arguably better visualizations to convey the scale of income inequality. We also plan on adding more ways for the user to interact with the visuals and showing them also different effective charities to donate to. The charities that we will select are empirically effective and have a large positive impact.
+</details>
 
-
+<details>
+  <summary>Milestone 2</summary>
+ 
 ## Milestone 2 (7th May, 5pm)
 
 ### Goal
@@ -146,17 +150,10 @@ We also need to create a range slider that the user can interact with to control
 **Tools we use:** We use d3-force like for the bubble graph.
 
 <img src="https://user-images.githubusercontent.com/45995390/236673344-a633ba72-9b7f-4d09-8f8f-92ca0ca4a936.png" width="40%" height="20%">
-
-
+</details>
 
 
 ## Milestone 3 (4th June, 5pm)
 
-**80% of the final grade**
 
-
-## Late policy
-
-- < 24h: 80% of the grade for the milestone
-- < 48h: 70% of the grade for the milestone
 
