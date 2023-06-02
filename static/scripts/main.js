@@ -314,6 +314,7 @@ function revealSection() {
 		section.classList.add("active");
 		switch (section.id) {
 		  case "bubbleGroup-container":
+			document.getElementById("scroll-down-contained").innerHTML = "";
 			drawGroups(equivalizeIncome);
 			break;
 		  case "map-container":
