@@ -18,8 +18,8 @@ function drawLineChart(income, transitionDuration) {
 
     d3.select('#distribution-container')
     .append("p")
-    .attr("class", "font-bold text-base flex justify-center px-5")
-    .text("Have a look at the graph below to see how your income compares to the rest of the world!");
+    .attr("class", "")
+    .text("See how your income compares to the rest of the world!");
 
 
     d3.json("/static/data/income_centiles.json").then((data) => {
@@ -119,7 +119,7 @@ function drawLineChart(income, transitionDuration) {
         d3.select('#distribution-container')			
             .append("p")
             .attr("class", "font-bold text-3xl flex justify-center px-5")
-            .text(`You are richer then ${percentile}% of the world, but...`);
+            .text(`... you are richer then ${percentile}% of the world, but...`);
     });
     
 };      

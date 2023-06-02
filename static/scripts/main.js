@@ -241,14 +241,14 @@ async function displayVisuals() {
 	d3.select("#title-text")
 		.append("p")
 		.attr("class", "font-bold text-3xl")
-		.text(`If you have a household income of ${getInputIncome().toString().replace(/\B(?=(\d{3})+(?!\d))/g, ",")} ${document.getElementById("currency-label").innerText}`);
+		.text(`If you have a household income of ${getInputIncome().toString().replace(/\B(?=(\d{3})+(?!\d))/g, ",")} ${document.getElementById("currency-label").innerText}...`);
 		
 	// Round the equivalized income to the nearest 10
 	const roundedIncome = Math.round(preDonationIncome/10)*10;
 	d3.select('#title-text')
 		.append("p")
 		.attr("class", "font-semibold text.xl pointer-events-auto flex justify-center ")
-		.text(`Your household income is equivalent to ${roundedIncome.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ",")} Int$ after \u00A0`)		
+		.text(`Your household income is equivalent to ${roundedIncome.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ",")} international dollars after \u00A0`)		
 		.append('section')
 			.attr("class", "font-medium hover:cursor-pointer cursor-pointer text-gwwc-purple")
 			.text("equivalization")
@@ -269,25 +269,6 @@ async function displayVisuals() {
 
 		visualsDisplayed = true;
 	} 
-	
-
-	d3.select('#distribution-container')
-		.append("div")
-		.attr("class", "font-normal pointer-events-auto flex justify-center px-5")
-		.text(`Your income is ${roundedIncome.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ",")} USD per year, we use\u00A0`)		
-		.append('div')
-		.attr("class", "font-medium hover:cursor-pointer cursor-pointer text-gwwc-purple")
-		.text("equivalized income.")
-		.on("click", function() {
-			window.open("http://en.wikipedia.org/wiki/Equivalisation");
-		})
-		.on("mouseover", function() {
-			d3.select(this).style("text-decoration", "underline").style("cursor", "pointer");
-		})
-		.on("mouseout", function() {
-			d3.select(this).style("text-decoration", "none");
-		});
-		//.html("&nbspequivalized income.");
 
 	const distribution_transition_time = 3000;
 	drawLineChart(preDonationIncome, distribution_transition_time)
