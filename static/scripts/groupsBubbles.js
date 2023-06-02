@@ -1,87 +1,82 @@
 import { getDonatedAmount, getPreDonationIncome } from "./utility.js";
 
-export { drawGroups };
+export { drawGroups, createEventListenerForGroups };
 
 const response = await fetch("static/data/income_centiles.json");
 const INCOME_CENTILES = await response.json();
 
+
+const NB_CIRCLES = 194;
+const SIZE_CIRCLE = 16;
+
+
+const width = 2300;
+const height = 1200;
+
+
+// Define the forces for circle positioning
+const forceXCombine = d3
+.forceX(d => (d.group === "richer" ? width / 4 : 3 * (width / 4)))
+.strength(0.06);
+const forceYCombine = d3.forceY(height / 2).strength(0.06);
+
+// Create the simulation
+const simulation = d3
+.forceSimulation()
+.force("charge", d3.forceManyBody().strength(-(SIZE_CIRCLE + 1)))
+.force("x", forceXCombine)
+.force("y", forceYCombine)
+.force("collision", d3.forceCollide().radius(d => d.r + 0.5))
+.stop();
+
+
+//find proportions with current income and 10%
+let [proportionGroupPoorer, proportionGroupRicher] = findGroupProportions(getPreDonationIncome(), 0.1)
+
+
+// Calculate the number of circles for the poorer and richer groups
+let nbCirclesPoorer = Math.ceil(NB_CIRCLES * proportionGroupPoorer);
+let nbCirclesRicher = Math.ceil(NB_CIRCLES * proportionGroupRicher);
+
+// Generate data for the poorer and richer groups
+
+const generateData = (group, count) =>
+d3.packSiblings(d3.range(count).map(() => ({ r: SIZE_CIRCLE, group })));
+
+const dataCirclesPoorer = generateData("poorer", nbCirclesPoorer);
+const dataCirclesRicher = generateData("richer", nbCirclesRicher);
+const mergedData = [...dataCirclesPoorer, ...dataCirclesRicher];
+  
+
 function drawGroups() {
-d3.select("#bubbleGroup-container")
-			.append("p")
-			.attr("id", "group_bubbles-text")
-			.attr("class", "font-bold text-3xl")
-			.html(`By choosing to donate <u class="font-bold no-underline">${10}</u>% of your income...`);
-  /*
-  d3.select("#bubbleGroup-container")
-  .append("p")
-  .attr("id", "group_bubbles-text")
-  .attr("class", "font-semibold text-2xl")
-  .html(`by choosing to donate <u class="font-bold">${10}</u> % of your income ...`);
-*/
   const WORLD_POPULATION = 7764951032
-  const NB_CIRCLES = 194;
   const POP_PER_CIRCLE = Math.ceil(WORLD_POPULATION/NB_CIRCLES)
-  const SIZE_CIRCLE = 16;
   const COLOR_POOR = "#cc4115"; 
   const COLOR_RICH =   "#F5D9D0"; 
   console.log("drawGroups");
 
 
-  // Get the income reduction value from the input element
-  const incomeInput = getPreDonationIncome();
 
-  
-  let donation_fraq = 0.1;//parseFloat(document.getElementById("value-bubble")) / 100;
-
-  console.log("input", incomeInput, "donation_fraq", donation_fraq);
-
-  let [proportionGroupPoorer, proportionGroupRicher] = findGroupProportions(incomeInput, donation_fraq)
-
-  console.log("proportions", proportionGroupPoorer, proportionGroupRicher);
-
-  // Calculate the number of circles for the poorer and richer groups
-  let nbCirclesPoorer = Math.ceil(NB_CIRCLES * proportionGroupPoorer);
-  let nbCirclesRicher = Math.ceil(NB_CIRCLES * proportionGroupRicher);
-
-  // Generate data for the poorer and richer groups
-  const generateData = (group, count) =>
-    d3.packSiblings(d3.range(count).map(() => ({ r: SIZE_CIRCLE, group })));
-
-  const dataCirclesPoorer = generateData("poorer", nbCirclesPoorer);
-  const dataCirclesRicher = generateData("richer", nbCirclesRicher);
-  const mergedData = [...dataCirclesPoorer, ...dataCirclesRicher];
 
   const color = "beige";
-  const width = 2300;
-  const height = 1200;
 
+
+  d3.select("#bubbleGroup-container")
+  .append("p")
+  .attr("id", "group_bubbles-text")
+  .attr("class", "font-bold text-3xl")
+  .html(`By choosing to donate <u class="font-bold no-underline">${10.0.toFixed(1)}</u>% of your income...`);
   // Create the SVG element
   const svg = d3
-    .select("#bubbleGroup-container")
-    .append("svg")
-    .attr("viewBox", [0, 0, width, height])
-    //.style("background", "rgb(250 244 244)")
-    .style("background", "rgb(250 244 244)")
-    .attr("stroke", "currentColor")
-    .attr("stroke-width", 1.5)
-    .attr("id", "bubblegroups-svg");
+  .select("#bubbleGroup-container")
+  .append("svg")
+  .attr("viewBox", [0, 0, width, height])
+  //.style("background", "rgb(250 244 244)")
+  .style("background", "rgb(250 244 244)")
+  .attr("stroke", "currentColor")
+  .attr("stroke-width", 1.5)
+  .attr("id", "bubblegroups-svg");
 
-
-
-  // Define the forces for circle positioning
-  const forceXCombine = d3
-    .forceX(d => (d.group === "richer" ? width / 4 : 3 * (width / 4)))
-    .strength(0.06);
-  const forceYCombine = d3.forceY(height / 2).strength(0.06);
-
-  // Create the simulation
-  const simulation = d3
-    .forceSimulation()
-    .force("charge", d3.forceManyBody().strength(-(SIZE_CIRCLE + 1)))
-    .force("x", forceXCombine)
-    .force("y", forceYCombine)
-    .force("collision", d3.forceCollide().radius(d => d.r + 0.5))
-    .stop();
 
   // Join circles and set initial attributes
   const joinCircles = data =>
@@ -123,92 +118,30 @@ d3.select("#bubbleGroup-container")
 */
 
   var title_poorer_text = svg.append("text")
-  .attr("id","title_poorer_text" )
-  .attr("class", "title-bubble-group")
-  .text(d => `${(proportionGroupPoorer * 100).toFixed(1)}% of people are poorer than you`)
-  .attr("x", 3 * (width / 4))
-  .attr("y", height / 8)
-  .attr("text-anchor", "middle")
-  .attr("alignment-baseline", "middle")
-  .attr("font-size", "7vh")
-  .attr("fill", "black");
+    .attr("id","title_poorer_text" )
+    .attr("class", "title-bubble-group")
+    .text(d => `${(proportionGroupPoorer * 100).toFixed(1)}% of people are poorer than you`)
+    .attr("x", 3 * (width / 4))
+    .attr("y", height / 8)
+    .attr("text-anchor", "middle")
+    .attr("alignment-baseline", "middle")
+    .attr("font-size", "7vh")
+    .attr("fill", "black");
 
   var title_richer_text = svg.append("text")
-  .attr("id","title_richer_text")
-  .attr("class", "title-bubble-group")
-  .text(d => `${(proportionGroupRicher * 100).toFixed(1)}% of people are poorer than you`)
-  .attr("x", 1 * (width / 4))
-  .attr("y", height / 8)
-  .attr("text-anchor", "middle")
-  .attr("alignment-baseline", "middle")
-  .attr("font-size", "7vh")
-  .attr("fill", "black");
+    .attr("id","title_richer_text")
+    .attr("class", "title-bubble-group")
+    .text(d => `${(proportionGroupRicher * 100).toFixed(1)}% of people are richer than you`)
+    .attr("x", 1 * (width / 4))
+    .attr("y", height / 8)
+    .attr("text-anchor", "middle")
+    .attr("alignment-baseline", "middle")
+    .attr("font-size", "7vh")
+    .attr("fill", "black");
     // Get the slider element
-  const sliderElement = document.getElementById("slider");
+  
 
-  // Event listener for slider update
-  let newRich, newPoor = 0;
 
-  sliderElement.noUiSlider.on('update', (values, handle) => {
-    
-    donation_fraq =Math.round(parseFloat(values[handle]))/100;
-    console.log("UPDATE", donation_fraq);
-    //d3.select("#bubbleGroup-container").html(`by choosing to donate <u class="font-bold">${values[handle]}</u> % of your income ...`);
-    [proportionGroupPoorer, proportionGroupRicher] = findGroupProportions(incomeInput, donation_fraq)
-    // Calculate the number of circles for the poorer and richer groups
-    newRich = nbCirclesPoorer - Math.ceil(NB_CIRCLES * proportionGroupPoorer);
-    newPoor = nbCirclesRicher - Math.ceil(NB_CIRCLES * proportionGroupRicher);
-    // update the total
-    nbCirclesRicher += newRich;
-    nbCirclesPoorer += newPoor;
-
-    // Update the group assignment of circles
-    if (newPoor > 0) {
-      let richIndices = mergedData
-        .map((d, i) => (d.group === "richer" ? i : -1))
-        .filter(index => index !== -1);
-/*
-            poorIndices.sort((a, b) => {
-                const distanceA =  Math.abs(3*(width/4) - mergedData[a].x);
-                const distanceB =  Math.abs(3*(width/4) -  mergedData[b].x);
-                return distanceA - distanceB;
-            });
-          */
-      richIndices.slice(0, newPoor).forEach(index => {
-        mergedData[index].group = "poorer";
-      });
-    } else if (newRich > 0) {
-      let poorIndices = mergedData
-        .map((d, i) => (d.group === "poorer" ? i : -1))
-        .filter(index => index !== -1);
-/*
-            poorIndices.sort((a, b) => {
-                const distanceA =  Math.abs(3*(width/4) - mergedData[a].x);
-                const distanceB =  Math.abs(3*(width/4) -  mergedData[b].x);
-                return distanceA - distanceB;
-            });
-          */
-      poorIndices.slice(0, newRich).forEach(index => {
-        mergedData[index].group = "richer";
-        });
-      }
-      
-    // Update the simulation with new forces and restart it
-    simulation
-      .nodes(mergedData)
-      .force("x", forceXCombine)
-      .force("y", forceYCombine)
-      .alphaTarget(0.5)
-      .restart();
-    let text1 = `${(proportionGroupRicher * 100).toFixed(1)}% of people are richer than you`
-    let text2 = `${(proportionGroupPoorer * 100).toFixed(1)}% of people are poorer than you`
-    console.log("text1");
-    d3.select("#title_richer_text").text(d => `${(proportionGroupRicher * 100).toFixed(1)}% of people are richer than you`);
-    d3.select("#title_poorer_text").text(d => `${(proportionGroupPoorer * 100).toFixed(1)}% of people are poorer than you`);
-    d3.select("#group_bubbles-text")
-      //round values to integer
-      .html(`By choosing to donate <u class="font-bold no-underline	">${Math.round(parseFloat(values[handle]))}</u>% of your income...`);
-    });
 
   // Update circle positions on simulation tick
   simulation.nodes(mergedData).on("tick", () => {
@@ -286,7 +219,6 @@ function createEventListenerForGroups() {
 // Find the proportions of poorer and richer based on income and donation
 function findGroupProportions(income, donation_fraq) {
   let incomeReduced = income - income * donation_fraq;
-  console.log("incomeReduced", incomeReduced);
   let closestCentile =  INCOME_CENTILES.reduce(
     (closest, current) =>
       current.international_dollars > incomeReduced &&
@@ -302,9 +234,9 @@ function findGroupProportions(income, donation_fraq) {
 
 
 function event_slider(values, handle){
-  let donation_fraq =Math.round(parseFloat(values[handle]))/100;
-  let income = document.getElementById("income");
-  let [proportionGroupPoorer, proportionGroupRicher] = findGroupProportions(income, donation_fraq)
+  let percentage = values[handle];
+  let donation_fraq = Math.round(parseFloat(percentage))/100;
+  let [proportionGroupPoorer, proportionGroupRicher] = findGroupProportions(getPreDonationIncome(), donation_fraq)
   // Calculate the number of circles for the poorer and richer groups
   let newRich = nbCirclesPoorer - Math.ceil(NB_CIRCLES * proportionGroupPoorer);
   let newPoor = nbCirclesRicher - Math.ceil(NB_CIRCLES * proportionGroupRicher);
@@ -350,6 +282,8 @@ function event_slider(values, handle){
       .force("y", forceYCombine)
       .alphaTarget(0.5)
       .restart();
-    d3.select("#title_richer_text").text(d => `${(proportionGroupPoorer * 100).toFixed(1)}% of people are richer than you`);
+    d3.select("#title_richer_text").text(d => `${(proportionGroupRicher * 100).toFixed(1)}% of people are richer than you`);
     d3.select("#title_poorer_text").text(d => `${(proportionGroupPoorer * 100).toFixed(1)}% of people are poorer than you`);
+    d3.select("#group_bubbles-text")
+      .html(`By choosing to donate <u class="font-bold no-underline">${parseFloat(percentage).toFixed(1)}</u>% of your income...`);
     }
