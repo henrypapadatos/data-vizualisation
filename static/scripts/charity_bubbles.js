@@ -55,7 +55,7 @@ function drawCharityBubbles(){
         { className: 'top-right', top: height * (4/16), 
         left: width * (12/16),  text: 'Animal Welfare', url : "https://www.givingwhatwecan.org/cause-areas/animal-welfare" },
         { className: 'bottom-left', top:  height * (12/16), 
-        left: width * (4/16), text: 'Catastrophic Risks', url : "https://www.givingwhatwecan.org/cause-areas/long-term-future" },
+        left: width * (4/16), text: 'Catastrophic Risks Reduction', url : "https://www.givingwhatwecan.org/cause-areas/long-term-future" },
         { className: 'bottom-right', top: height * (12/16), 
         left:  width * (12/16), text: 'Funds', url : "https://www.givingwhatwecan.org/cause-areas#multiple-cause-areas" }
     ];
@@ -511,15 +511,15 @@ function drawCharityBubbles(){
             bubblesContainer.selectAll('.cause_area-box')
             .transition() // Apply transition
             .duration(4000)
-            .delay(5000) // Delay for 5 seconds
+            .delay(4000) // Delay for 5 seconds
             .style('opacity', '1')
             .style('pointer-events', 'auto'); // Change opacity to 1
 
             setTimeout(() => {
                 separate_bubbles();
-            }, 5000);
+            }, 4000);
             // Apply transition
-            paragraph2.style.transition = "opacity 4.5s 4s";
+            paragraph2.style.transition = "opacity 4.5s 3s";
             paragraph2.style.opacity = "1";
         });
         bubblesContainer.append("p").text("(Hover over bubbles for more details and click on any cell to open the corresponding website)");
