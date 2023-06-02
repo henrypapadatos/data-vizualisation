@@ -241,7 +241,7 @@ async function displayVisuals() {
 
 	// Loading this here to avoid lag later
 	await draw2DMap(preDonationIncome, adults, children);
-
+	await drawCharityBubbles();
 	d3.select("#title-text")
 		.append("p")
 		.attr("class", "font-bold text-3xl")
@@ -335,9 +335,13 @@ function revealSection() {
 			drawCrowdofPeople();
 			break;
 		  case "bubbles-container":
-			drawCharityBubbles();
-			let visualDelay = document.querySelectorAll(".visualDelay");
-			visualDelay.forEach(e => e.classList.toggle("transformed-state"));
+			//drawCharityBubbles();
+			//let visualDelay = document.querySelectorAll(".visualDelay");
+			//visualDelay.forEach(e => e.classList.toggle("transformed-state"));
+			// Create a custom event
+
+			// Dispatch the event
+			document.dispatchEvent(new Event("bubblesContainerEvent"));
 			break;
 		  default:
 			break;

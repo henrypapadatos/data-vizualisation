@@ -1191,7 +1191,11 @@ input[type="range"]::-webkit-slider-runnable-track {
 }
 
 .delay-1 {
-  transition-delay: 5s;
+  transition-delay: 3s;
+}
+
+.delay_paragraph{
+  opacity: 0;
 }
 
 @media (min-width: 1024px) {

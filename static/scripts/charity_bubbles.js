@@ -82,11 +82,6 @@ function drawCharityBubbles(){
         })
         .style('opacity', '0') // Set initial opacity to 0
         .style('pointer-events', 'none')
-        .transition() // Apply transition
-        .duration(5000)
-        .delay(5000) // Delay for 5 seconds
-        .style('opacity', '1')
-        .style('pointer-events', 'auto'); // Change opacity to 1
     /*
     bubblesContainer.selectAll('.dot')
         .data(cornerBoxData)
@@ -170,7 +165,7 @@ function drawCharityBubbles(){
             return cornerBoxData[0].top + SIZE_CIRCLE*1.8
         }else{
             return cornerBoxData[3].top + SIZE_CIRCLE*1
-        }}).strength(0.06)        
+        }}).strength(0.08)        
 
     var forceX_Combine = d3.forceX(d => width / 2).strength(0.05)
 
@@ -179,7 +174,7 @@ function drawCharityBubbles(){
 
     var simulation = d3.forceSimulation()
         //.force("center", d3.forceCenter(width / 2, height / 2))
-        //.force("charge", d3.forceManyBody().strength(-(SIZE_CIRCLE)))
+        .force("charge", d3.forceManyBody().strength(-(SIZE_CIRCLE)))
         .force("x", forceX_Combine)
         .force("y", forceY_Combine)
         .force("collide", d3.forceCollide(function(d) {
@@ -467,10 +462,37 @@ function drawCharityBubbles(){
             .text(d => d.name) */
         
         simulation.nodes(var_datapoints).on('tick', ticked)
+        /*
         setTimeout(() => {
             separate_bubbles();
           }, 4000);
+        */
+
+        // Select the paragraph element
+        const paragraph = document.querySelector(".delay_paragraph");
+
+
+        document.addEventListener("bubblesContainerEvent", function()  {
+        // Perform desired action when the event is triggered
+            
+            bubblesContainer.selectAll('.cause_area-box')
+            .transition() // Apply transition
+            .duration(4000)
+            .delay(5000) // Delay for 5 seconds
+            .style('opacity', '1');
+            //.style('pointer-events', 'auto'); // Change opacity to 1
+
+            setTimeout(() => {
+                separate_bubbles();
+            }, 5000);
+            // Apply transition
+            paragraph.style.transition = "opacity 4.5s 4s";
+            paragraph.style.opacity = "1";
+        });
         bubblesContainer.append("p").text("(Hover over cells for more details and click on them to open the corresponding website)");
+           
+        
+        
 
         
         
