@@ -236,6 +236,8 @@ async function displayVisuals() {
 	};
 
 	visuals.classList.remove("hidden");
+	d3.select("#scroll-down-contained")
+	 		  .attr("class", "visible");
 
 	// Loading this here to avoid lag later
 	await draw2DMap(preDonationIncome, adults, children);
@@ -316,7 +318,9 @@ function revealSection() {
 		section.classList.add("active");
 		switch (section.id) {
 		  case "bubbleGroup-container":
-			document.getElementById("scroll-down-contained").innerHTML = "";
+			d3.select("#scroll-down-contained")
+			  .attr("class", "hidden");
+
 			drawGroups();
 			break;
 		  case "map-container":
