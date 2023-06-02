@@ -9,7 +9,7 @@ function drawGroups() {
 d3.select("#bubbleGroup-container")
 			.append("p")
 			.attr("id", "group_bubbles-text")
-			.attr("class", "font-semibold text-2xl")
+			.attr("class", "font-bold text-3xl")
 			.html(`by choosing to donate <u class="font-bold">${10}</u> % of your income ...`);
   /*
   d3.select("#bubbleGroup-container")
@@ -123,6 +123,7 @@ d3.select("#bubbleGroup-container")
 */
 
   var title_poorer_text = svg.append("text")
+  .attr("id","title_poorer_text" )
   .attr("class", "title-bubble-group")
   .text(d => `${(proportionGroupPoorer * 100).toFixed(1)} people are poorer than you`)
   .attr("x", 3 * (width / 4))
@@ -133,6 +134,7 @@ d3.select("#bubbleGroup-container")
   .attr("fill", "black");
 
   var title_richer_text = svg.append("text")
+  .attr("id","title_richer_text")
   .attr("class", "title-bubble-group")
   .text(d => `${(proportionGroupRicher * 100).toFixed(1)} people are poorer than you`)
   .attr("x", 1 * (width / 4))
@@ -198,8 +200,13 @@ d3.select("#bubbleGroup-container")
       .force("y", forceYCombine)
       .alphaTarget(0.5)
       .restart();
-    d3.select("#title_richer_text").text(d => `${(proportionGroupPoorer * 100).toFixed(1)} people are richer than you`);
+    let text1 = `${(proportionGroupRicher * 100).toFixed(1)} people are richer than you`
+    let text2 = `${(proportionGroupPoorer * 100).toFixed(1)} people are poorer than you`
+    console.log("text1");
+    d3.select("#title_richer_text").text(d => `${(proportionGroupRicher * 100).toFixed(1)} people are richer than you`);
     d3.select("#title_poorer_text").text(d => `${(proportionGroupPoorer * 100).toFixed(1)} people are poorer than you`);
+    d3.select("#group_bubbles-text")
+			.html(`by choosing to donate <u class="font-bold">${values[handle]}</u> % of your income ...`);
 
     });
 
@@ -220,7 +227,7 @@ d3.select("#bubbleGroup-container")
   console.log("Groups drawn");
 
   // ADD
-  const legend = svg.append("g").attr("class", "legend").attr("transform", "translate(50, 1000)");
+  const legend = svg.append("g").attr("class", "legend").attr("transform", "translate(50, 900)");
 
   // Add legend title
   legend
