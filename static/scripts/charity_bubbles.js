@@ -1,7 +1,7 @@
 export {drawCharityBubbles};
 
 function drawCharityBubbles(){
-    var width = 970, height = 500;
+    var width = 945, height = 500;
     const bubblesContainer = d3.select("#bubbles-container")
     let isTransitioning = false;
     let causeDescriptionHere = null;
@@ -109,6 +109,21 @@ function drawCharityBubbles(){
         .style('top', d => d.top ? d.top + 'px' : null)
         .style('left', d => d.left ? d.left + 'px' : null)
     */
+    const centerX = width / 2; // Calculate the x-coordinate of the center
+    const centerY = height / 2; // Calculate the y-coordinate of the center
+    const radius = 10;
+    /*
+    const circle = svg
+    .append("circle")
+    .attr("cx", centerX)
+    .attr("cy", centerY)
+    .attr("r", radius)
+    .style("fill", "red");
+    
+    // Additional styling properties for the circle if needed
+    circle
+    .style("stroke", "black")
+    .style("stroke-width", "2px");*/
     const buttons = [
         {id : 'button_separation', text : 'Cause Separation'},
         {id : 'combine', text : 'Combine'},
@@ -186,9 +201,9 @@ function drawCharityBubbles(){
             return cornerBoxData[3].top + SIZE_CIRCLE*1
         }}).strength(0.08)        
 
-    var forceX_Combine = d3.forceX(d => width / 2).strength(0.05)
+    var forceX_Combine = d3.forceX(d => width / 2).strength(0.08)
 
-    var forceY_Combine = d3.forceY(d => height /2 -50).strength(0.05)
+    var forceY_Combine = d3.forceY(d => height /2).strength(0.08)
 
 
     var simulation = d3.forceSimulation()
