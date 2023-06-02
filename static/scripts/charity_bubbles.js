@@ -522,7 +522,7 @@ function drawCharityBubbles(){
             paragraph2.style.transition = "opacity 4.5s 4s";
             paragraph2.style.opacity = "1";
         });
-        bubblesContainer.append("p").text("(Hover over cells for more details and click on them to open the corresponding website)");
+        bubblesContainer.append("p").text("(Hover over bubbles for more details and click on any cell to open the corresponding website)");
            
         
         
