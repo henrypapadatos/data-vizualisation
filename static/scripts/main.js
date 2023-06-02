@@ -110,6 +110,8 @@ function createSlider() {
 	createEventListenerForMap(adults, children);
 	createEventListenerForImpact();
 	createEventListenerForCrowd();
+	createEventListenerForMap();
+	//createEventListenerForGroups();
 }
 
 // Handles country selection event
@@ -315,7 +317,7 @@ function revealSection() {
 		switch (section.id) {
 		  case "bubbleGroup-container":
 			document.getElementById("scroll-down-contained").innerHTML = "";
-			drawGroups(equivalizeIncome);
+			drawGroups();
 			break;
 		  case "map-container":
 			// draw2DMap(income, adults, children); // <= Moved to displayVisuals()
