@@ -12,16 +12,19 @@ function drawLineChart(income, transitionDuration) {
     const marginRight = 30;
     const marginBottom = 30;
     const marginTop = 20;
+    //Adapt the width to the page
     const width = document.getElementById("distribution-container").offsetWidth - marginLeft - marginRight;
+    //get the donation slider element
     const sliderElement = document.getElementById("slider");
     let X, Y;
 
+    //Print text to introduce the graph
     d3.select('#distribution-container')
     .append("p")
     .attr("class", "")
     .text("See how your income compares to the rest of the world!");
 
-
+    //Extract the data from the json file
     d3.json("/static/data/income_centiles.json").then((data) => {
         [X,Y] = Extract_data(data, {
             x: d => d.percentage,
@@ -66,6 +69,7 @@ function drawLineChart(income, transitionDuration) {
             transitionDuration-1000,
         );
 
+        //Delay the apparition of the red circle
         setTimeout(() => {
             const svg = d3.select("#distribution-svg");
             svg.append('circle')
@@ -75,6 +79,7 @@ function drawLineChart(income, transitionDuration) {
                 .style('fill', 'red')
                 .attr('id', 'income-circle');
     
+                //get the donation amount from the slider
                 sliderElement.noUiSlider.on("update", (values, handle) => {
                     let donation_fraq =Math.round(parseFloat(values[handle]))/100;
                     let new_income = income*(1-donation_fraq);
@@ -96,8 +101,8 @@ function drawLineChart(income, transitionDuration) {
                         .attr("cx", newx)
                         .attr("cy", newy);
 
+                    //add the label next to the red dot
                     d3.select("#new-income-text").remove();
-
                     svg.append("g")
                         .call(g => g.append("text")
                             .attr("x",  newx-180)

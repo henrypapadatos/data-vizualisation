@@ -84,3 +84,7 @@ export function getPreDonationIncome() {
 export function getDonatedAmount() {
     return getPreDonationIncome() * (getDonationPercentage() / 100);
 }
+
+// Generate data for the poorer and richer groups
+export function generateData(group, count, circle_size) {
+d3.packSiblings(d3.range(count).map(() => ({ r: circle_size, group })));}

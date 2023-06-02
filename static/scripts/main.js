@@ -3,7 +3,7 @@ import { drawCrowdofPeople, createEventListenerForCrowd } from "./crowd.js";
 import { drawLineChart } from "./distribution.js";
 import {Extract_data} from "./distribution.js";
 import { drawCharityBubbles } from "./charity_bubbles.js";
-import { drawGroups } from "./groupsBubbles.js";
+import { drawGroups,createEventListenerForGroups } from "./groupsBubbles.js";
 import { getInputIncome, getMedianIncome, getPreDonationIncome, getNumberOfAdults, getNumberOfChildren } from './utility.js'
 import { createEventListenerForImpact, loadImpactVisuals } from "./impact_comparisons.js";
 
@@ -111,7 +111,7 @@ function createSlider() {
 	createEventListenerForImpact();
 	createEventListenerForCrowd();
 	createEventListenerForMap();
-	//createEventListenerForGroups();
+	createEventListenerForGroups();
 }
 
 // Handles country selection event
@@ -324,6 +324,7 @@ function revealSection() {
 		switch (section.id) {
 		  case "bubbleGroup-container":
 			
+		  //hide the scroll down arrow when the user scrolls to the bubbles
 		  d3.select("#scroll-down-container")
 			  .attr("class", "hidden");
 
