@@ -1,6 +1,6 @@
 # Project of Data Visualization (COM-480)
 
-## Context: Revamp of the How rich am I calculator 
+## Redesign of the "How rich am I" calculator
 
 This project is a collaboration between EPFL students and the charity organization, Giving What We Can, with the aim to revamp and enhance the interactive "How Rich Am I?" calculator. Our goal is to provide an engaging, insightful, and visually appealing experience for users who want to understand their wealth in a global context and explore the most impactful charitable organizations for potential donations.
 
@@ -160,9 +160,9 @@ We also need to create a range slider that the user can interact with to control
 
 
 ## Milestone 3 (4th June, 5pm)
-The Website can be found here
+The Website can be found [here](https://henrypapadatos.github.io/)
 
-The screencast can be found here
+The screencast can be found [here](https://youtu.be/LN3KXf8yPQ8)
 
 The process book can be found here
 ### Dependencies
