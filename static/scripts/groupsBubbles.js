@@ -10,7 +10,7 @@ d3.select("#bubbleGroup-container")
 			.append("p")
 			.attr("id", "group_bubbles-text")
 			.attr("class", "font-bold text-3xl")
-			.html(`by choosing to donate <u class="font-bold">${10}</u> % of your income ...`);
+			.html(`by choosing to donate <u class="font-bold no-underline">${10}</u>% of your income ...`);
   /*
   d3.select("#bubbleGroup-container")
   .append("p")
@@ -200,14 +200,14 @@ d3.select("#bubbleGroup-container")
       .force("y", forceYCombine)
       .alphaTarget(0.5)
       .restart();
-    let text1 = `${(proportionGroupRicher * 100).toFixed(1)} people are richer than you`
-    let text2 = `${(proportionGroupPoorer * 100).toFixed(1)} people are poorer than you`
+    let text1 = `${(proportionGroupRicher * 100).toFixed(1)}% of people are richer than you`
+    let text2 = `${(proportionGroupPoorer * 100).toFixed(1)}% of people are poorer than you`
     console.log("text1");
-    d3.select("#title_richer_text").text(d => `${(proportionGroupRicher * 100).toFixed(1)} people are richer than you`);
-    d3.select("#title_poorer_text").text(d => `${(proportionGroupPoorer * 100).toFixed(1)} people are poorer than you`);
+    d3.select("#title_richer_text").text(d => `${(proportionGroupRicher * 100).toFixed(1)}% of people are richer than you`);
+    d3.select("#title_poorer_text").text(d => `${(proportionGroupPoorer * 100).toFixed(1)}% of people are poorer than you`);
     d3.select("#group_bubbles-text")
-			.html(`by choosing to donate <u class="font-bold">${values[handle]}</u> % of your income ...`);
-
+      //round values to integer
+      .html(`... by choosing to donate <u class="font-bold no-underline	">${Math.round(parseFloat(values[handle]))}</u>% of your income ...`);
     });
 
   // Update circle positions on simulation tick
@@ -350,6 +350,6 @@ function event_slider(values, handle){
       .force("y", forceYCombine)
       .alphaTarget(0.5)
       .restart();
-    d3.select("#title_richer_text").text(d => `${(proportionGroupPoorer * 100).toFixed(1)} people are richer than you`);
-    d3.select("#title_poorer_text").text(d => `${(proportionGroupPoorer * 100).toFixed(1)} people are poorer than you`);
+    d3.select("#title_richer_text").text(d => `${(proportionGroupPoorer * 100).toFixed(1)}% of people are richer than you`);
+    d3.select("#title_poorer_text").text(d => `${(proportionGroupPoorer * 100).toFixed(1)}% of people are poorer than you`);
     }
