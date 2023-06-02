@@ -1,6 +1,6 @@
 # Project of Data Visualization (COM-480)
 
-## Redesign of the "How rich am I" calculator
+## Redesign of the "How rich am I" calculator 
 
 This project is a collaboration between EPFL students and the charity organization, Giving What We Can, with the aim to revamp and enhance the interactive "How Rich Am I?" calculator. Our goal is to provide an engaging, insightful, and visually appealing experience for users who want to understand their wealth in a global context and explore the most impactful charitable organizations for potential donations.
 
