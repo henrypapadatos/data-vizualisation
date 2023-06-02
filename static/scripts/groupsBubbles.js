@@ -10,7 +10,7 @@ d3.select("#bubbleGroup-container")
 			.append("p")
 			.attr("id", "group_bubbles-text")
 			.attr("class", "font-bold text-3xl")
-			.html(`By choosing to donate <u class="font-bold no-underline">${10}</u>% of your income...`);
+			.html(`by choosing to donate <u class="font-bold no-underline">${10}</u>% of your income...`);
   /*
   d3.select("#bubbleGroup-container")
   .append("p")
@@ -207,7 +207,7 @@ d3.select("#bubbleGroup-container")
     d3.select("#title_poorer_text").text(d => `${(proportionGroupPoorer * 100).toFixed(1)}% of people are poorer than you`);
     d3.select("#group_bubbles-text")
       //round values to integer
-      .html(`By choosing to donate <u class="font-bold no-underline	">${Math.round(parseFloat(values[handle]))}</u>% of your income...`);
+      .html(`by choosing to donate <u class="font-bold no-underline	">${Math.round(parseFloat(values[handle]))}</u>% of your income...`);
     });
 
   // Update circle positions on simulation tick

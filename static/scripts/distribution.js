@@ -120,7 +120,7 @@ function drawLineChart(income, transitionDuration) {
         d3.select('#distribution-container')			
             .append("p")
             .attr("class", "font-bold text-3xl flex justify-center px-5")
-            .text(`You are richer than ${percentile}% of the world. But...`);
+            .text(`you are richer than ${percentile}% of the world. But...`);
     });
     
 };      

@@ -11,7 +11,7 @@ function drawCharityBubbles(){
 
     // Create a new paragraph element
     const paragraph1 = document.createElement("p");
-    paragraph1.textContent = "If you gave to effective charities";
+    paragraph1.textContent = "if you gave to effective charities";
     paragraph1.classList.add("font-bold", "text-3xl");
 
     // Append the paragraph element to the bubblesContainer
