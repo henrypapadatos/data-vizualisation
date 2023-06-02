@@ -208,7 +208,7 @@ function drawCharityBubbles(){
 
     var simulation = d3.forceSimulation()
         //.force("center", d3.forceCenter(width / 2, height / 2))
-        .force("charge", d3.forceManyBody().strength(-(SIZE_CIRCLE)))
+        .force("charge", d3.forceManyBody().strength(-(SIZE_CIRCLE) +5 ))
         .force("x", forceX_Combine)
         .force("y", forceY_Combine)
         .force("collide", d3.forceCollide(function(d) {
