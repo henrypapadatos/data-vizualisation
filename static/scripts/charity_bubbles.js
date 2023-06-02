@@ -470,7 +470,7 @@ function drawCharityBubbles(){
         setTimeout(() => {
             separate_bubbles();
           }, 4000);
-        bubblesContainer.append("p").text("(Hover over cells for more details)");
+        bubblesContainer.append("p").text("(Hover over cells for more details and click on them to open the corresponding website)");
 
         
         
