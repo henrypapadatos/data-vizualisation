@@ -324,6 +324,7 @@ function revealSection() {
 		switch (section.id) {
 		  case "bubbleGroup-container":
 			
+		  //hide the scroll down arrow when the user scrolls to the bubbles
 		  d3.select("#scroll-down-container")
 			  .attr("class", "hidden");
 
@@ -338,7 +339,6 @@ function revealSection() {
 			loadImpactVisuals();
 			break;
 		  case "crowd-container":
-			drawCrowdofPeople();
 			break;
 		  case "bubbles-container":
 			//drawCharityBubbles();
