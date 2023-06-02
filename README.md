@@ -164,7 +164,10 @@ The Website can be found [here](https://henrypapadatos.github.io/)
 
 The screencast can be found [here](https://youtu.be/LN3KXf8yPQ8)
 
-The process book can be found here
+The process book can be found [here](https://github.com/com-480-data-visualization/project-2023-graphing-what-we-can/files/11638997/here.pdf)
+
+
+
 ### Dependencies
 To get started, you first have to install `Node.js` and then run the following commands in the root directory:
 ```
