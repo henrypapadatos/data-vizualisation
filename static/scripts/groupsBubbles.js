@@ -146,7 +146,7 @@ function drawGroups() {
   var title_poorer_text = svg.append("text")
     .attr("id","title_poorer_text" )
     .attr("class", "title-bubble-group")
-    .text(d => `${(proportionGroupPoorer * 100).toFixed(1)}% of people are poorer than you`)
+    .text(d => `${(proportionGroupPoorer * 100).toFixed(1)}% of people would be poorer than you`)
     .attr("x", 3 * (width / 4))
     .attr("y", height / 8)
     .attr("text-anchor", "middle")
@@ -157,7 +157,7 @@ function drawGroups() {
   var title_richer_text = svg.append("text")
     .attr("id","title_richer_text")
     .attr("class", "title-bubble-group")
-    .text(d => `${(proportionGroupRicher * 100).toFixed(1)}% of people are richer than you`)
+    .text(d => `${(proportionGroupRicher * 100).toFixed(1)}% of people would be richer than you`)
     .attr("x", 1 * (width / 4))
     .attr("y", height / 8)
     .attr("text-anchor", "middle")
@@ -308,8 +308,8 @@ function event_slider(values, handle){
       .force("y", forceYCombine)
       .alphaTarget(0.5)
       .restart();
-    d3.select("#title_richer_text").text(d => `${(proportionGroupRicher * 100).toFixed(1)}% of people are richer than you`);
-    d3.select("#title_poorer_text").text(d => `${(proportionGroupPoorer * 100).toFixed(1)}% of people are poorer than you`);
+    d3.select("#title_richer_text").text(d => `${(proportionGroupRicher * 100).toFixed(1)}% of people would be richer than you`);
+    d3.select("#title_poorer_text").text(d => `${(proportionGroupPoorer * 100).toFixed(1)}% of people would be poorer than you`);
     d3.select("#group_bubbles-text")
       .html(`By choosing to donate <u class="font-bold no-underline">${parseFloat(percentage).toFixed(1)}</u>% of your income...`);
     }
