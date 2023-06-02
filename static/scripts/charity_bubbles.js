@@ -512,8 +512,8 @@ function drawCharityBubbles(){
             .transition() // Apply transition
             .duration(4000)
             .delay(5000) // Delay for 5 seconds
-            .style('opacity', '1');
-            //.style('pointer-events', 'auto'); // Change opacity to 1
+            .style('opacity', '1')
+            .style('pointer-events', 'auto'); // Change opacity to 1
 
             setTimeout(() => {
                 separate_bubbles();
