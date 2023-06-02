@@ -192,18 +192,53 @@ function armCalculateButton() {
 			displayError("Sorry, but the income you entered is below the global median income. We only have data for incomes higher than the global median.");
 			return;
 		}
+		if (isInputOk()){
+
+			// Clear the contents of #visuals if they have already been displayed
+			if (visualsDisplayed) {
+				cleanup();
+				const sections = Array.from(document.querySelectorAll(".visual"));
+				sections
+				  .filter(section => section.classList.contains("active"))
+				  .forEach(section => section.classList.remove("active"));
+			}
+			document.getElementById("error").innerHTML = "";
+			displayVisuals();
+		};
 	
-		// Clear the contents of #visuals
-		if (visualsDisplayed) {
-			cleanup();
-			const sections = Array.from(document.querySelectorAll(".visual"));
-			sections
-			  .filter(section => section.classList.contains("active"))
-			  .forEach(section => section.classList.remove("active"));
-		}
-		document.getElementById("error").innerHTML = "";
-		displayVisuals();
 	});
+}
+
+function displayTitleText(preDonationIncome){
+
+	d3.select("#title-text").append("p")
+		.attr("class", "font-bold text-3xl")
+		.text(`If you have a household income of ${getInputIncome().toString().replace(/\B(?=(\d{3})+(?!\d))/g, ",")} ${document.getElementById("currency-label").innerText}...`);
+
+	// Round the equivalized income to the nearest 10
+	const roundedIncome = Math.round(preDonationIncome/10)*10;
+
+	d3.select('#title-text').append("p")
+	.attr("class", "font-semibold text.xl pointer-events-auto flex justify-center ")
+	.text(`Your household income is equivalent to ${roundedIncome.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ",")} international dollars after\u00A0`)		
+	.append('section')
+		.attr("class", "font-medium hover:cursor-pointer cursor-pointer text-gwwc-purple")
+		.text("equivalization")
+		.on("click", function() {
+			window.open("http://en.wikipedia.org/wiki/Equivalisation");
+		})
+		.on("mouseover", function() {
+			d3.select(this)
+				.style("text-decoration", "underline")
+				.style("cursor", "pointer");
+		})
+		.on("mouseout", function() {
+			d3.select(this).style("text-decoration", "none");
+		});
+
+	// Display downward arrow
+	d3.select("#scroll-down-container")
+	.attr("class", "visible");
 }
 
 // Changes the position of the slider based on scroll position
@@ -230,43 +265,14 @@ async function displayVisuals() {
 	const children = document.getElementById("children").value;
 	const calculateButton = document.getElementById("calculate");
 	let preDonationIncome = getPreDonationIncome();
-	
-	if (!isInputOk()){
-		return
-	};
 
 	visuals.classList.remove("hidden");
-	d3.select("#scroll-down-contained")
-	 		  .attr("class", "visible");
-
+	
 	// Loading this here to avoid lag later
 	await draw2DMap(preDonationIncome, adults, children);
 	await drawCharityBubbles();
-	d3.select("#title-text")
-		.append("p")
-		.attr("class", "font-bold text-3xl")
-		.text(`If you have a household income of ${getInputIncome().toString().replace(/\B(?=(\d{3})+(?!\d))/g, ",")} ${document.getElementById("currency-label").innerText}...`);
-		
-	// Round the equivalized income to the nearest 10
-	const roundedIncome = Math.round(preDonationIncome/10)*10;
-	d3.select('#title-text')
-		.append("p")
-		.attr("class", "font-semibold text.xl pointer-events-auto flex justify-center ")
-		.text(`Your household income is equivalent to ${roundedIncome.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ",")} international dollars after\u00A0`)		
-		.append('section')
-			.attr("class", "font-medium hover:cursor-pointer cursor-pointer text-gwwc-purple")
-			.text("equivalization")
-			.on("click", function() {
-				window.open("http://en.wikipedia.org/wiki/Equivalisation");
-			})
-			.on("mouseover", function() {
-				d3.select(this)
-					.style("text-decoration", "underline")
-					.style("cursor", "pointer");
-			})
-			.on("mouseout", function() {
-				d3.select(this).style("text-decoration", "none");
-			});
+	
+	displayTitleText(preDonationIncome);
 
 	if (!visualsDisplayed) {
 		window.addEventListener("scroll", changeSliderPosition);
@@ -305,7 +311,6 @@ function revealSection() {
 	const revealPoint = 120;
 	const windowHeight = window.innerHeight;
 	const sections = Array.from(document.querySelectorAll(".visual"));
-	const equivalizeIncome = getPreDonationIncome();
   
 	sections.forEach(section => {
 	  if (section.classList.contains("active")) {
@@ -318,7 +323,8 @@ function revealSection() {
 		section.classList.add("active");
 		switch (section.id) {
 		  case "bubbleGroup-container":
-			d3.select("#scroll-down-contained")
+			
+		  d3.select("#scroll-down-container")
 			  .attr("class", "hidden");
 
 			drawGroups();

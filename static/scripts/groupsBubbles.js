@@ -49,6 +49,21 @@ const mergedData = [...dataCirclesPoorer, ...dataCirclesRicher];
   
 
 function drawGroups() {
+<<<<<<< HEAD
+=======
+d3.select("#bubbleGroup-container")
+			.append("p")
+			.attr("id", "group_bubbles-text")
+			.attr("class", "font-bold text-3xl")
+			.html(`by choosing to donate <u class="font-bold no-underline">${10}</u>% of your income...`);
+  /*
+  d3.select("#bubbleGroup-container")
+  .append("p")
+  .attr("id", "group_bubbles-text")
+  .attr("class", "font-semibold text-2xl")
+  .html(`by choosing to donate <u class="font-bold">${10}</u> % of your income ...`);
+*/
+>>>>>>> ade74802e6878f5ca00048eacba8a28420c21f9b
   const WORLD_POPULATION = 7764951032
   const POP_PER_CIRCLE = Math.ceil(WORLD_POPULATION/NB_CIRCLES)
   const COLOR_POOR = "#cc4115"; 
@@ -142,6 +157,69 @@ function drawGroups() {
   
 
 
+<<<<<<< HEAD
+=======
+  sliderElement.noUiSlider.on('update', (values, handle) => {
+    
+    donation_fraq =Math.round(parseFloat(values[handle]))/100;
+    console.log("UPDATE", donation_fraq);
+    //d3.select("#bubbleGroup-container").html(`by choosing to donate <u class="font-bold">${values[handle]}</u> % of your income ...`);
+    [proportionGroupPoorer, proportionGroupRicher] = findGroupProportions(incomeInput, donation_fraq)
+    // Calculate the number of circles for the poorer and richer groups
+    newRich = nbCirclesPoorer - Math.ceil(NB_CIRCLES * proportionGroupPoorer);
+    newPoor = nbCirclesRicher - Math.ceil(NB_CIRCLES * proportionGroupRicher);
+    // update the total
+    nbCirclesRicher += newRich;
+    nbCirclesPoorer += newPoor;
+
+    // Update the group assignment of circles
+    if (newPoor > 0) {
+      let richIndices = mergedData
+        .map((d, i) => (d.group === "richer" ? i : -1))
+        .filter(index => index !== -1);
+/*
+            poorIndices.sort((a, b) => {
+                const distanceA =  Math.abs(3*(width/4) - mergedData[a].x);
+                const distanceB =  Math.abs(3*(width/4) -  mergedData[b].x);
+                return distanceA - distanceB;
+            });
+          */
+      richIndices.slice(0, newPoor).forEach(index => {
+        mergedData[index].group = "poorer";
+      });
+    } else if (newRich > 0) {
+      let poorIndices = mergedData
+        .map((d, i) => (d.group === "poorer" ? i : -1))
+        .filter(index => index !== -1);
+/*
+            poorIndices.sort((a, b) => {
+                const distanceA =  Math.abs(3*(width/4) - mergedData[a].x);
+                const distanceB =  Math.abs(3*(width/4) -  mergedData[b].x);
+                return distanceA - distanceB;
+            });
+          */
+      poorIndices.slice(0, newRich).forEach(index => {
+        mergedData[index].group = "richer";
+        });
+      }
+      
+    // Update the simulation with new forces and restart it
+    simulation
+      .nodes(mergedData)
+      .force("x", forceXCombine)
+      .force("y", forceYCombine)
+      .alphaTarget(0.5)
+      .restart();
+    let text1 = `${(proportionGroupRicher * 100).toFixed(1)}% of people are richer than you`
+    let text2 = `${(proportionGroupPoorer * 100).toFixed(1)}% of people are poorer than you`
+    console.log("text1");
+    d3.select("#title_richer_text").text(d => `${(proportionGroupRicher * 100).toFixed(1)}% of people are richer than you`);
+    d3.select("#title_poorer_text").text(d => `${(proportionGroupPoorer * 100).toFixed(1)}% of people are poorer than you`);
+    d3.select("#group_bubbles-text")
+      //round values to integer
+      .html(`by choosing to donate <u class="font-bold no-underline	">${Math.round(parseFloat(values[handle]))}</u>% of your income...`);
+    });
+>>>>>>> ade74802e6878f5ca00048eacba8a28420c21f9b
 
   // Update circle positions on simulation tick
   simulation.nodes(mergedData).on("tick", () => {

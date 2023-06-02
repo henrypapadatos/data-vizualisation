@@ -101,10 +101,10 @@ function drawCrowdofPeople(donationAmount = getPreDonationIncome() * 0.1) {
     const parentElement = document.getElementById("crowd-container")
     parentElement.innerHTML = "";
     const parentWidth = parentElement.clientWidth;  
-    const height = 400 - margin.top - margin.bottom;
+    const height = 350 - margin.top - margin.bottom;
     const colors = ["light-yellow", "yellow", "orange", "red", "pink", "purple", "dark-purple", "darkest-purple"]
     const stickfigure = "M 3026 12790 c -654 -83 -1182 -573 -1305 -1214 c -44 -224 -37 -438 19 -661 c 126 -501 503 -903 1000 -1065 c 106 -35 154 -45 310 -69 c 32 -5 -323 -9 -856 -10 c -869 -1 -914 -2 -987 -21 c -176 -45 -329 -134 -470 -275 c -167 -167 -299 -403 -352 -630 c -34 -147 -36 -271 -33 -1985 l 3 -1695 l 480 0 l 480 0 l 3 1688 l 2 1687 l 160 0 l 160 0 l 2 -4267 l 3 -4268 l 702 -3 l 703 -2 l 2 2291 l 3 2290 l 145 0 l 145 0 l 3 -2290 l 2 -2291 l 703 2 l 702 3 l 3 4268 l 2 4267 l 160 0 l 160 0 l 2 -1687 l 3 -1688 l 480 0 l 480 0 l 0 1745 c 0 1633 -1 1751 -18 1840 c -77 406 -331 770 -651 930 c -189 94 -130 90 -1165 91 c -596 1 -884 5 -841 11 c 414 58 741 235 994 538 c 379 451 458 1092 202 1623 c -76 157 -158 271 -295 408 c -227 226 -468 357 -775 420 c -114 23 -357 33 -470 19 z"
-    const start_x = parentWidth / 2;
+    const start_x = parentWidth / 1.8;
     const start_y = height * 0.15;
     const years = 10;
     
@@ -112,17 +112,20 @@ function drawCrowdofPeople(donationAmount = getPreDonationIncome() * 0.1) {
     let scale = 0.008
     let y_spacing = -10;
     let x_spacing = 80;
+    let duration = 200;
     
     if (people < 10) {
         scale = 0.016
-        // y_spacing = -13;
+        y_spacing = -13;
         x_spacing = 120;
+        duration = 1000
 
     }
     else if (people < 20) {
         scale = 0.012
-        // y_spacing = -11;
+        y_spacing = -11;
         x_spacing = 100;
+        duration = 500
     }
     
     let availableRowIndexes = [];
@@ -179,7 +182,7 @@ function drawCrowdofPeople(donationAmount = getPreDonationIncome() * 0.1) {
         .style("stroke-width", 0.5 / scale)
         .style("opacity", 0)
         .transition()
-        .duration(500)
+        .duration(duration)
         .delay(function(d, i) {
             let level = onLevelofPyramid(i);
             let rowIndex = indexInRow(i);
@@ -193,6 +196,6 @@ function drawCrowdofPeople(donationAmount = getPreDonationIncome() * 0.1) {
         .append("p")
         .attr("id", "crowd-text")
         .attr("class", "font-bold text-3xl")
-        .text(`${people} people every ${years} years`)
+        .text(`${people} people every ${years} years...`)
 
 }
