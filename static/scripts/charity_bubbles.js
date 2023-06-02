@@ -1,7 +1,7 @@
 export {drawCharityBubbles};
 
 function drawCharityBubbles(){
-    var width = 945, height = 500;
+    var width = 975, height = 500;
     const bubblesContainer = d3.select("#bubbles-container")
     let isTransitioning = false;
     let causeDescriptionHere = null;
@@ -12,7 +12,7 @@ function drawCharityBubbles(){
     // Create a new paragraph element
     const paragraph1 = document.createElement("p");
     paragraph1.textContent = "... if you gave to effective charities ...";
-    paragraph1.classList.add("font-bold", "text-4xl");
+    paragraph1.classList.add("font-bold", "text-3xl");
 
     // Append the paragraph element to the bubblesContainer
     bubblesContainer.node().appendChild(paragraph1);
@@ -20,7 +20,7 @@ function drawCharityBubbles(){
 
     const paragraph2 = document.createElement("p");
     paragraph2.textContent = "for different cause areas";
-    paragraph2.classList.add("delay_paragraph", "font-bold", "text-4xl");
+    paragraph2.classList.add("delay_paragraph", "font-bold", "text-3xl");
     
     // Set initial opacity to 0
     paragraph2.style.opacity = "0";
@@ -201,7 +201,7 @@ function drawCharityBubbles(){
             return cornerBoxData[3].top + SIZE_CIRCLE*1
         }}).strength(0.08)        
 
-    var forceX_Combine = d3.forceX(d => width / 2).strength(0.08)
+    var forceX_Combine = d3.forceX(d => width / 2).strength(0.09)
 
     var forceY_Combine = d3.forceY(d => height /2).strength(0.08)
 
