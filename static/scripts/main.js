@@ -1,7 +1,6 @@
 import { draw2DMap, createEventListenerForMap} from "./maps.js";
 import { drawCrowdofPeople, createEventListenerForCrowd } from "./crowd.js";
 import { drawLineChart } from "./distribution.js";
-import {Extract_data} from "./distribution.js";
 import { drawCharityBubbles } from "./charity_bubbles.js";
 import { drawGroups,createEventListenerForGroups } from "./groupsBubbles.js";
 import { getInputIncome, getMedianIncome, getPreDonationIncome, getNumberOfAdults, getNumberOfChildren } from './utility.js'
@@ -34,17 +33,15 @@ function cleanup() {
 // Populates the countries dropdown with options
 function populateCountriesDropdown(countries) {
 	const dropdown = document.getElementById('select-country');
-	const countriesToIgnore = ["US", "ATA"];
 
 	for (let i = 0; i < countries.length; i++) {
-		if (countriesToIgnore.includes(countries[i].alpha2Code)) {
-			continue;
-		}
 		const option = document.createElement('option');
 		option.text = countries[i].name;
 		option.value = countries[i].alpha2Code;
 		dropdown.add(option);
 	}
+
+	dropdown.value = "US";
 }
 
 // Creates the slider for adjusting the value
@@ -93,9 +90,7 @@ function createSlider() {
 	noUiPipsElement.children[0].remove();
 	noUiPipsElement.children[noUiPipsElement.children.length - 2].remove();
 
-	d3.select('#slider-text')
-		.append("p")
-		.text("Donation \n amount:")
+	d3.select('#slider-text').append("p").text("Donation \n amount:")
 
 	// Change the pip values to have a % sign
 	Array.from(noUiPipsElement.children).forEach(child => {
@@ -115,12 +110,18 @@ function createSlider() {
 }
 
 // Handles country selection event
-function armCountrySelection(countries) {
+function armCountrySelection() {
 	const countrySelect = document.getElementById("country-select");
-
+	const currenciesNotInList = ["XK"]
+	const manualCountryToCurrency = {"XK": "EUR"}
 	countrySelect.addEventListener("change", (event) => {
 		const selectedCountryCode = event.target.value;
-		document.getElementById("currency-label").innerText = countryToCurrency[selectedCountryCode];
+		if (currenciesNotInList.includes(selectedCountryCode)) {
+			document.getElementById("currency-label").innerText = manualCountryToCurrency[selectedCountryCode];
+		}
+		else {
+			document.getElementById("currency-label").innerText = countryToCurrency[selectedCountryCode];
+		}
 	});
 }
 
@@ -158,6 +159,7 @@ function enforceInputValidation() {
 	});
 }
 
+// Check if the input is valid and within the allowed range
 function isInputOk() {
 	if (getInputIncome() === "" ) {
 		displayError("Please enter your income");
@@ -184,27 +186,27 @@ function displayError(message) {
 
 // Handles the calculate button click event
 function armCalculateButton() {
-	const calculateButton = document.getElementById("calc_button");
 	
-	calculateButton.addEventListener("click", function() {
+	document.getElementById("calc_button")
+		.addEventListener("click", function() {
 
-		if (getPreDonationIncome() < getMedianIncome()) {
-			displayError("Sorry, but the income you entered is below the global median income. We only have data for incomes higher than the global median.");
-			return;
-		}
-		if (isInputOk()){
-
-			// Clear the contents of #visuals if they have already been displayed
-			if (visualsDisplayed) {
-				cleanup();
-				const sections = Array.from(document.querySelectorAll(".visual"));
-				sections
-				  .filter(section => section.classList.contains("active"))
-				  .forEach(section => section.classList.remove("active"));
+			if (getPreDonationIncome() < getMedianIncome()) {
+				displayError("Sorry, but the income you entered is below the global median income. We only have data for incomes higher than the global median.");
+				return;
 			}
-			document.getElementById("error").innerHTML = "";
-			displayVisuals();
-		};
+			if (isInputOk()){
+
+				// Clear the contents of #visuals if they have already been displayed
+				if (visualsDisplayed) {
+					cleanup();
+					const sections = Array.from(document.querySelectorAll(".visual"));
+					sections
+					.filter(section => section.classList.contains("active"))
+					.forEach(section => section.classList.remove("active"));
+				}
+				document.getElementById("error").innerHTML = "";
+				displayVisuals();
+			};
 	
 	});
 }
@@ -244,7 +246,7 @@ function displayTitleText(preDonationIncome){
 // Changes the position of the slider based on scroll position
 function changeSliderPosition() {
 	const floatingElement = document.getElementById('floating-slider-container');
-	const barrierLocation = 100; // % value. Adjust this value depending on viewport height
+	const barrierLocation = 98; // % value. Adjust this value depending on viewport height
 	
 	// Get the current scroll position and viewport height
 	const scrollPosition = window.pageYOffset || document.documentElement.scrollTop;
@@ -261,15 +263,13 @@ function changeSliderPosition() {
 
 // Displays the visuals section
 async function displayVisuals() {
-	const adults = document.getElementById("adults").value;
-	const children = document.getElementById("children").value;
 	const calculateButton = document.getElementById("calculate");
-	let preDonationIncome = getPreDonationIncome();
+	const preDonationIncome = getPreDonationIncome();
 
 	visuals.classList.remove("hidden");
 	
 	// Loading this here to avoid lag later
-	await draw2DMap(preDonationIncome, adults, children);
+	await draw2DMap(preDonationIncome, getNumberOfAdults(), getNumberOfChildren());
 	await drawCharityBubbles();
 	
 	displayTitleText(preDonationIncome);
@@ -298,7 +298,7 @@ async function displayVisuals() {
 function inputSectionSetup() {
 	enforceInputValidation();
 	armCalculateButton();
-	fetch("static/data/countries.json")
+	fetch("static/data/UN_countries.json")
 		.then(response => response.json())
 		.then(countries => {
 			populateCountriesDropdown(countries);
@@ -323,15 +323,11 @@ function revealSection() {
 		section.classList.add("active");
 		switch (section.id) {
 		  case "bubbleGroup-container":
-			
-		  //hide the scroll down arrow when the user scrolls to the bubbles
-		  d3.select("#scroll-down-container")
-			  .attr("class", "hidden");
-
+			//hide the scroll down arrow when the user scrolls to the bubbles
+			d3.select("#scroll-down-container").attr("class", "hidden");
 			drawGroups();
 			break;
 		  case "map-container":
-			// draw2DMap(income, adults, children); // <= Moved to displayVisuals()
 			d3.select("#map-container").append("p").attr("id", "dots").attr("class", "font-bold text-3xl").text("...")
 			break;
 		  case "impact-container":
@@ -339,13 +335,9 @@ function revealSection() {
 			loadImpactVisuals();
 			break;
 		  case "crowd-container":
+			drawCrowdofPeople();
 			break;
 		  case "bubbles-container":
-			//drawCharityBubbles();
-			//let visualDelay = document.querySelectorAll(".visualDelay");
-			//visualDelay.forEach(e => e.classList.toggle("transformed-state"));
-			// Create a custom event
-
 			// Dispatch the event
 			document.dispatchEvent(new Event("bubblesContainerEvent"));
 			break;

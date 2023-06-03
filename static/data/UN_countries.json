@@ -15,11 +15,6 @@
         "alpha2Code": "DZ"
     },
     {
-        "code": "ASM",
-        "name": "American Samoa",
-        "alpha2Code": "AS"
-    },
-    {
         "code": "AND",
         "name": "Andorra",
         "alpha2Code": "AD"
@@ -28,16 +23,6 @@
         "code": "AGO",
         "name": "Angola",
         "alpha2Code": "AO"
-    },
-    {
-        "code": "AIA",
-        "name": "Anguilla",
-        "alpha2Code": "AI"
-    },
-    {
-        "code": "ATA",
-        "name": "Antarctica",
-        "alpha2Code": "AQ"
     },
     {
         "code": "ATG",
@@ -55,16 +40,6 @@
         "alpha2Code": "AM"
     },
     {
-        "code": "ABW",
-        "name": "Aruba",
-        "alpha2Code": "AW"
-    },
-    {
-        "code": "AUS",
-        "name": "Australia",
-        "alpha2Code": "AU"
-    },
-    {
         "code": "AUT",
         "name": "Austria",
         "alpha2Code": "AT"
@@ -73,11 +48,6 @@
         "code": "AZE",
         "name": "Azerbaijan",
         "alpha2Code": "AZ"
-    },
-    {
-        "code": "BHS",
-        "name": "Bahamas",
-        "alpha2Code": "BS"
     },
     {
         "code": "BHR",
@@ -115,11 +85,6 @@
         "alpha2Code": "BJ"
     },
     {
-        "code": "BMU",
-        "name": "Bermuda",
-        "alpha2Code": "BM"
-    },
-    {
         "code": "BTN",
         "name": "Bhutan",
         "alpha2Code": "BT"
@@ -140,24 +105,9 @@
         "alpha2Code": "BW"
     },
     {
-        "code": "BVT",
-        "name": "Bouvet Island",
-        "alpha2Code": "BV"
-    },
-    {
         "code": "BRA",
         "name": "Brazil",
         "alpha2Code": "BR"
-    },
-    {
-        "code": "IOT",
-        "name": "British Indian Ocean Territory",
-        "alpha2Code": "IO"
-    },
-    {
-        "code": "BRN",
-        "name": "Brunei Darussalam",
-        "alpha2Code": "BN"
     },
     {
         "code": "BGR",
@@ -190,16 +140,6 @@
         "alpha2Code": "CA"
     },
     {
-        "code": "CPV",
-        "name": "Cape Verde",
-        "alpha2Code": "CV"
-    },
-    {
-        "code": "CYM",
-        "name": "Cayman Islands",
-        "alpha2Code": "KY"
-    },
-    {
         "code": "CAF",
         "name": "Central African Republic",
         "alpha2Code": "CF"
@@ -220,16 +160,6 @@
         "alpha2Code": "CN"
     },
     {
-        "code": "CXR",
-        "name": "Christmas Island",
-        "alpha2Code": "CX"
-    },
-    {
-        "code": "CCK",
-        "name": "Cocos (Keeling) Islands",
-        "alpha2Code": "CC"
-    },
-    {
         "code": "COL",
         "name": "Colombia",
         "alpha2Code": "CO"
@@ -245,24 +175,9 @@
         "alpha2Code": "CG"
     },
     {
-        "code": "COD",
-        "name": "Congo, the Democratic Republic of the",
-        "alpha2Code": "CD"
-    },
-    {
-        "code": "COK",
-        "name": "Cook Islands",
-        "alpha2Code": "CK"
-    },
-    {
         "code": "CRI",
         "name": "Costa Rica",
         "alpha2Code": "CR"
-    },
-    {
-        "code": "CIV",
-        "name": "Cote D'Ivoire",
-        "alpha2Code": "CI"
     },
     {
         "code": "HRV",
@@ -340,21 +255,6 @@
         "alpha2Code": "ET"
     },
     {
-        "code": "FLK",
-        "name": "Falkland Islands (Malvinas)",
-        "alpha2Code": "FK"
-    },
-    {
-        "code": "FRO",
-        "name": "Faroe Islands",
-        "alpha2Code": "FO"
-    },
-    {
-        "code": "FJI",
-        "name": "Fiji",
-        "alpha2Code": "FJ"
-    },
-    {
         "code": "FIN",
         "name": "Finland",
         "alpha2Code": "FI"
@@ -368,16 +268,6 @@
         "code": "GUF",
         "name": "French Guiana",
         "alpha2Code": "GF"
-    },
-    {
-        "code": "PYF",
-        "name": "French Polynesia",
-        "alpha2Code": "PF"
-    },
-    {
-        "code": "ATF",
-        "name": "French Southern Territories",
-        "alpha2Code": "TF"
     },
     {
         "code": "GAB",
@@ -415,24 +305,9 @@
         "alpha2Code": "GR"
     },
     {
-        "code": "GRL",
-        "name": "Greenland",
-        "alpha2Code": "GL"
-    },
-    {
         "code": "GRD",
         "name": "Grenada",
         "alpha2Code": "GD"
-    },
-    {
-        "code": "GLP",
-        "name": "Guadeloupe",
-        "alpha2Code": "GP"
-    },
-    {
-        "code": "GUM",
-        "name": "Guam",
-        "alpha2Code": "GU"
     },
     {
         "code": "GTM",
@@ -458,16 +333,6 @@
         "code": "HTI",
         "name": "Haiti",
         "alpha2Code": "HT"
-    },
-    {
-        "code": "HMD",
-        "name": "Heard Island and Mcdonald Islands",
-        "alpha2Code": "HM"
-    },
-    {
-        "code": "VAT",
-        "name": "Holy See (Vatican City State)",
-        "alpha2Code": "VA"
     },
     {
         "code": "HND",
@@ -500,11 +365,6 @@
         "alpha2Code": "ID"
     },
     {
-        "code": "IRN",
-        "name": "Iran, Islamic Republic of",
-        "alpha2Code": "IR"
-    },
-    {
         "code": "IRQ",
         "name": "Iraq",
         "alpha2Code": "IQ"
@@ -513,6 +373,11 @@
         "code": "IRL",
         "name": "Ireland",
         "alpha2Code": "IE"
+    },
+    {
+        "code": "IMN",
+        "name": "Isle of Man",
+        "alpha2Code": "IM"
     },
     {
         "code": "ISR",
@@ -550,19 +415,9 @@
         "alpha2Code": "KE"
     },
     {
-        "code": "KIR",
-        "name": "Kiribati",
-        "alpha2Code": "KI"
-    },
-    {
-        "code": "PRK",
-        "name": "North Korea",
-        "alpha2Code": "KP"
-    },
-    {
-        "code": "KOR",
-        "name": "South Korea",
-        "alpha2Code": "KR"
+        "code": "XKX",
+        "name": "Kosovo",
+        "alpha2Code": "XK"
     },
     {
         "code": "KWT",
@@ -573,11 +428,6 @@
         "code": "KGZ",
         "name": "Kyrgyzstan",
         "alpha2Code": "KG"
-    },
-    {
-        "code": "LAO",
-        "name": "Lao People's Democratic Republic",
-        "alpha2Code": "LA"
     },
     {
         "code": "LVA",
@@ -655,16 +505,6 @@
         "alpha2Code": "MT"
     },
     {
-        "code": "MHL",
-        "name": "Marshall Islands",
-        "alpha2Code": "MH"
-    },
-    {
-        "code": "MTQ",
-        "name": "Martinique",
-        "alpha2Code": "MQ"
-    },
-    {
         "code": "MRT",
         "name": "Mauritania",
         "alpha2Code": "MR"
@@ -685,16 +525,6 @@
         "alpha2Code": "MX"
     },
     {
-        "code": "FSM",
-        "name": "Micronesia, Federated States of",
-        "alpha2Code": "FM"
-    },
-    {
-        "code": "MDA",
-        "name": "Moldova, Republic of",
-        "alpha2Code": "MD"
-    },
-    {
         "code": "MCO",
         "name": "Monaco",
         "alpha2Code": "MC"
@@ -705,9 +535,9 @@
         "alpha2Code": "MN"
     },
     {
-        "code": "MSR",
-        "name": "Montserrat",
-        "alpha2Code": "MS"
+        "code": "MNE",
+        "name": "Montenegro",
+        "alpha2Code": "ME"
     },
     {
         "code": "MAR",
@@ -730,11 +560,6 @@
         "alpha2Code": "NA"
     },
     {
-        "code": "NRU",
-        "name": "Nauru",
-        "alpha2Code": "NR"
-    },
-    {
         "code": "NPL",
         "name": "Nepal",
         "alpha2Code": "NP"
@@ -743,16 +568,6 @@
         "code": "NLD",
         "name": "Netherlands",
         "alpha2Code": "NL"
-    },
-    {
-        "code": "NCL",
-        "name": "New Caledonia",
-        "alpha2Code": "NC"
-    },
-    {
-        "code": "NZL",
-        "name": "New Zealand",
-        "alpha2Code": "NZ"
     },
     {
         "code": "NIC",
@@ -770,24 +585,9 @@
         "alpha2Code": "NG"
     },
     {
-        "code": "NIU",
-        "name": "Niue",
-        "alpha2Code": "NU"
-    },
-    {
-        "code": "NFK",
-        "name": "Norfolk Island",
-        "alpha2Code": "NF"
-    },
-    {
-        "code": "MKD",
-        "name": "North Macedonia, Republic of",
-        "alpha2Code": "MK"
-    },
-    {
-        "code": "MNP",
-        "name": "Northern Mariana Islands",
-        "alpha2Code": "MP"
+        "code": "PRK",
+        "name": "North Korea",
+        "alpha2Code": "KP"
     },
     {
         "code": "NOR",
@@ -805,24 +605,9 @@
         "alpha2Code": "PK"
     },
     {
-        "code": "PLW",
-        "name": "Palau",
-        "alpha2Code": "PW"
-    },
-    {
-        "code": "PSE",
-        "name": "Palestinian Territory, Occupied",
-        "alpha2Code": "PS"
-    },
-    {
         "code": "PAN",
         "name": "Panama",
         "alpha2Code": "PA"
-    },
-    {
-        "code": "PNG",
-        "name": "Papua New Guinea",
-        "alpha2Code": "PG"
     },
     {
         "code": "PRY",
@@ -840,11 +625,6 @@
         "alpha2Code": "PH"
     },
     {
-        "code": "PCN",
-        "name": "Pitcairn",
-        "alpha2Code": "PN"
-    },
-    {
         "code": "POL",
         "name": "Poland",
         "alpha2Code": "PL"
@@ -855,29 +635,14 @@
         "alpha2Code": "PT"
     },
     {
-        "code": "PRI",
-        "name": "Puerto Rico",
-        "alpha2Code": "PR"
-    },
-    {
         "code": "QAT",
         "name": "Qatar",
         "alpha2Code": "QA"
     },
     {
-        "code": "REU",
-        "name": "Reunion",
-        "alpha2Code": "RE"
-    },
-    {
         "code": "ROU",
         "name": "Romania",
         "alpha2Code": "RO"
-    },
-    {
-        "code": "RUS",
-        "name": "Russian Federation",
-        "alpha2Code": "RU"
     },
     {
         "code": "RWA",
@@ -900,29 +665,14 @@
         "alpha2Code": "LC"
     },
     {
-        "code": "SPM",
-        "name": "Saint Pierre and Miquelon",
-        "alpha2Code": "PM"
-    },
-    {
         "code": "VCT",
         "name": "Saint Vincent and the Grenadines",
         "alpha2Code": "VC"
     },
     {
-        "code": "WSM",
-        "name": "Samoa",
-        "alpha2Code": "WS"
-    },
-    {
         "code": "SMR",
         "name": "San Marino",
         "alpha2Code": "SM"
-    },
-    {
-        "code": "STP",
-        "name": "Sao Tome and Principe",
-        "alpha2Code": "ST"
     },
     {
         "code": "SAU",
@@ -933,6 +683,11 @@
         "code": "SEN",
         "name": "Senegal",
         "alpha2Code": "SN"
+    },
+    {
+        "code": "SRB",
+        "name": "Serbia",
+        "alpha2Code": "RS"
     },
     {
         "code": "SYC",
@@ -960,11 +715,6 @@
         "alpha2Code": "SI"
     },
     {
-        "code": "SLB",
-        "name": "Solomon Islands",
-        "alpha2Code": "SB"
-    },
-    {
         "code": "SOM",
         "name": "Somalia",
         "alpha2Code": "SO"
@@ -975,9 +725,14 @@
         "alpha2Code": "ZA"
     },
     {
-        "code": "SGS",
-        "name": "South Georgia and the South Sandwich Islands",
-        "alpha2Code": "GS"
+        "code": "KOR",
+        "name": "South Korea",
+        "alpha2Code": "KR"
+    },
+    {
+        "code": "SSD",
+        "name": "South Sudan",
+        "alpha2Code": "SS"
     },
     {
         "code": "ESP",
@@ -1000,16 +755,6 @@
         "alpha2Code": "SR"
     },
     {
-        "code": "SJM",
-        "name": "Svalbard and Jan Mayen",
-        "alpha2Code": "SJ"
-    },
-    {
-        "code": "SWZ",
-        "name": "Swaziland",
-        "alpha2Code": "SZ"
-    },
-    {
         "code": "SWE",
         "name": "Sweden",
         "alpha2Code": "SE"
@@ -1020,11 +765,6 @@
         "alpha2Code": "CH"
     },
     {
-        "code": "SYR",
-        "name": "Syrian Arab Republic",
-        "alpha2Code": "SY"
-    },
-    {
         "code": "TWN",
         "name": "Taiwan",
         "alpha2Code": "TW"
@@ -1033,11 +773,6 @@
         "code": "TJK",
         "name": "Tajikistan",
         "alpha2Code": "TJ"
-    },
-    {
-        "code": "TZA",
-        "name": "Tanzania, United Republic of",
-        "alpha2Code": "TZ"
     },
     {
         "code": "THA",
@@ -1053,16 +788,6 @@
         "code": "TGO",
         "name": "Togo",
         "alpha2Code": "TG"
-    },
-    {
-        "code": "TKL",
-        "name": "Tokelau",
-        "alpha2Code": "TK"
-    },
-    {
-        "code": "TON",
-        "name": "Tonga",
-        "alpha2Code": "TO"
     },
     {
         "code": "TTO",
@@ -1083,16 +808,6 @@
         "code": "TKM",
         "name": "Turkmenistan",
         "alpha2Code": "TM"
-    },
-    {
-        "code": "TCA",
-        "name": "Turks and Caicos Islands",
-        "alpha2Code": "TC"
-    },
-    {
-        "code": "TUV",
-        "name": "Tuvalu",
-        "alpha2Code": "TV"
     },
     {
         "code": "UGA",
@@ -1116,13 +831,8 @@
     },
     {
         "code": "USA",
-        "name": "United States of America",
+        "name": "United States",
         "alpha2Code": "US"
-    },
-    {
-        "code": "UMI",
-        "name": "United States Minor Outlying Islands",
-        "alpha2Code": "UM"
     },
     {
         "code": "URY",
@@ -1135,34 +845,9 @@
         "alpha2Code": "UZ"
     },
     {
-        "code": "VUT",
-        "name": "Vanuatu",
-        "alpha2Code": "VU"
-    },
-    {
         "code": "VEN",
         "name": "Venezuela",
         "alpha2Code": "VE"
-    },
-    {
-        "code": "VNM",
-        "name": "Viet Nam",
-        "alpha2Code": "VN"
-    },
-    {
-        "code": "VGB",
-        "name": "Virgin Islands, British",
-        "alpha2Code": "VG"
-    },
-    {
-        "code": "VIR",
-        "name": "Virgin Islands, U.S.",
-        "alpha2Code": "VI"
-    },
-    {
-        "code": "WLF",
-        "name": "Wallis and Futuna",
-        "alpha2Code": "WF"
     },
     {
         "code": "ESH",
@@ -1183,70 +868,5 @@
         "code": "ZWE",
         "name": "Zimbabwe",
         "alpha2Code": "ZW"
-    },
-    {
-        "code": "ALA",
-        "name": "\u00c5land Islands",
-        "alpha2Code": "AX"
-    },
-    {
-        "code": "BES",
-        "name": "Bonaire, Sint Eustatius and Saba",
-        "alpha2Code": "BQ"
-    },
-    {
-        "code": "CUW",
-        "name": "Cura\u00e7ao",
-        "alpha2Code": "CW"
-    },
-    {
-        "code": "GGY",
-        "name": "Guernsey",
-        "alpha2Code": "GG"
-    },
-    {
-        "code": "IMN",
-        "name": "Isle of Man",
-        "alpha2Code": "IM"
-    },
-    {
-        "code": "JEY",
-        "name": "Jersey",
-        "alpha2Code": "JE"
-    },
-    {
-        "code": "MNE",
-        "name": "Montenegro",
-        "alpha2Code": "ME"
-    },
-    {
-        "code": "BLM",
-        "name": "Saint Barth\u00e9lemy",
-        "alpha2Code": "BL"
-    },
-    {
-        "code": "MAF",
-        "name": "Saint Martin (French part)",
-        "alpha2Code": "MF"
-    },
-    {
-        "code": "SRB",
-        "name": "Serbia",
-        "alpha2Code": "RS"
-    },
-    {
-        "code": "SXM",
-        "name": "Sint Maarten (Dutch part)",
-        "alpha2Code": "SX"
-    },
-    {
-        "code": "SSD",
-        "name": "South Sudan",
-        "alpha2Code": "SS"
-    },
-    {
-        "code": "XKX",
-        "name": "Kosovo",
-        "alpha2Code":"XK"
     }
 ]
