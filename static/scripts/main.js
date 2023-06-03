@@ -1,5 +1,5 @@
 import { draw2DMap, createEventListenerForMap} from "./maps.js";
-import { createEventListenerForCrowd } from "./crowd.js";
+import { drawCrowdofPeople, createEventListenerForCrowd } from "./crowd.js";
 import { drawLineChart } from "./distribution.js";
 import { drawCharityBubbles } from "./charity_bubbles.js";
 import { drawGroups,createEventListenerForGroups } from "./groupsBubbles.js";
@@ -333,6 +333,9 @@ function revealSection() {
 		  case "impact-container":
 			document.getElementById("dots").remove();
 			loadImpactVisuals();
+			break;
+		  case "crowd-container":
+			drawCrowdofPeople();
 			break;
 		  case "bubbles-container":
 			// Dispatch the event
