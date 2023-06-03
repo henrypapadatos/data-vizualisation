@@ -164,7 +164,7 @@ The Website can be found [here](https://henrypapadatos.github.io/)
 
 The screencast can be found [here](https://youtu.be/LN3KXf8yPQ8)
 
-The process book can be found [here](https://github.com/com-480-data-visualization/project-2023-graphing-what-we-can/Graphing-What-We-Can_Process_Book.pdf)
+The process book can be found [here](https://github.com/com-480-data-visualization/project-2023-graphing-what-we-can/blob/master/Graphing-What-We-Can_Process_Book.pdf)
 
 
 
