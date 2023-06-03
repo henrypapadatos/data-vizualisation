@@ -19,7 +19,7 @@ function createEventListenerForMap(adults, children) {
     })
 }
 
-function redraw2DMap() {
+function redraw2DMap(adults, children) {
 
 	const map = d3.select("#map");
 	const color = d3.scaleThreshold().domain([1, 3, 5, 10, 20, 100]).range(['#eeeeee', '#fee5da', '#fbbba3', '#fb9276', '#fa6b51', '#dd302e', '#a4141c'])
