@@ -273,7 +273,7 @@ function add_legend(){
     .append("text")
     .attr("class", "legend-label")
     .attr("x", 50)
-    .attr("y", (_, i) => 73 + i * 40)
+    .attr("y", (_, i) => 74 + i * 40)
     .text(d => d.label)
     //.attr("alignment-baseline", "middle")
     .attr("fill", "black")
