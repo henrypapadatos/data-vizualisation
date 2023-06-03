@@ -219,11 +219,11 @@ function drawGroups() {
     .append("text")
     .attr("class", "legend-label")
     .attr("x", 50)
-    .attr("y", (_, i) => 60 + i * 40)
+    .attr("y", (_, i) => 75 + i * 40)
     .text(d => d.label)
-    .attr("alignment-baseline", "middle")
+    //.attr("alignment-baseline", "middle")
     .attr("fill", "black")
-    .attr("font-size", "5vh")
+    .attr("font-size", "40px")
     .attr("color", "black");
 
   
